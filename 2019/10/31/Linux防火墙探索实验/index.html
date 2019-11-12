@@ -82,6 +82,8 @@
 <p>参考文档：</p>
 <p><a href="https://seedsecuritylabs.org/Labs_16.04/PDF/Firewall.pdf" target="_blank" rel="noopener">1.官方原文档</a></p>
 <p><a href="http://www.zsythink.net/archives/1199" target="_blank" rel="noopener">2.iptables详解</a></p>
+<p><a href="https://linux.cn/article-8087-1.html" target="_blank" rel="noopener">3.在 Ubuntu 中用 UFW 配置防火墙</a></p>
+<p><a href="https://wiki.ubuntu.org.cn/Ufw使用指南" target="_blank" rel="noopener">4.Ufw使用指南</a></p>
 </blockquote>
 <h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h1><p>The learning objective of this lab is for students to gain the insights（眼光，内省力） on how firewalls work by playing with firewall software and implement a simplified（简化的） packet filtering firewall. Firewalls have several types; in this lab,  we focus on <em>packet filter</em>.  Packet filters inspect（检测） packets, and decide whether to drop or forward  a packet based on firewall rules. Packet filters are usually <em>stateless</em>; they filter each packet based only on the information contained in that packet, without paying attention to whether a packet is part of an existing stream of traffic. Packet filters often use a combination（组合） of a packet’s source and destination address, its protocol, and, for TCP and UDP traffic, port numbers. In this lab, students will play with this type of firewall, and also through the implementation of some of the key functionalities, they can understand how firewalls work. Moreover, students will learn how to use SSH tunnels to bypass（绕行，撇开） firewalls. This lab covers the following topics:</p>
 <p>本次实验的学习目标是让学生通过接触防火墙软件与实现一个简单的包过滤防火墙，以深入理解防火墙的工作原理。防火墙有几种类型；在本次实验中，我们关注于<em>包过滤防火墙</em>。包过滤器检测数据包，并且基于防火墙规则来决定是丢弃或是转发一个数据包。包过滤器通常来说是<em>无状态的</em>；它们仅基于数据包中包含的信息来过滤每一个数据包，而不关注数据包是否是现有业务流中的一部分。包过滤器经常组合使用一个数据包的源目地址，协议类型，及TCP和UDP流量的端口号。本实验中，学生将接触该类型防火墙，并且实现部分关键功能，他们能理解防火墙是如何工作的。此外，学生将学习如何使用SSH隧道来绕过防火墙。该实验覆盖以下主题：</p>
@@ -105,22 +107,70 @@
 
 <h1 id="2-Lab-Tasks实验组"><a href="#2-Lab-Tasks实验组" class="headerlink" title="2. Lab Tasks实验组"></a>2. Lab Tasks实验组</h1><h2 id="2-1-Task-1-Using-Firewall"><a href="#2-1-Task-1-Using-Firewall" class="headerlink" title="2.1 Task 1: Using Firewall"></a>2.1 Task 1: Using Firewall</h2><p><strong>2.1 实验1：使用防火墙</strong></p>
 <p><em>Linux</em> has a tool called <em>iptables</em>, which is essentially(实质上) a firewall. It has a nice front end program called <em>ufw</em>. In this task, the objective is to use <em>ufw</em> to set up some firewall policies, and observe the behaviors of your system after the policies become effective. You need to set up at least two VMs, one called Machine A, and other called Machine B. You run the firewall on your Machine A. Basically, we use <em>ufw</em> as a personal firewall.  Optionally,  if you have  more VMs,  you can set up a firewall at your router,  so it can protect   a network, instead of just one single computer. After you set up the two VMs, you should perform the following tasks:</p>
-<p><em>Linux</em>有个工具叫<em>iptables</em>，它实质上是个防火墙。它有个很好的前端程序，叫<em>ufw</em>。在该任务中，目标是使用<em>ufw</em>来设置一些防火墙策略，并且在策略生效后观测你系统的行为。你需要设置至少2个VM，一个叫做机器A，而另一个叫做机器B。你在你的机器A上运行防火墙。基本上，我们使用<em>ufw</em>作为一个私人防火墙。（可选），如果你有多个VM，你可以在你的路由器上设置一个防火墙，那么它可以保护你的网络，而不仅仅是一台主机。在你设置了2台VM后，你需要执行以下任务：</p>
+<p><em>Linux</em>有个工具叫<em>iptables</em>，它实质上是个防火墙。它有个很好的前端程序，叫<em>ufw</em>。在该任务中，目标是使用<em>ufw</em>来设置一些防火墙策略，并且在策略生效后观测你系统的行为。你需要设置至少2个VM，一个叫做机器A，而另一个叫做机器B。你在你的机器A上运行防火墙。基本上，我们使用<em>ufw</em>作为一个私人防火墙。（可选），如果你有多个VM，你可以在你的路由器上设置一个防火墙，那么它可以保护你的网络，而不仅仅是一台主机。实验拓扑如下，主机1作为A，主机2作为B。</p>
+<img src="/2019/10/31/Linux防火墙探索实验/seedlab拓扑图.png" title="This is an test image">
+
+<p>在你设置了2台VM后，你需要执行以下任务：</p>
 <ul>
 <li><p>Prevent A from doing telnet to Machine B.</p>
 <p>阻止来自A向B的telnet访问。</p>
+<blockquote>
+<ol>
+<li>查看ufw的状态，可以发现我们还没有开启该服务</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; [11/12/19]seed@VM:~$ sudo ufw status</span><br><span class="line">&gt; Status: inactive</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>我们可以使用<code>sudo ufw enable</code>来开启</li>
+<li>参考命令如下</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; 默认策略 允许\拒绝\拒绝并提示 [进入\发出\路由 的数据]</span><br><span class="line">&gt; ufw [--dry-run] default allow|deny|reject [incoming|outgoing|routed]</span><br><span class="line">&gt; </span><br><span class="line">&gt; [删除][插入 第 行] 允许\拒绝\拒绝并提示\限制 [数据 进入\发出][记录\全记录] 端口[/协议]</span><br><span class="line">&gt; ufw  [--dry-run]  [delete]   [insert   NUM]   allow|deny|reject|<span class="built_in">limit</span>  [<span class="keyword">in</span>|out][<span class="built_in">log</span>|<span class="built_in">log</span>-all] PORT[/PROTOCOL]</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ol start="4">
+<li>输入命令<code>sudo ufw deny out 23</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; [11/12/19]seed@VM:~$ sudo ufw deny out 23</span><br><span class="line">&gt; Rule added</span><br><span class="line">&gt; Rule added (v6)</span><br><span class="line">&gt; [11/12/19]seed@VM:~$ sudo ufw status</span><br><span class="line">&gt; Status: active</span><br><span class="line">&gt; </span><br><span class="line">&gt; To							Action		From</span><br><span class="line">&gt; --							------		----</span><br><span class="line">&gt; 23							DENY OUT	Anywhere                  </span><br><span class="line">&gt; 23 (v6)						DENY OUT	Anywhere (v6)    </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ol start="5">
+<li><p>测试效果</p>
+<img src="/2019/10/31/Linux防火墙探索实验/3.png" title="This is an test image">
+</li>
+<li><p>从上图可以看到，主机AtelnetB是没有任何数据包产生的。而当主机Btelnet主机A则没有问题</p>
+</li>
+</ol>
+</blockquote>
 </li>
 <li><p>Prevent B from doing telnet to Machine A.</p>
 <p>阻止来自B向A的telnet访问。</p>
+<blockquote>
+<ol>
+<li><p>基于上步，再次输入命令<code>sudo ufw deny in 23</code></p>
+</li>
+<li><p>测试效果</p>
+<img src="/2019/10/31/Linux防火墙探索实验/4.png" title="This is an test image">
+</li>
+<li><p>从上图可以看到，此时主机B的syn数据包发送到了主机A，但是主机A没有任何相应了</p>
+</li>
+</ol>
+</blockquote>
 </li>
 <li><p>Prevent A from visiting an external（外部的） web site. You can choose any web site that you like to block, but keep in mind, some web servers have multiple IP addresses.</p>
-<p>阻止A访问外部的站点。你可以选择任何一个你想要禁止的网站，但是记住，一些网站有多个IP地址。</p>
+<p>阻止A访问外部的站点。你可以选择任何一个你想要禁止的网站，但是记住，一些网站有多个IP地址。命令和上述内容类似，就不再做重复实验了，主要就是限制IP地址</p>
+<blockquote>
+<ol>
+<li><code>sudo ufw deny from 123.45.67.89</code></li>
+<li>上述3个实验完成后，我暂时先关闭了ufw功能 <code>sudo ufw disable</code></li>
+</ol>
+</blockquote>
 </li>
 </ul>
 <p>You can find the manual of ufw by typing “man ufw” or search it online. It is pretty straightforward to use.  Please remember that the firewall is not enabled by default, so you should run a command to specifically（明确的） enable it. We list some commonly used commands in Appendix A.</p>
 <p>你可以通过输入“man ufw”来获取ufw的手册，或是在网络上搜索它。这是最直白的使用方式。需要注意的是，防火墙默认是没有开启的，所以你需要通过使用命令来明确开启它。我们在附录A中列出了一些经常被使用的命令。</p>
 <p>Before starting the task, go to the default policy file <code>/etc/default/ufw</code>. find the following entry, and change the rule from DROP to ACCEPT; otherwise, all the incoming traffic will be dropped by default.</p>
-<p>在开始任务之前，找到默认的策略文件夹<code>/etc/default/ufw</code>。找到以下条目，然后把规则从DROP改为ACCEPT；此外，默认情况下的所有流入数据将会被丢弃。</p>
+<p>在开始任务之前，找到默认的策略文件夹<code>/etc/default/ufw</code>。找到以下条目，然后把规则从DROP改为ACCEPT；不然，默认情况下的所有流入数据将会被丢弃。（注意使用sudo来修改。）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set the default input policy to ACCEPT, DROP, or REJECT. Please note that if </span></span><br><span class="line"><span class="comment"># you change this you will most likely want to adjust your rules.</span></span><br><span class="line">DEFAULT_INPUT_POLICY=<span class="string">"DROP"</span></span><br></pre></td></tr></table></figure>
 
 <br>

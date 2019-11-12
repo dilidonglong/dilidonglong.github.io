@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.site/"/>
-  <updated>2019-11-09T16:08:42.244Z</updated>
+  <updated>2019-11-12T14:30:14.518Z</updated>
   <id>https://dilidonglong.site/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://dilidonglong.site/2019/10/31/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E6%8E%A2%E7%B4%A2%E5%AE%9E%E9%AA%8C/"/>
     <id>https://dilidonglong.site/2019/10/31/Linux防火墙探索实验/</id>
     <published>2019-10-31T14:13:22.000Z</published>
-    <updated>2019-11-09T16:08:42.244Z</updated>
+    <updated>2019-11-12T14:30:14.518Z</updated>
     
     <summary type="html">
     
@@ -29,6 +29,8 @@
 &lt;p&gt;参考文档：&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://seedsecuritylabs.org/Labs_16.04/PDF/Firewall.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;1.官方原文档&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.zsythink.net/archives/1199&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;2.iptables详解&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://linux.cn/article-8087-1.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;3.在 Ubuntu 中用 UFW 配置防火墙&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://wiki.ubuntu.org.cn/Ufw使用指南&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;4.Ufw使用指南&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&quot;1-Overview&quot;&gt;&lt;a href=&quot;#1-Overview&quot; class=&quot;headerlink&quot; title=&quot;1. Overview&quot;&gt;&lt;/a&gt;1. Overview&lt;/h1&gt;&lt;p&gt;The learning objective of this lab is for students to gain the insights（眼光，内省力） on how firewalls work by playing with firewall software and implement a simplified（简化的） packet filtering firewall. Firewalls have several types; in this lab,  we focus on &lt;em&gt;packet filter&lt;/em&gt;.  Packet filters inspect（检测） packets, and decide whether to drop or forward  a packet based on firewall rules. Packet filters are usually &lt;em&gt;stateless&lt;/em&gt;; they filter each packet based only on the information contained in that packet, without paying attention to whether a packet is part of an existing stream of traffic. Packet filters often use a combination（组合） of a packet’s source and destination address, its protocol, and, for TCP and UDP traffic, port numbers. In this lab, students will play with this type of firewall, and also through the implementation of some of the key functionalities, they can understand how firewalls work. Moreover, students will learn how to use SSH tunnels to bypass（绕行，撇开） firewalls. This lab covers the following topics:&lt;/p&gt;
 &lt;p&gt;本次实验的学习目标是让学生通过接触防火墙软件与实现一个简单的包过滤防火墙，以深入理解防火墙的工作原理。防火墙有几种类型；在本次实验中，我们关注于&lt;em&gt;包过滤防火墙&lt;/em&gt;。包过滤器检测数据包，并且基于防火墙规则来决定是丢弃或是转发一个数据包。包过滤器通常来说是&lt;em&gt;无状态的&lt;/em&gt;；它们仅基于数据包中包含的信息来过滤每一个数据包，而不关注数据包是否是现有业务流中的一部分。包过滤器经常组合使用一个数据包的源目地址，协议类型，及TCP和UDP流量的端口号。本实验中，学生将接触该类型防火墙，并且实现部分关键功能，他们能理解防火墙是如何工作的。此外，学生将学习如何使用SSH隧道来绕过防火墙。该实验覆盖以下主题：&lt;/p&gt;
