@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.site/"/>
-  <updated>2019-11-12T14:30:14.518Z</updated>
+  <updated>2019-11-14T11:37:00.446Z</updated>
   <id>https://dilidonglong.site/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>信息管理技术员word试题</title>
+    <link href="https://dilidonglong.site/2019/11/14/%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98word%E8%AF%95%E9%A2%98/"/>
+    <id>https://dilidonglong.site/2019/11/14/信息管理技术员word试题/</id>
+    <published>2019-11-14T11:35:36.000Z</published>
+    <updated>2019-11-14T11:37:00.446Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;信息处理技术员—文字处理真题讲解&quot;&gt;&lt;a href=&quot;#信息处理技术员—文字处理真题讲解&quot; class=&quot;headerlink&quot; title=&quot;信息处理技术员—文字处理真题讲解&quot;&gt;&lt;/a&gt;信息处理技术员—文字处理真题讲解&lt;/h1&gt;&lt;h2 id=&quot;案例1&quot;&gt;&lt;a href=&quot;#案例1&quot; class=&quot;headerlink&quot; title=&quot;案例1&quot;&gt;&lt;/a&gt;案例1&lt;/h2&gt;&lt;p&gt;利用系统提供的素材，按题目要求完成后，用Word的保存功能直接存盘。    &lt;/p&gt;
+&lt;p&gt;奥林匹克运动会&lt;/p&gt;
+&lt;p&gt;奥林匹克运动会（英语：Olympic Games）简称“奥运会”，是国际奥林匹克委员会主办的世界规模最大的综合性运动会，每四年一届，会期不超过16日，分为夏季奥运会（奥运会）、夏季残奥会、冬季奥运会（冬奥会）、冬季残奥会、夏季青年奥运会（青奥会）、冬季青年奥运会和特殊奥林匹克运动会（特奥会）。&lt;/p&gt;
+&lt;p&gt;*&lt;em&gt;问题内容： *&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;要求：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;将文章标题设置为宋体、二号、加粗、居中；正文设置为仿宋、小四。&lt;/li&gt;
+&lt;li&gt;将页面设置为横向，纸张宽度21厘米、高度15厘米，页面内容居中对齐。&lt;/li&gt;
+&lt;li&gt;为正文添加双线条的边框，并设置为红色、3磅。&lt;/li&gt;
+&lt;li&gt;为正文填充白色、背景1、深色25%底纹。&lt;/li&gt;
+&lt;li&gt;在正文第一自然段后另起行录入第二段文字：奥运会中，各个国家用运动交流各国文化，以及切磋体育技能，其目的是为了鼓励人们不断进行体育运动。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Linux防火墙探索实验</title>
@@ -605,32 +635,6 @@
     
     
       <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>tcpdump技巧</title>
-    <link href="https://dilidonglong.site/2019/04/30/tcpdump%E6%8A%80%E5%B7%A7/"/>
-    <id>https://dilidonglong.site/2019/04/30/tcpdump技巧/</id>
-    <published>2019-04-30T15:44:49.000Z</published>
-    <updated>2019-04-30T00:45:16.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h1 id=&quot;tcpdump使用技巧&quot;&gt;&lt;a href=&quot;#tcpdump使用技巧&quot; class=&quot;headerlink&quot; title=&quot;tcpdump使用技巧&quot;&gt;&lt;/a&gt;tcpdump使用技巧&lt;/h1&gt;&lt;p&gt;1.监视指定网络接口的数据包&lt;/p&gt;
-&lt;p&gt;  
-        
-      
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="https://dilidonglong.site/categories/linux/"/>
     
     
   </entry>

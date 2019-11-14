@@ -63,6 +63,91 @@
       
         
 
+<article id="post-tcpdump技巧" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/04/30/tcpdump技巧/">tcpdump技巧</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/04/30/tcpdump技巧/" class="article-date">
+  <time datetime="2019-04-30T15:44:49.000Z" itemprop="datePublished">2019-04-30</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="tcpdump使用技巧"><a href="#tcpdump使用技巧" class="headerlink" title="tcpdump使用技巧"></a>tcpdump使用技巧</h1><p>1.监视指定网络接口的数据包</p>
+<p>   [root@www ~]# tcpdump -i eth1                          </p>
+<p>2.也可以指定ip,例如截获所有210.27.48.1 的主机收到的和发出的所有的数据包</p>
+<p>   [root@www ~]# tcpdump host 210.27.48.1       </p>
+<p>3.截获主机210.27.48.1 和主机210.27.48.2 或210.27.48.3的通信</p>
+<p>   [root@www ~]# tcpdump host 210.27.48.1 and \ (210.27.48.2 or 210.27.48.3 \ )      </p>
+<p>4.获取主机210.27.48.1除了和主机210.27.48.2之外所有主机通信的ip包</p>
+<p>   [root@www ~]# tcpdump ip host 210.27.48.1 and ! 210.27.48.2     </p>
+<p>5.截获主机webserver发送的所有数据</p>
+<p>   [root@www ~]# tcpdump -i eth0 src host webserver </p>
+<p>6.监视所有送到主机webserver的数据包       </p>
+<p>   [root@www ~]# tcpdump -i eth0 dst host webserver        </p>
+<p>7.获取主机210.27.48.1接收或发出的telnet包</p>
+<p>   [root@www ~]# tcpdump tcp port 23 and host 210.27.48.1       </p>
+<p>8.打印所有源地址或目标地址是本地主机的IP数据包</p>
+<p>   [root@www ~]# tcpdump ip and not net localnet       </p>
+<p> 9.打印长度超过576字节</p>
+<p>   [root@www ~]# tcpdump ip[2:2] &gt; 576     </p>
+<p>10.第一个n表示以IP地址的方式显示主机名，第二个N是以端口数字的形式代替服务名。</p>
+<p>   [root@www ~]# tcpdump -nn </p>
+<hr>
+<p>[root@www ~]# tcpdump tcp -i eth1 -t -s 0 -c 100 and dst port ! 22 and src net 192.168.1.0/24 -w ./target.cap<br>(1)tcp: ip icmp arp rarp 和 tcp、udp、icmp这些选项等都要放到第一个参数的位置，用来过滤数据报的类型<br>(2)-i eth1 : 只抓经过接口eth1的包<br>(3)-t : 不显示时间戳<br>(4)-s 0 : 抓取数据包时默认抓取长度为68字节。加上-S 0 后可以抓到完整的数据包<br>(5)-c 100 : 只抓取100个数据包<br>(6)dst port ! 22 : 不抓取目标端口是22的数据包<br>(7)src net 192.168.1.0/24 : 数据包的源网络地址为192.168.1.0/24<br>(8)-w ./target.cap : 保存成cap文件，方便用ethereal(即wireshark)分析</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.site/2019/04/30/tcpdump技巧/" data-id="ck2yn2lvh000ge0vd3sks5xrc"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
 <article id="post-wireshark技巧" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
   
   <div class="article-inner">
@@ -128,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/04/30/wireshark技巧/" data-id="ck2etvjhx000hwcvdi48p7i3f"
+      <a data-url="https://dilidonglong.site/2019/04/30/wireshark技巧/" data-id="ck2yn2lrk0005e0vd17513pxt"
          class="article-share-link">分享</a>
       
     </footer>
@@ -195,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/04/30/文件系统的简单操作/" data-id="ck2etvjlt0011wcvd59koct2d"
+      <a data-url="https://dilidonglong.site/2019/04/30/文件系统的简单操作/" data-id="ck2yn2lxn0017e0vd6h0xhotn"
          class="article-share-link">分享</a>
       
     </footer>
@@ -284,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/04/30/文件系统/" data-id="ck2etvjle000swcvdxvfppmaq"
+      <a data-url="https://dilidonglong.site/2019/04/30/文件系统/" data-id="ck2yn2lx7000xe0vdp1x66zmu"
          class="article-share-link">分享</a>
       
     </footer>
@@ -351,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/04/30/磁盘分区/" data-id="ck2etvjm90015wcvdessi053h"
+      <a data-url="https://dilidonglong.site/2019/04/30/磁盘分区/" data-id="ck2yn2lxn0014e0vdez5nbiug"
          class="article-share-link">分享</a>
       
     </footer>
@@ -431,7 +516,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/04/29/软考试题1/" data-id="ck2etvjmp001mwcvd47m5bhd1"
+      <a data-url="https://dilidonglong.site/2019/04/29/软考试题1/" data-id="ck2yn2ly2001te0vdr8ozkrbd"
          class="article-share-link">分享</a>
       
     </footer>
@@ -510,7 +595,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/04/27/设置分类列表页/" data-id="ck2etvjmp001dwcvd3nyk0346"
+      <a data-url="https://dilidonglong.site/2019/04/27/设置分类列表页/" data-id="ck2yn2ly2001je0vdu2dwtvpw"
          class="article-share-link">分享</a>
       
     </footer>
@@ -578,7 +663,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/04/26/tshark使用方法/" data-id="ck2etvjle000nwcvdj0dmkaex"
+      <a data-url="https://dilidonglong.site/2019/04/26/tshark使用方法/" data-id="ck2yn2lws000me0vdvux4fe3p"
          class="article-share-link">分享</a>
       
     </footer>
@@ -646,7 +731,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/04/25/使用github-hexo创建一个博客/" data-id="ck2etvjle000lwcvdpirmc8eh"
+      <a data-url="https://dilidonglong.site/2019/04/25/使用github-hexo创建一个博客/" data-id="ck2yn2lws000pe0vdxmlifrl2"
          class="article-share-link">分享</a>
       
     </footer>
