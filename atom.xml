@@ -46,33 +46,6 @@
   </entry>
   
   <entry>
-    <title>信息管理技术员word试题</title>
-    <link href="https://dilidonglong.site/2019/11/14/%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98word%E8%AF%95%E9%A2%98/"/>
-    <id>https://dilidonglong.site/2019/11/14/信息管理技术员word试题/</id>
-    <published>2019-11-14T11:35:36.000Z</published>
-    <updated>2019-11-14T11:41:42.006Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;信息处理技术员—文字处理真题讲解&quot;&gt;&lt;a href=&quot;#信息处理技术员—文字处理真题讲解&quot; class=&quot;headerlink&quot; title=&quot;信息处理技术员—文字处理真题讲解&quot;&gt;&lt;/a&gt;信息处理技术员—文字处理真题讲解&lt;/h1&gt;&lt;h2 id=&quot;案例1&quot;&gt;&lt;a href=&quot;#案例1&quot; class=&quot;headerlink&quot; title=&quot;案例1&quot;&gt;&lt;/a&gt;案例1&lt;/h2&gt;&lt;p&gt;利用系统提供的素材，按题目要求完成后，用Word的保存功能直接存盘。    &lt;/p&gt;
-&lt;p&gt;奥林匹克运动会&lt;/p&gt;
-&lt;p&gt;奥林匹克运动会（英语：Olympic Games）简称“奥运会”，是国际奥林匹克委员会主办的世界规模最大的综合性运动会，每四年一届，会期不超过16日，分为夏季奥运会（奥运会）、夏季残奥会、冬季奥运会（冬奥会）、冬季残奥会、夏季青年奥运会（青奥会）、冬季青年奥运会和特殊奥林匹克运动会（特奥会）。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;要求：&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;将文章标题设置为宋体、二号、加粗、居中；正文设置为仿宋、小四。&lt;/li&gt;
-&lt;li&gt;将页面设置为横向，纸张宽度21厘米、高度15厘米，页面内容居中对齐。&lt;/li&gt;
-&lt;li&gt;为正文添加双线条的边框，并设置为红色、3磅。&lt;/li&gt;
-&lt;li&gt;为正文填充白色、背景1、深色25%底纹。&lt;/li&gt;
-&lt;li&gt;在正文第一自然段后另起行录入第二段文字：奥运会中，各个国家用运动交流各国文化，以及切磋体育技能，其目的是为了鼓励人们不断进行体育运动。&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>Linux防火墙探索实验</title>
     <link href="https://dilidonglong.site/2019/10/31/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E6%8E%A2%E7%B4%A2%E5%AE%9E%E9%AA%8C/"/>
     <id>https://dilidonglong.site/2019/10/31/Linux防火墙探索实验/</id>
@@ -637,6 +610,25 @@
     <summary type="html">
     
       &lt;h1 id=&quot;软考试题3&quot;&gt;&lt;a href=&quot;#软考试题3&quot; class=&quot;headerlink&quot; title=&quot;软考试题3&quot;&gt;&lt;/a&gt;软考试题3&lt;/h1&gt;&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;A、B是局域网上两个相距1km的站点，A采用同步传输方式以1Mb/s的速率向B发送长度为200，000字节的文件。假定数据帧长为128比特，其中首部为48比特:应答帧为22比特，A在收到B的应答帧后发送下一帧。传送文件花费的时间为（  ）s，有效的数据速率为（  ）Mb/s（传播速率为200m/us）&lt;br&gt;A.1.6            B.2.4              C.3.2                  D.3.6&lt;br&gt;A.0.2            B.0.5              C.0.7                  D.0.8&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>软考试题2</title>
+    <link href="https://dilidonglong.site/2019/05/06/%E8%BD%AF%E8%80%83%E8%AF%95%E9%A2%982/"/>
+    <id>https://dilidonglong.site/2019/05/06/软考试题2/</id>
+    <published>2019-05-06T14:55:13.000Z</published>
+    <updated>2019-09-15T15:03:49.219Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;软考试题2&quot;&gt;&lt;a href=&quot;#软考试题2&quot; class=&quot;headerlink&quot; title=&quot;软考试题2&quot;&gt;&lt;/a&gt;软考试题2&lt;/h1&gt;&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;用64K×8的RAM芯片和32K×16的ROM芯片设计一个256K×16的存储器，地址范围为00000H～3FFFFH，其中ROM的地址范围为10000H～1FFFFH，其余为RAM的地址。则地址线为（）根，数据线为（）根；RAM需要（）片，ROM需要（）片。&lt;br&gt;问题1选项&lt;br&gt;A 18       B 9          C 16        D 8&lt;br&gt;问题2选项&lt;br&gt;A 18            B 9             C 16            D 8&lt;br&gt;问题3选项&lt;br&gt;A 1             B 2             C 3                D 6&lt;br&gt;问题4选项&lt;br&gt;A 12            B 2             C 9               D 6&lt;/p&gt;
     
     </summary>
     
