@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.site/"/>
-  <updated>2019-11-14T11:41:42.006Z</updated>
+  <updated>2019-11-20T15:04:14.559Z</updated>
   <id>https://dilidonglong.site/</id>
   
   <author>
@@ -17,11 +17,122 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>信息管理技术员word试题</title>
+    <title>信息处理技术员表格处理真题</title>
+    <link href="https://dilidonglong.site/2019/11/20/%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98%E8%A1%A8%E6%A0%BC%E5%A4%84%E7%90%86%E7%9C%9F%E9%A2%98/"/>
+    <id>https://dilidonglong.site/2019/11/20/信息处理技术员表格处理真题/</id>
+    <published>2019-11-20T15:01:29.000Z</published>
+    <updated>2019-11-20T15:04:14.559Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;信息处理技术员—表格处理真题讲解&quot;&gt;&lt;a href=&quot;#信息处理技术员—表格处理真题讲解&quot; class=&quot;headerlink&quot; title=&quot;信息处理技术员—表格处理真题讲解&quot;&gt;&lt;/a&gt;信息处理技术员—表格处理真题讲解&lt;/h1&gt;&lt;h2 id=&quot;习题1&quot;&gt;&lt;a href=&quot;#习题1&quot; class=&quot;headerlink&quot; title=&quot;习题1&quot;&gt;&lt;/a&gt;习题1&lt;/h2&gt;&lt;p&gt;用Excel创建“销售利润表”（内容如下表所示)，按照题目要求完成后，用Excel 的保存功能直接存盘。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;center&quot;&gt;销售商店&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;进价（元）&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;销售价（元）&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;销售量（台）&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;利润（元）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;商店一&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;2500&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;30&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;21000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;商店二&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;3300&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;16&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;12000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;商店三&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;2700&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;3200&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;20000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;商店四&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;3350&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;40&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;24000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;商店五&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;2700&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;3300&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;34&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;商店六&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;2850&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;60&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;18000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;商店七&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;2730&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;3000&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;27000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;商店八&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;2750&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;3190&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;50&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;合计&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&quot;center&quot;&gt;平均利润&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;td align=&quot;center&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;要求：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;表格要有可视的边框，并将表中的列标题设置为宋体、12磅、加粗、居中；其他内容设置为宋体、12磅、居中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;计算出表格中空白单元格的值，并填入相应的单元格中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;用函数计算出“合计”，并填入相应的单元格中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;用函数计算这八个店的“平均利润”，并填入相应的单元格中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;以“销售商店”和“利润”列为数据区域，插入簇状柱形图。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>信息处理技术员word试题</title>
     <link href="https://dilidonglong.site/2019/11/14/%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98word%E8%AF%95%E9%A2%98/"/>
     <id>https://dilidonglong.site/2019/11/14/信息处理技术员word试题/</id>
     <published>2019-11-14T11:35:36.000Z</published>
-    <updated>2019-11-14T11:41:42.006Z</updated>
+    <updated>2019-11-20T15:03:03.080Z</updated>
     
     <summary type="html">
     
@@ -610,25 +721,6 @@
     <summary type="html">
     
       &lt;h1 id=&quot;软考试题3&quot;&gt;&lt;a href=&quot;#软考试题3&quot; class=&quot;headerlink&quot; title=&quot;软考试题3&quot;&gt;&lt;/a&gt;软考试题3&lt;/h1&gt;&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;A、B是局域网上两个相距1km的站点，A采用同步传输方式以1Mb/s的速率向B发送长度为200，000字节的文件。假定数据帧长为128比特，其中首部为48比特:应答帧为22比特，A在收到B的应答帧后发送下一帧。传送文件花费的时间为（  ）s，有效的数据速率为（  ）Mb/s（传播速率为200m/us）&lt;br&gt;A.1.6            B.2.4              C.3.2                  D.3.6&lt;br&gt;A.0.2            B.0.5              C.0.7                  D.0.8&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>软考试题2</title>
-    <link href="https://dilidonglong.site/2019/05/06/%E8%BD%AF%E8%80%83%E8%AF%95%E9%A2%982/"/>
-    <id>https://dilidonglong.site/2019/05/06/软考试题2/</id>
-    <published>2019-05-06T14:55:13.000Z</published>
-    <updated>2019-09-15T15:03:49.219Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;软考试题2&quot;&gt;&lt;a href=&quot;#软考试题2&quot; class=&quot;headerlink&quot; title=&quot;软考试题2&quot;&gt;&lt;/a&gt;软考试题2&lt;/h1&gt;&lt;h2 id=&quot;问题&quot;&gt;&lt;a href=&quot;#问题&quot; class=&quot;headerlink&quot; title=&quot;问题&quot;&gt;&lt;/a&gt;问题&lt;/h2&gt;&lt;p&gt;用64K×8的RAM芯片和32K×16的ROM芯片设计一个256K×16的存储器，地址范围为00000H～3FFFFH，其中ROM的地址范围为10000H～1FFFFH，其余为RAM的地址。则地址线为（）根，数据线为（）根；RAM需要（）片，ROM需要（）片。&lt;br&gt;问题1选项&lt;br&gt;A 18       B 9          C 16        D 8&lt;br&gt;问题2选项&lt;br&gt;A 18            B 9             C 16            D 8&lt;br&gt;问题3选项&lt;br&gt;A 1             B 2             C 3                D 6&lt;br&gt;问题4选项&lt;br&gt;A 12            B 2             C 9               D 6&lt;/p&gt;
     
     </summary>
     
