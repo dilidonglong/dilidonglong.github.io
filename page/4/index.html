@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   
     <meta name="keywords" content="network,linux">
   
   
-    <meta name="description" content="兰芝生于幽谷，不以无人而不芳">
+    <meta name="description" content="精卫衔微木，将以填沧海">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
@@ -33,7 +33,8 @@
       </div>
     
     <div class="video-media">
-      <video playsinline autoplay loop muted data-autoplay poster="/images/ocean/ocean.png" x5-video-player-type="h5">
+      <video playsinline="" autoplay="" loop="" muted="" data-autoplay=""
+             poster="/images/ocean/ocean.png" x5-video-player-type="h5">
         <source src="/images/ocean/ocean.mp4" type="video/mp4">
         <source src="/images/ocean/ocean.ogv" type="video/ogg">
         <source src="/images/ocean/ocean.webm" type="video/webm">
@@ -43,7 +44,7 @@
     </div>
     <div class="video-inner text-center text-white">
       <h1><a href="/">望伊如西の博客</a></h1>
-      <p>兰芝生于幽谷，不以无人而不芳</p>
+      <p>精卫衔微木，将以填沧海</p>
       <div><img src="/images/hexo-inverted.svg" class="brand" alt="望伊如西の博客"></div>
     </div>
     <div class="video-learn-more">
@@ -60,503 +61,31 @@
 
     
       
-        <article id="post-文件系统的简单操作" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+        
 
+<article id="post-使用github-hexo创建一个博客" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h2 itemprop="name">
-      <a class="article-title" href="/2019/04/30/文件系统的简单操作/">文件系统的简单操作</a>
+      <a class="article-title" href="/2019/04/25/使用github-hexo创建一个博客/">使用github+hexo创建一个博客</a>
     </h2>
   
+  
+
+
+
 
       </header>
     
 
     
       <div class="article-meta">
-        <a href="/2019/04/30/文件系统的简单操作/" class="article-date">
-  <time datetime="2019-04-30T15:34:18.000Z" itemprop="datePublished">2019-04-30</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h1 id="文件系统的简单操作"><a href="#文件系统的简单操作" class="headerlink" title="文件系统的简单操作"></a>文件系统的简单操作</h1><h2 id="1-df和du命令"><a href="#1-df和du命令" class="headerlink" title="1.df和du命令"></a>1.df和du命令</h2><h3 id="df"><a href="#df" class="headerlink" title="df"></a>df</h3><p>列出文件系统的整体磁盘使用量，df读取的数据几乎针对一整个文件系统，因为读取范围是<strong>超级区块</strong>内的信息。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr ~]<span class="comment"># df</span></span><br><span class="line">Filesystem     1K-blocks    Used Available Use% Mounted on</span><br><span class="line">devtmpfs          214728       0    214728   0% /dev</span><br><span class="line">tmpfs             246392       0    246392   0% /dev/shm</span><br><span class="line">/dev/vda1       10291200 2231176   7519412  23% /</span><br><span class="line"><span class="comment"># Filesystem表示文件系统在哪个磁盘分区</span></span><br><span class="line"><span class="comment"># 1K-blocks表示单位为1k，可以利用-h来变成人们易于理解的单位格式</span></span><br><span class="line"><span class="comment"># Mounted on表示挂载点</span></span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">[root@vultr ~]<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs        210M     0  210M   0% /dev</span><br><span class="line">tmpfs           241M     0  241M   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1       9.9G  2.2G  7.2G  23% /</span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">[root@vultr ~]<span class="comment"># df -Th</span></span><br><span class="line">Filesystem     Type      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs       devtmpfs  210M     0  210M   0% /dev</span><br><span class="line">tmpfs          tmpfs     241M     0  241M   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1      ext4      9.9G  2.2G  7.2G  23% /</span><br><span class="line"><span class="comment"># Type表示文件系统类型</span></span><br></pre></td></tr></table></figure>
-<h3 id="du"><a href="#du" class="headerlink" title="du"></a>du</h3><p>du不同于df，du会在整个文件系统内去<strong>查找所有的文件数据</strong></p>
-<h2 id="2-硬件链接和软链接（符号链接）"><a href="#2-硬件链接和软链接（符号链接）" class="headerlink" title="2.硬件链接和软链接（符号链接）"></a>2.硬件链接和软链接（符号链接）</h2><h3 id="2-1硬件链接"><a href="#2-1硬件链接" class="headerlink" title="2.1硬件链接"></a>2.1硬件链接</h3><p>目录的数据区块下新增一条文件名链接到某个inode号码的<strong>关联记录</strong>。即多个文件名对应到同一个inode号码。</p>
-<p>硬链接的限制：1.不能跨文件系统。2.不能连接目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr tmp]<span class="comment"># ll -i</span></span><br><span class="line">total 4</span><br><span class="line"> 11618 -rw-r--r-- 1 root root    0 Apr 18 06:16 <span class="built_in">test</span></span><br><span class="line">[root@vultr tmp]<span class="comment"># </span></span><br><span class="line">[root@vultr tmp]<span class="comment"># ln test zhang</span></span><br><span class="line">[root@vultr tmp]<span class="comment"># ll -i</span></span><br><span class="line">total 4</span><br><span class="line"> 11618 -rw-r--r-- 2 root root    0 Apr 18 06:16 <span class="built_in">test</span></span><br><span class="line"> 11618 -rw-r--r-- 2 root root    0 Apr 18 06:16 zhang</span><br></pre></td></tr></table></figure>
-<h3 id="2-2符号链接"><a href="#2-2符号链接" class="headerlink" title="2.2符号链接"></a>2.2符号链接</h3><p>符号链接就是建立一个独立的<strong>文件</strong>，而这个文件会让数据的读取指向它连接的那个文件的文件名</p>
-<p>当源文件被删除后，符号链接的文件就会打不开。类似于是Windows下的快捷方式</p>
-<p>需要注意的是，通过符号链接进入到了某个目录或是打开了某个文件。操作的对象实际上还是原始文件。所以你在符号链接里面打开了东西，进行了操作，那原始文件也会发生改变。如果你在符号链接里面把内容删除了，相当于原始文件的实际内容也删除了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr tmp]<span class="comment"># ln -s test zhangshuaiyang            加上-s就是符号链接，不加是硬链接</span></span><br><span class="line">[root@vultr tmp]<span class="comment"># ll -i</span></span><br><span class="line">total 4</span><br><span class="line"> 11618 -rw-r--r-- 2 root root    0 Apr 18 06:16 <span class="built_in">test</span></span><br><span class="line"> 11618 -rw-r--r-- 2 root root    0 Apr 18 06:16 zhang</span><br><span class="line"> 23193 lrwxrwxrwx 1 root root    4 Apr 18 06:43 zhangshuaiyang -&gt; <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-磁盘分区、格式化、检验及挂载"><a href="#3-磁盘分区、格式化、检验及挂载" class="headerlink" title="3.磁盘分区、格式化、检验及挂载"></a>3.磁盘分区、格式化、检验及挂载</h2><p>如果想在系统里面新增一块硬盘，操作过程如下：</p>
-<ol>
-<li>对磁盘进行划分，进行磁盘分区</li>
-<li>对分区进行格式化，以建立文件系统</li>
-<li>对文件系统进行检验（可选）</li>
-<li>在linux系统上，建立一个挂载点（目录），把该文件系统挂载上来</li>
-</ol>
-<h3 id="3-1查看磁盘分区状态"><a href="#3-1查看磁盘分区状态" class="headerlink" title="3.1查看磁盘分区状态"></a>3.1查看磁盘分区状态</h3><p><strong>lsblk</strong>（list block device）显示出所有存储设备</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr tmp]<span class="comment"># lsblk</span></span><br><span class="line">NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</span><br><span class="line">sr0     11:0    1 1024M  0 rom  </span><br><span class="line">vda    253:0    0   10G  0 disk </span><br><span class="line">└─vda1 253:1    0   10G  0 part /</span><br><span class="line"><span class="comment">#name表示设备文件名，会省略/dev等前面的目录；disk表示一整块磁盘；part表示分区</span></span><br><span class="line"><span class="comment">#在vda这个磁盘下，有一个分区vda1</span></span><br><span class="line">----------------------------------------------------------</span><br><span class="line">[root@vultr tmp]<span class="comment"># lsblk -ipf                 通过-f选项可以列出UUID</span></span><br><span class="line">NAME        FSTYPE LABEL UUID                                 MOUNTPOINT</span><br><span class="line">/dev/sr0                                                      </span><br><span class="line">/dev/vda                                                      </span><br><span class="line">`-/dev/vda1 ext4         19c82273-828c-4d85-bc4e-6fc269acc524 /</span><br><span class="line">-----------------------------------------------------------</span><br><span class="line">[root@vultr tmp]<span class="comment"># blkid                       通过blkid也可以显示出UUID</span></span><br><span class="line">/dev/vda1: UUID=<span class="string">"19c82273-828c-4d85-bc4e-6fc269acc524"</span> TYPE=<span class="string">"ext4"</span></span><br></pre></td></tr></table></figure>
-<p><strong>parted</strong>列出磁盘的分区表类型及分区信息</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr tmp]<span class="comment"># parted /dev/vda print</span></span><br><span class="line">Model: Virtio Block Device (virtblk)</span><br><span class="line">Disk /dev/vda: 10.7GB</span><br><span class="line">Sector size (logical/physical): 512B/512B</span><br><span class="line">Partition Table: msdos                     <span class="comment">#分区表格式，比如MBR/GPT，这里显示的是msdos</span></span><br><span class="line">Disk Flags: </span><br><span class="line">										   <span class="comment">#下面内容是分区数据</span></span><br><span class="line">Number  Start   End     Size    Type     File system  Flags</span><br><span class="line"> 1      1049kB  10.7GB  10.7GB  primary  ext4         boot</span><br></pre></td></tr></table></figure>
-<h3 id="3-2磁盘分区"><a href="#3-2磁盘分区" class="headerlink" title="3.2磁盘分区"></a>3.2磁盘分区</h3><p>MBR分区表使用fdisk工具进行，GPT分区表使用gdisk工具进行。</p>
-<h3 id="3-3磁盘格式化"><a href="#3-3磁盘格式化" class="headerlink" title="3.3磁盘格式化"></a>3.3磁盘格式化</h3><p>所谓格式化，其实是指在分区上创建文件系统。使用的命令是mkfs（make filesystem）</p>
-<p>如果我们要创建的文件系统是xfs。那么命令的写法就是mkfs.xfs。例如<code>mkfs.xfs /dev/vda4</code>，表示在/dev/vda4这个分区上建立一个xfs文件系统。</p>
-<p>如果是创建ext4文件系统。则命令写法是mkfs.ext4。只是xfs的文件系统建立起来速度更快。</p>
-<p>想知道能创建哪些文件系统。只要再命令行中输入<code>mkfs[tab][tab]</code>，就能看到了。</p>
-<h3 id="3-4文件系统的挂载"><a href="#3-4文件系统的挂载" class="headerlink" title="3.4文件系统的挂载"></a>3.4文件系统的挂载</h3><p>注意点：</p>
-<ol>
-<li>单一文件系统不要被重复挂载到不同的挂载点中</li>
-<li>单一目录不要重复挂载多个文件系统</li>
-<li>作为挂载点的目录，最好是空目录</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr tmp]<span class="comment"># blkid                       </span></span><br><span class="line">/dev/vda1: UUID=<span class="string">"19c82273-828c-4d85-bc4e-6fc269acc524"</span> TYPE=<span class="string">"ext4"</span> </span><br><span class="line"></span><br><span class="line">[root@vultr tmp]<span class="comment"># mount UUID="19c82273-828c-4d85-bc4e-6fc269acc524" /data/ext4</span></span><br><span class="line">其中UUID表示文件系统的ID。/data/ext4表示挂载点。也就是说把这个文件系统挂载在/data/ext4目录下。</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-
-          
-        
-          
-        </div>
-
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.github.io/2019/04/30/文件系统的简单操作/" data-id="ck0gs6j17000m7wvdmvcb5t1h" class="article-share-link">分享</a>
-      
-    </footer>
-
-  
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-文件系统" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/04/30/文件系统/">文件系统</a>
-    </h2>
-  
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/04/30/文件系统/" class="article-date">
-  <time datetime="2019-04-30T15:33:00.000Z" itemprop="datePublished">2019-04-30</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h1 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h1><p><strong>柱面</strong>通常是<strong>分区</strong>及<strong>文件系统</strong>的最小单位。当然如果使用GPT格式的分区表，最小单位可以为<strong>扇区</strong></p>
-<p>磁盘分区完后，要进行<strong>格式化</strong>，使之成为操作系统能用的<strong>文件系统</strong></p>
-<p>文件（或目录）包含<strong>属性</strong>（比如文件权限，文件属性）及<strong>内容</strong></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">权限与属性</th>
-<th style="text-align:center">实际数据</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">inode表</td>
-<td style="text-align:center">数据区块</td>
-</tr>
-</tbody>
-</table>
-<p>区块有放置<strong>inode表</strong>的区块，有放置<strong>数据</strong>的数据区块，以及记录<strong>整个文件系统整体信息</strong>的超级区块</p>
-<blockquote>
-<p>超级区块：记录inode和数据区块总量、使用量、剩余量及文件系统格式等</p>
-<p>inode：记录文件属性，一个文件占一个inode，同时记录文件对应数据所放置的区块号码</p>
-<p>数据区块：记录实际内容，当一个区块占不下的时候，就会占用多个数据区块</p>
-</blockquote>
-<p><strong>索引式文件系统</strong>，包含了inode。通过inode，我们可以数据存放在哪些数据区块里面，所以可以一次性全部提取出来。该方式性能比较好，比如linux的ext2文件系统</p>
-<p>再比如u盘一般使用FAT文件系统，这种就不是索引式文件系统。它没有inode，所以无法把数据一次性全提取出来。每个区块号码都记录在前一个区块里面，所以提取的时候得一个连着一个提取。</p>
-<p><strong>碎片整理</strong>，在非索引式文件系统里面，由于有时候数据写入的区块太过于分散，所以读取的时候性能会很差，通过磁盘碎片整理，可以把同一个文件的区块集合在一起，这样读取起来就比较容易。</p>
-<h2 id="1-ext2文件系统"><a href="#1-ext2文件系统" class="headerlink" title="1.ext2文件系统"></a>1.ext2文件系统</h2><p>在分区上进行格式化的时候，就已经规划好了<strong>inode</strong>和<strong>数据区块</strong></p>
-<p>把放置inode的区块和数据区块全部都放一起，会导致很难管理</p>
-<p>所以在ext2的文件系统上，会弄出多个<strong>区块群组</strong>，每个区块群组都有自己的<strong>inode</strong>，<strong>数据区块</strong>和<strong>超级区块</strong></p>
-<p>在<strong>文件系统</strong>最前面有个启动扇区，里面可以存放<strong>启动引导程序</strong>。（注：或是想到之前的磁盘分区，分区的第一个扇区用来放MBR，MBR中的446字节来存放启动引导程序）</p>
-<p>这种设计可以把引导启动程序放在<strong>不同文件系统</strong>的最前端，而不必把程序全都放在整个磁盘唯一的MBR下。</p>
-<h3 id="1-1数据区块"><a href="#1-1数据区块" class="headerlink" title="1.1数据区块"></a>1.1数据区块</h3><p>数据区块用来放置文件数据。ext2文件系统支持的区块大小有1k，2k及4k共3种。</p>
-<p>每个区块都有编号，方便inode表记录。</p>
-<p>数据放在数据区块里面，如果数据的大小要小于区块的容量的话，就会造成浪费。</p>
-<h3 id="1-2inode表"><a href="#1-2inode表" class="headerlink" title="1.2inode表"></a>1.2inode表</h3><p>inode表记录如下内容</p>
-<blockquote>
-<ul>
-<li><strong>该文件的读写属性（读、写、执行）</strong></li>
-<li><strong>文件所有者及用户组</strong></li>
-<li>文件大小</li>
-<li>文件建立或状态改变时间</li>
-<li>最近一次读取时间</li>
-<li>最近修改时间</li>
-<li>定义文件特征标识</li>
-<li><strong>文件真正内容指向</strong></li>
-</ul>
-</blockquote>
-<p>inode表的数量和大小在格式化的时候就确定好了</p>
-<blockquote>
-<ul>
-<li>每个inode表大小为128B（其中4B来记录一个数据区块的位置编号，一共能记录12个）</li>
-<li>每个文件仅占用一个inode表</li>
-<li>文件系统能建立的文件数量和inode数量有关</li>
-<li>系统读取文件先找到inode表，分析文件记录用户及权限是否符合，如果符合最后才去找数据区块读取</li>
-</ul>
-</blockquote>
-<h3 id="1-3超级区块"><a href="#1-3超级区块" class="headerlink" title="1.3超级区块"></a>1.3超级区块</h3><p>没有超级区块，就没有文件系统，它记录整个文件系统相关信息。</p>
-<blockquote>
-<ul>
-<li>数据区块与inode的总量</li>
-<li>未使用与已经使用的inode与数据区块的数量</li>
-<li>数据区块与inode的大小</li>
-<li>文件系统的挂载时间、最近一次写入数据时间等文件系统相关信息</li>
-<li>一个有效位数值，文件系统被挂载，则有效位为0，未被挂载则为1</li>
-</ul>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示目前系统被格式化的设备</span></span><br><span class="line">[root@vultr ~]<span class="comment"># blkid</span></span><br><span class="line">/dev/vda1: UUID=<span class="string">"19c82273-828c-4d85-bc4e-6fc269acc524"</span> TYPE=<span class="string">"ext4"</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr ~]<span class="comment"># dumpe2fs /dev/vda1</span></span><br><span class="line">dumpe2fs 1.42.9 (28-Dec-2013)</span><br><span class="line">Filesystem volume name:   &lt;none&gt;</span><br><span class="line">Last mounted on:          /</span><br><span class="line">Filesystem UUID:          19c82273-828c-4d85-bc4e-6fc269acc524</span><br><span class="line">Filesystem magic number:  0xEF53</span><br><span class="line">Filesystem revision <span class="comment">#:    1 (dynamic)</span></span><br><span class="line">Filesystem features:      has_journal ext_attr resize_inode dir_index filetype needs_recovery extent 64bit flex_bg sparse_super large_file huge_file uninit_bg dir_nlink extra_isize</span><br><span class="line">Filesystem flags:         signed_directory_hash </span><br><span class="line">Default mount options:    user_xattr acl</span><br><span class="line">Filesystem state:         clean                    <span class="comment">#文件系统状态，clean表示没问题</span></span><br><span class="line">Errors behavior:          Continue</span><br><span class="line">Filesystem OS <span class="built_in">type</span>:       Linux</span><br><span class="line">Inode count:              640000                   <span class="comment">#inode总数</span></span><br><span class="line">Block count:              2621179                  <span class="comment">#区块总数</span></span><br><span class="line">Reserved block count:     131057                   <span class="comment">#保留的区块总数</span></span><br><span class="line">Free blocks:              2026205                  <span class="comment">#还有多少可用区块</span></span><br><span class="line">Free inodes:              599345                   <span class="comment">#还有多少可用inode</span></span><br><span class="line">First block:              0</span><br><span class="line">Block size:               4096                     <span class="comment">#单个区块大小</span></span><br><span class="line">Fragment size:            4096</span><br><span class="line">Group descriptor size:    64</span><br><span class="line">Reserved GDT blocks:      248</span><br><span class="line">Blocks per group:         32768</span><br><span class="line">Fragments per group:      32768</span><br><span class="line">Inodes per group:         8000</span><br><span class="line">Inode blocks per group:   500</span><br><span class="line">Flex block group size:    16</span><br><span class="line">Filesystem created:       Wed Dec  5 17:22:49 2018</span><br><span class="line">Last mount time:          Wed Apr 10 10:10:48 2019</span><br><span class="line">Last write time:          Wed Apr 10 10:10:46 2019</span><br><span class="line">Mount count:              4</span><br><span class="line">Maximum mount count:      -1</span><br><span class="line">Last checked:             Sat Mar  9 02:38:28 2019</span><br><span class="line">Check interval:           0 (&lt;none&gt;)</span><br><span class="line">Lifetime writes:          3452 MB</span><br><span class="line">Reserved blocks uid:      0 (user root)</span><br><span class="line">Reserved blocks gid:      0 (group root)</span><br><span class="line">First inode:              11</span><br><span class="line">Inode size:	          256                           <span class="comment">#inode表大小</span></span><br><span class="line">Required extra isize:     28</span><br><span class="line">Desired extra isize:      28</span><br><span class="line">Journal inode:            8</span><br><span class="line">Default directory <span class="built_in">hash</span>:   half_md4</span><br><span class="line">Directory Hash Seed:      6cbf0c8a-63c4-43df-aaba-cd82ae9cb153</span><br><span class="line">Journal backup:           inode blocks</span><br><span class="line">Journal features:         journal_incompat_revoke journal_64bit</span><br><span class="line">Journal size:             32M</span><br><span class="line">Journal length:           8192</span><br><span class="line">Journal sequence:         0x0004f118</span><br><span class="line">Journal start:            7195</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Group 0: (Blocks 0-32767) [ITABLE_ZEROED]                <span class="comment">#区块组0所占区块号码为0-32767</span></span><br><span class="line">  Checksum 0x6f25, unused inodes 0</span><br><span class="line">  Primary superblock at 0, Group descriptors at 1-2      <span class="comment">#文件系统描述说明在1-2号区块内</span></span><br><span class="line">  Reserved GDT blocks at 3-250</span><br><span class="line">  Block bitmap at 251 (+251), Inode bitmap at 267 (+267) </span><br><span class="line">                                                    <span class="comment">#区块对照表和inode对照表在251和267区块内</span></span><br><span class="line">  Inode table at 283-782 (+283)                     </span><br><span class="line">  <span class="comment">#一个inode表占256B，总共有782-283+1=500个区块，一个区块大小占4KB。所以inode的总数是500*4kB/256B</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">#以下几行记录，记录了可用的区块数，及可用的inode表述。可知，inode表为0了。</span></span><br><span class="line">  19990 free blocks, 0 free inodes, 1728 directories</span><br><span class="line">  Free blocks: 11866, 11890-11922, 11928-11935, 11943-11951, 12249, 12313, 12350, 12832-32767</span><br><span class="line">  Free inodes: </span><br><span class="line">……后续省略……</span><br></pre></td></tr></table></figure>
-<h2 id="2-文件系统与目录树的关系"><a href="#2-文件系统与目录树的关系" class="headerlink" title="2.文件系统与目录树的关系"></a>2.文件系统与目录树的关系</h2><h3 id="2-1目录"><a href="#2-1目录" class="headerlink" title="2.1目录"></a>2.1目录</h3><p>在文件系统上创建一个目录时，文件系统会分配<strong>一个inode</strong>与<strong>至少一块区块</strong>（里面记录了子目录及文件的inode表位置编号）给目录</p>
-<h3 id="2-2文件"><a href="#2-2文件" class="headerlink" title="2.2文件"></a>2.2文件</h3><p>在文件系统上创建一个文件时，文件系统会分配<strong>一个inode</strong>及所需个数的<strong>数据区块</strong>。</p>
-<h3 id="2-3目录树的读取"><a href="#2-3目录树的读取" class="headerlink" title="2.3目录树的读取"></a>2.3目录树的读取</h3><p>文件存放在目录下，所以我们得要先知道该目录所对应的区块。区块里面记录了子目录及文件的inode表号。找到我想要的文件所对应的inode表号，再去找该文件的inode。找到之后就知道该文件放置在哪个区块了。</p>
-<h2 id="3-挂载"><a href="#3-挂载" class="headerlink" title="3.挂载"></a>3.挂载</h2><p>文件系统和目录树结合的操作称为挂载</p>
-<p>挂载点一定是目录，该目录为进入文件系统的入口</p>
-<p>文件系统要挂载在目录树的某个目录后，我们才能使用该文件系统</p>
-<h2 id="4-XFS文件系统"><a href="#4-XFS文件系统" class="headerlink" title="4.XFS文件系统"></a>4.XFS文件系统</h2><p>ext文件系统的支持度虽然广，但是格式化所需要时间长。因为是预先就规划好了inode和区块的位置，所以后续可以直接使用，也就是说并没有使用动态配置的做法</p>
-<p>现在的磁盘越来越大，对于虚拟化磁盘那就更大了。对于巨型文件要考虑性能问题，不然虚拟磁盘的处理效率就会差。</p>
-<p>xfs是一个日志式文件系统，用于高容量磁盘及高性能文件。同时还几乎有ext4文件系统有的功能。此外，inode与区块都是需要时才动态配置产生，不会预分配，所以格式化操作会很快。</p>
-<h3 id="4-1数据区"><a href="#4-1数据区" class="headerlink" title="4.1数据区"></a>4.1数据区</h3><p>包含inode、数据区块、超级区块等数据，类似于之前ext里面的区块群组</p>
-<h3 id="4-2文件系统活动登陆区"><a href="#4-2文件系统活动登陆区" class="headerlink" title="4.2文件系统活动登陆区"></a>4.2文件系统活动登陆区</h3><p>用来记录文件系统的变化，有点像日志区</p>
-<h3 id="4-3实时运行区"><a href="#4-3实时运行区" class="headerlink" title="4.3实时运行区"></a>4.3实时运行区</h3><p>当有文件要被建立时，xfs会在这个区段里找一个到数个的扩展区块，将文件放置在这个区块内，等分配完毕再写入到数据区的inode与区块中。</p>
-
-      
-
-      
-
-          
-        
-          
-        </div>
-
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.github.io/2019/04/30/文件系统/" data-id="ck0gs6j16000k7wvdg9xliqf9" class="article-share-link">分享</a>
-      
-    </footer>
-
-  
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-磁盘分区" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/04/30/磁盘分区/">磁盘分区</a>
-    </h2>
-  
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/04/30/磁盘分区/" class="article-date">
-  <time datetime="2019-04-30T15:32:07.000Z" itemprop="datePublished">2019-04-30</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/linux/">linux</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h1 id="磁盘分区"><a href="#磁盘分区" class="headerlink" title="磁盘分区"></a>磁盘分区</h1><h2 id="1-磁盘分区"><a href="#1-磁盘分区" class="headerlink" title="1.磁盘分区"></a>1.磁盘分区</h2><p><strong>磁盘</strong>包含：碟片（细分为<strong>扇区</strong>和<strong>磁道</strong>）、机械手臂、磁头、主轴马达</p>
-<p><strong>扇区</strong>大小分为<strong>512B</strong>和<strong>4KB</strong></p>
-<h3 id="1-1第一个扇区（MBR）"><a href="#1-1第一个扇区（MBR）" class="headerlink" title="1.1第一个扇区（MBR）"></a>1.1第一个扇区（MBR）</h3><p><strong>磁盘第一个扇区</strong>存放<strong>启动引导程序</strong>和<strong>磁盘分区表</strong>（格式分为<strong>MBR</strong>[Windows支持]和<strong>GPT</strong>）</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">MBR（master boot record）</th>
-<th style="text-align:center">启动引导程序</th>
-<th style="text-align:center">磁盘分区表</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">主引导记录容量（512B）</td>
-<td style="text-align:center">446B</td>
-<td style="text-align:center">64B</td>
-</tr>
-</tbody>
-</table>
-<p>MBR分区表的限制：</p>
-<blockquote>
-<ol>
-<li>分区最多到2TB</li>
-<li>MBR仅占一个扇区，被破坏后，很难恢复甚至无法恢复</li>
-<li>MBR内的启动引导程序只有446B，无法存储较多的程序代码</li>
-</ol>
-</blockquote>
-<h4 id="1-1-1MBR磁盘分区表"><a href="#1-1-1MBR磁盘分区表" class="headerlink" title="1.1.1MBR磁盘分区表"></a>1.1.1MBR<strong>磁盘分区表</strong></h4><blockquote>
-<ol>
-<li>分区表占64B，给磁盘划分分区，其实就是对这个分区表做设置</li>
-<li>分区表默认最多把一个磁盘分为4个分区</li>
-<li>分区分为<strong>主要分区</strong>和<strong>扩展分区</strong></li>
-<li>要写入数据到磁盘时，会参考这个分区表</li>
-</ol>
-</blockquote>
-<h4 id="1-1-2MBR扩展分区"><a href="#1-1-2MBR扩展分区" class="headerlink" title="1.1.2MBR扩展分区"></a>1.1.2MBR扩展分区</h4><p>由于磁盘分区表的限制，最多给磁盘划分出4个分区。那么我们可以利用额外的扇区来记录更多的分区信息。</p>
-<p>在<strong>扩展分区</strong>的某个地方来记录在扩展分区里面的其他<strong>逻辑分区</strong>信息</p>
-<blockquote>
-<ol>
-<li>扩展分区最多一个</li>
-<li>逻辑分区是在扩展分区里面划分出来的</li>
-<li>能格式化的是主要分区和逻辑分区，扩展分区不能被格式化</li>
-<li>逻辑分区能划分多少个，依据不同操作系统来定</li>
-</ol>
-</blockquote>
-<hr>
-<h3 id="1-2GPT磁盘分区表"><a href="#1-2GPT磁盘分区表" class="headerlink" title="1.2GPT磁盘分区表"></a>1.2GPT磁盘分区表</h3><p>现在的磁盘越来越大，如果使用磁盘阵列等技术，那么在Linux平台下看到的磁盘大小可能就有几十个TB。使用MBR格式，要划分分区时，就要2TB/2TB地划分下去。这就可能划分出好几十个分区，为了解决这个问题，就有了GPT这种磁盘分区的格式。</p>
-<p>以前扇区大小为512B，现在已经有了4KB的扇区。为兼容所有磁盘，会使用到<strong>逻辑区块地址LBA</strong>（logical block address），LBA默认是512B。在GPT这种格式下，将磁盘的所有区块使用LBA来规划。<code>可以理解为，如果一个扇区的容量是512B，然后LBA默认是512B的话，那么一个扇区就是一个区块。如果一个扇区容量是4KB=8*512B，那么一个区块地址就是1/8扇区</code></p>
-<p><strong>第一个LBA</strong>称为<strong>LBA0</strong></p>
-<p><strong>MBR使用第一个扇区来记录，而GPT使用了前34个LBA区块来记录。</strong>由于MBR只有一个区块，破坏就难以恢复。不同于MBR，<strong>GPT中会用磁盘的最后34个LBA做备份</strong>。</p>
-<h4 id="1-2-1LBA0（MBR兼容区块）"><a href="#1-2-1LBA0（MBR兼容区块）" class="headerlink" title="1.2.1LBA0（MBR兼容区块）"></a>1.2.1LBA0（MBR兼容区块）</h4><table>
-<thead>
-<tr>
-<th style="text-align:center">LBA0</th>
-<th style="text-align:center">引导启动程序</th>
-<th style="text-align:center">特殊标志符</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">逻辑区块地址0</td>
-<td style="text-align:center">446B</td>
-<td style="text-align:center">64B，表示磁盘使用GPT格式</td>
-</tr>
-</tbody>
-</table>
-<h4 id="1-2-2LBA1（GPT表头记录）"><a href="#1-2-2LBA1（GPT表头记录）" class="headerlink" title="1.2.2LBA1（GPT表头记录）"></a>1.2.2LBA1（GPT表头记录）</h4><p>记录磁盘分区表本身的位置和大小，同时记录了备份的GPT分区位置。</p>
-<h4 id="1-2-3LBA2-33（实际记录分区信息处）"><a href="#1-2-3LBA2-33（实际记录分区信息处）" class="headerlink" title="1.2.3LBA2-33（实际记录分区信息处）"></a>1.2.3LBA2-33（实际记录分区信息处）</h4><p><strong>从LBA2区块开始，每个LBA可以记录4组分区记录</strong>。所以一个磁盘在默认情况下，可以划分4*32=128个分区。</p>
-<p>在MBR中，分区表的大小是64B，而在GPT中是512B。</p>
-<p>一个区块记录4组分区，所以在GPT的分区表中，一组分区记录可以占512/4=128B的空间大小。</p>
-<p>在这128B的空间中使用64bit来记录开始和结束的扇区号码</p>
-<p>每个分区的最大容量限制就是：$2^{64}*512B=8ZB$</p>
-<h2 id="2-启动程序"><a href="#2-启动程序" class="headerlink" title="2.启动程序"></a>2.启动程序</h2><p>CMOS是一个嵌入在主板的存储器，存储着各项硬件参数</p>
-<p>BIOS是一个写入到主板的固件（<strong>固件是</strong>写入到硬件上的一个<strong>软件程序</strong>）</p>
-<blockquote>
-<ol>
-<li>计算机系统在启动时，主动执行的第一个程序就是BIOS</li>
-<li>BIOS执行后，会分析计算机里面的存储设备。比如发现了硬盘，BIOS就去找那个能启动的硬盘</li>
-<li>找到该硬盘，就读取第一个扇区的MBR位置，找到那个446B的启动引导程序</li>
-</ol>
-<p>以上BIOS的任务完成，接下来就是启动引导程序干活了</p>
-<ol start="4">
-<li>启动引导程序的目的是加载内核文件</li>
-</ol>
-<p>加载完后，启动引导程序的活也干完了</p>
-<ol start="5">
-<li>之后就是内核文件开始工作，再之后就是把任务都交给我们熟悉的操作系统完成</li>
-</ol>
-</blockquote>
-
-      
-
-      
-
-          
-        
-          
-        </div>
-
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.github.io/2019/04/30/磁盘分区/" data-id="ck0gs6j1b000t7wvdms6hmcj2" class="article-share-link">分享</a>
-      
-    </footer>
-
-  
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-软考试题1" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/04/29/软考试题1/">软考试题1</a>
-    </h2>
-  
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/04/29/软考试题1/" class="article-date">
-  <time datetime="2019-04-29T14:54:48.000Z" itemprop="datePublished">2019-04-29</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/软考/">软考</a>
-  </div>
-
-      </div>
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-      
-
-      
-        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>若主机hostA的MAC地址为aa-aa-aa-aa-aa-aa，主机hostB的MAC地址为bb-bb-bb-bb-bb-bb。由hostA发出的查询hostB的MAC地址的帧格式如下图所示，则此帧中的目标MAC地址为（ D ），ARP报文中的目标MAC地址为（ C ）。</p>
-<p><img src="/2019/04/29/软考试题1/1.png" alt="1"></p>
-<p>问题1选项</p>
-<p>A aa-aa-aa-aa-aa-aa</p>
-<p>B bb-bb-bb-bb-bb-bb</p>
-<p>C 00-00-00-00-00-00</p>
-<p>D ff-ff-ff-ff-ff-ff</p>
-<p>问题2选项</p>
-<p>A aa-aa-aa-aa-aa-aa</p>
-<p>B bb-bb-bb-bb-bb-bb</p>
-<p>C 00-00-00-00-00-00</p>
-<p>D ff-ff-ff-ff-ff-ff</p>
-<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><ol>
-<li>数据包从上往下层层封装。在wireshark里面是可以看到其封装情况的。</li>
-</ol>
-<p><img src="/2019/04/29/软考试题1/2.png" alt="2"></p>
-<p>上图就是一个arp的数据包。在中间的框中，可以知道arp报文被Ethernet（以太网）头部封装。第一个包指的是arp广播请求包，意思是“谁知道192.168.0.1的mac地址，请告诉192.168.0.114“</p>
-<ol start="2">
-<li>wireshark数据包中以太网帧头部（Ethernet）包含了destination（目标mac地址），source（源mac地址），type（类型）</li>
-</ol>
-<p><img src="/2019/04/29/软考试题1/3.png" alt="2"></p>
-<p>问题一里面的目的mac指的就是以太网头部里面的mac地址。</p>
-<p>即下图中写的目标mac地址，你能看到正好就是对应wireshark数据包中的destination这段。<img src="/2019/04/29/软考试题1/4.png" alt="2"></p>
-<ol start="3">
-<li><p>问题二里面，ARP报文中的目标MAC地址，指的就是wireshark数据包中，红框的target mac address。arp报文是被mac头部封装的。</p>
-</li>
-<li><p><strong>sender mac address</strong>表示发送方自己的mac地址；</p>
-<p><strong>sender ip address</strong>表示发送方自己的ip地址；</p>
-<p><strong>target mac address</strong>表示想要知道的对方的mac地址是多少，由于是广播请求，此时并不知道对方mac，所以暂时以全0替代；</p>
-<p><strong>target ip address</strong>表示请求对方的ip地址。</p>
-</li>
-</ol>
-
-      
-
-      
-
-          
-        
-          
-        </div>
-
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.github.io/2019/04/29/软考试题1/" data-id="ck0gs6j1i00157wvdnjsiqp1f" class="article-share-link">分享</a>
-      
-    </footer>
-
-  
-
-  
-
-  
-
-</article>
-
-
-
-      
-        <article id="post-设置分类列表页" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/04/27/设置分类列表页/">设置分类列表页</a>
-    </h2>
-  
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/04/27/设置分类列表页/" class="article-date">
-  <time datetime="2019-04-27T02:46:42.000Z" itemprop="datePublished">2019-04-27</time>
+        <a href="/2019/04/25/使用github-hexo创建一个博客/" class="article-date">
+  <time datetime="2019-04-25T07:01:58.000Z" itemprop="datePublished">2019-04-25</time>
 </a>
         
   <div class="article-category">
@@ -566,69 +95,30 @@
       </div>
     
 
+    
+
     <div class="article-entry" itemprop="articleBody">
       
 
-      
-
-      
-        <h1 id="设置分类列表页"><a href="#设置分类列表页" class="headerlink" title="设置分类列表页"></a>设置分类列表页</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>最近通过github+hexo(ocean主题)搭建了博客。期间遇到了各种问题，主要还是因为自己不是程序员，有些代码看不懂。</p>
-<p>比如我想，以后如果文章多起来，只有一个归档可不行，最好要有个分类的界面。把文章都整理好，以后也方便自己查东西。</p>
-<p>照着网上的操作：</p>
-<blockquote>
-<ol>
-<li>先生成一个分类的网页，输入命令<code>hexo new page categories</code></li>
-<li>找到对应网页的md文件，在其头部内添加上<code>type: &quot;categories&quot;</code></li>
-<li>最后测试，新建一篇文章，在文章md文件头部上添加<code>categories: 分类的名称</code></li>
-<li>保存</li>
-<li>最后需要在主页上把分类页展现出来。</li>
-<li>找到主题配置文件<code>_config.yml</code>。在<code>meun</code>中加入<code>分类: /categories</code></li>
-<li>保存</li>
-</ol>
-</blockquote>
-<p>上述操作做完之后，查看效果。发现文章里面是有分类的显示</p>
-<p><img src="/2019/04/27/设置分类列表页/1.png" alt="分类显示"></p>
-<p>但是，在主页里面点击分类的连接，进入分类网页，没有任何显示。如下图红框处，最开始是没有任何显示的.</p>
-<p><img src="/2019/04/27/设置分类列表页/2.png" alt="2"></p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>网上查了大量文章，很多都只是说了配置问题，我是按配置正确操作的，但是就是解决不了。</p>
-<p>后来看到一篇文章，猜测出应该是这个ocean主题缺少对应的代码。</p>
-<p>参考链接：<a href="http://chensd.com/2016-06/hexo-theme-guide.html#分类列表页与分类文章列表页" target="_blank" rel="noopener">hexo主题开发指南-分类列表页与分类文章列表页</a></p>
-<blockquote>
-<p>分类列表页显示博客里的所有分类，分类文章列表页显示某个分类中的文章列表。</p>
-<p>Hexo 并没有专门分类列表页的模板，那该如何处理呢？一般是写在页面模板中，即 <code>layout/page.swig</code> 里，然后判断页面类型变量 <code>page.type</code>，如果是 <code>categories</code>，则显示分类列表页。再在博客里创建一个页面，指定其 <code>type</code> 为 <code>categories</code> </p>
-</blockquote>
-<p>ocean主题是用ejs写出来的。而这个链接里面给的是swig的代码。所以估计不能直接用</p>
-<p>定位了问题，接下来就好处理了。由于我暂时还不会写代码，所以只好找答案复制粘贴。</p>
-<p>参考链接：<a href="http://orzcss.com/posts/5a207d64/" target="_blank" rel="noopener">Hexo-创建分类（categories）和标签（tags）首页</a>，给出如下代码</p>
-<blockquote>
-<p>找到 <code>layout/_partial/article.ejs</code> </p>
-<p>然后找到 <code>&lt;div class=&quot;article-entry&quot; itemprop=&quot;articleBody&quot;&gt;</code> 这一行</p>
-<p>这个 div 里面的内容全部替换为：(注：再此处，我没有全部替换，而是补充接在原始文档内容后了)</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&gt; &lt;% if (page.type === "tags") &#123; %&gt;</span><br><span class="line">&gt; &lt;div class="tag-cloud"&gt;</span><br><span class="line">&gt; 	&lt;div class="tag-cloud-title"&gt;</span><br><span class="line">&gt; 	&lt;%- _p('counter.tag_cloud', site.tags.length) %&gt;</span><br><span class="line">&gt; 	&lt;/div&gt;</span><br><span class="line">&gt; </span><br><span class="line">&gt; 	&lt;div class="tag-cloud-tags"&gt;</span><br><span class="line">&gt; 	&lt;%- tagcloud(&#123;</span><br><span class="line">&gt; 		min_font: 12,</span><br><span class="line">&gt; 		max_font: 30,</span><br><span class="line">&gt; 		amount: 200,</span><br><span class="line">&gt; 		color: true,</span><br><span class="line">&gt; 		start_color: '#ccc',</span><br><span class="line">&gt; 		end_color: '#111'</span><br><span class="line">&gt; 		&#125;) %&gt;</span><br><span class="line">&gt; 	&lt;/div&gt;</span><br><span class="line">&gt; &lt;/div&gt;</span><br><span class="line">&gt; </span><br><span class="line">&gt; &lt;% &#125; else if (page.type === 'categories') &#123; %&gt;</span><br><span class="line">&gt; </span><br><span class="line">&gt; &lt;div class="category-all-page"&gt;</span><br><span class="line">&gt; 	&lt;div class="category-all-title"&gt;</span><br><span class="line">&gt; 	&lt;%- _p('counter.categories', site.categories.length) %&gt;</span><br><span class="line">&gt; 	&lt;/div&gt;</span><br><span class="line">&gt; 	</span><br><span class="line">&gt; 	&lt;div class="category-all"&gt;</span><br><span class="line">&gt; 	&lt;%- list_categories() %&gt;</span><br><span class="line">&gt; 	&lt;/div&gt;</span><br><span class="line">&gt; 	</span><br><span class="line">&gt; &lt;/div&gt;</span><br><span class="line">&gt; </span><br><span class="line">&gt; &lt;% &#125; else &#123; %&gt;</span><br><span class="line">&gt; </span><br><span class="line">&gt; 	&lt;% if (post.excerpt &amp;&amp; index)&#123; %&gt;		&lt;%- post.excerpt %&gt;</span><br><span class="line">&gt; 	&lt;% &#125; else &#123; %&gt;</span><br><span class="line">&gt; 		&lt;%- post.content %&gt;</span><br><span class="line">&gt; 	&lt;% &#125; %&gt;</span><br><span class="line">&gt; &lt;% &#125; %&gt;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>修改样式，如果觉得不好看，自己改喜欢的样式</p>
-<p>找到 <code>yilia/source/css/_partial/article.styl</code> 在最后面添加下面的 css 代码</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">/*tag-cloud*/</span></span><br><span class="line">&gt; <span class="selector-class">.tag-cloud</span> &#123;</span><br><span class="line">&gt;   text-align: center;</span><br><span class="line">&gt;   <span class="selector-tag">margin-top</span>: 50<span class="selector-tag">px</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; <span class="selector-class">.tag-cloud</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">&gt;   display: inline-block;</span><br><span class="line">&gt;   <span class="selector-tag">margin</span>: 10<span class="selector-tag">px</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; <span class="selector-class">.tag-cloud-title</span> &#123;</span><br><span class="line">&gt;   font-weight: 700;</span><br><span class="line">&gt;   <span class="selector-tag">font-size</span>: 24<span class="selector-tag">px</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; <span class="selector-class">.tag-cloud-tags</span> &#123;</span><br><span class="line">&gt;   margin-top: 15px;</span><br><span class="line">&gt;   <span class="selector-tag">a</span> &#123;</span><br><span class="line">&gt;     display: inline-block;</span><br><span class="line">&gt;     <span class="selector-tag">text-decoration</span>: <span class="selector-tag">none</span>;</span><br><span class="line">&gt;     <span class="selector-tag">font-weight</span>: <span class="selector-tag">normal</span>;</span><br><span class="line">&gt;     <span class="selector-tag">font-size</span>: 10<span class="selector-tag">px</span>;</span><br><span class="line">&gt;     <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;</span><br><span class="line">&gt;     <span class="selector-tag">line-height</span>: <span class="selector-tag">normal</span>;</span><br><span class="line">&gt;     <span class="selector-tag">padding</span>: 5<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> 10<span class="selector-tag">px</span>;</span><br><span class="line">&gt;     <span class="selector-tag">position</span>: <span class="selector-tag">relative</span>;</span><br><span class="line">&gt;     <span class="selector-tag">border-radius</span>: 0 5<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> 0;</span><br><span class="line">&gt;     <span class="selector-tag">font-family</span>: <span class="selector-tag">Menlo</span>, <span class="selector-tag">Monaco</span>, "<span class="selector-tag">Andale</span> <span class="selector-tag">Mono</span>", "<span class="selector-tag">lucida</span> <span class="selector-tag">console</span>", "<span class="selector-tag">Courier</span> <span class="selector-tag">New</span>", <span class="selector-tag">monospace</span>;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">&gt;       opacity: 0.8;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       content: " ";</span><br><span class="line">&gt;       <span class="selector-tag">width</span>: 0;</span><br><span class="line">&gt;       <span class="selector-tag">height</span>: 0;</span><br><span class="line">&gt;       <span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line">&gt;       <span class="selector-tag">top</span>: 0;</span><br><span class="line">&gt;       <span class="selector-tag">left</span>: <span class="selector-tag">-18px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">border</span>: 9<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-tag">transparent</span>;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">&gt;       content: " ";</span><br><span class="line">&gt;       <span class="selector-tag">width</span>: 4<span class="selector-tag">px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">height</span>: 4<span class="selector-tag">px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">background-color</span>: <span class="selector-id">#fff</span>;</span><br><span class="line">&gt;       <span class="selector-tag">border-radius</span>: 4<span class="selector-tag">px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">box-shadow</span>: 0 0 0 1<span class="selector-tag">px</span> <span class="selector-tag">rgba</span>(0, 0, 0, <span class="selector-class">.3</span>);</span><br><span class="line">&gt;       <span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line">&gt;       <span class="selector-tag">top</span>: 7<span class="selector-tag">px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">left</span>: 2<span class="selector-tag">px</span>;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color1</span> &#123;</span><br><span class="line">&gt;     background: #FF945C;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #FF945C;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color2</span> &#123;</span><br><span class="line">&gt;     background: #F5C7B7;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #F5C7B7;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color3</span> &#123;</span><br><span class="line">&gt;     background: #BA8F6C;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #BA8F6C;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color4</span> &#123;</span><br><span class="line">&gt;     background: #CFB7C4;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #CFB7C4;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color5</span> &#123;</span><br><span class="line">&gt;     background: #7B5D5F;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #7B5D5F;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment">/*category-all-page*/</span></span><br><span class="line">&gt; <span class="selector-class">.category-all-page</span> &#123;</span><br><span class="line">&gt;   margin-top: 50px;</span><br><span class="line">&gt;   <span class="selector-class">.category-all-title</span> &#123;</span><br><span class="line">&gt;     font-weight: 700;</span><br><span class="line">&gt;     <span class="selector-tag">font-size</span>: 24<span class="selector-tag">px</span>;</span><br><span class="line">&gt;     <span class="selector-tag">text-align</span>: <span class="selector-tag">center</span>;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-class">.category-list-item</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">&gt;     content: '';</span><br><span class="line">&gt;     <span class="selector-tag">clear</span>: <span class="selector-tag">both</span>;</span><br><span class="line">&gt;     <span class="selector-tag">display</span>: <span class="selector-tag">table</span>;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-class">.category-list-count</span> &#123;</span><br><span class="line">&gt;     float: right;</span><br><span class="line">&gt;     <span class="selector-tag">margin-left</span>: 5<span class="selector-tag">px</span>;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-class">.category-list-count</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;     content: '一共 ';</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-class">.category-list-count</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">&gt;     content: ' 篇文章';</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>通过上述操作，问题解决。不过显示出来的样式不是自己喜欢的那种。等以后自己学会编程，再回头过来修改吧～</p>
 
       
 
       
-
-          
+        <h1 id="使用github-hexo创建一个博客"><a href="#使用github-hexo创建一个博客" class="headerlink" title="使用github+hexo创建一个博客"></a>使用github+hexo创建一个博客</h1><p>github建库过程略</p>
+<p>在Windows系统下，要使用hexo需要先安装Nodejs以及Git</p>
+<h2 id="1-安装Nodejs"><a href="#1-安装Nodejs" class="headerlink" title="1.安装Nodejs"></a>1.安装Nodejs</h2><p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Nodejs下载地址</a>，下载之后，一路默认安装</p>
         
-          
-        </div>
-
+          <a class="article-more-link" href="/2019/04/25/使用github-hexo创建一个博客/">阅读全文</a>
+        
+      
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.github.io/2019/04/27/设置分类列表页/" data-id="ck0gs6j1f00107wvd80csayhm" class="article-share-link">分享</a>
+      <a data-url="https://dilidonglong.site/2019/04/25/使用github-hexo创建一个博客/" data-id="ck5cjlpji000iokvd82t5zdq0"
+         class="article-share-link">分享</a>
       
     </footer>
 
-  
+  </div>
 
   
 
@@ -641,17 +131,17 @@
       
   </article>
   
+
   
     <nav class="page-nav">
       
-      <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
+      <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
     </nav>
   
 </section>
 </div>
 
   <footer class="footer">
-  
   <div class="outer">
     <div class="float-right">
       <ul class="list-inline">
@@ -661,7 +151,7 @@
 </ul>
     </div>
     <ul class="list-inline">
-      <li>&copy; 2019 望伊如西の博客</li>
+      <li>&copy; 2020 望伊如西の博客</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
     </ul>
@@ -669,9 +159,10 @@
 </footer>
 
 </main>
-<aside class="sidebar">
-  <button class="navbar-toggle"></button>
 
+  <aside class="sidebar">
+    
+    <button class="navbar-toggle"></button>
 <nav class="navbar">
   
     <div class="logo">
@@ -685,7 +176,7 @@
       </li>
     
       <li class="nav-item">
-        <a class="nav-item-link" href="/categories">分类</a>
+        <a class="nav-item-link" href="/archives">归档</a>
       </li>
     
       <li class="nav-item">
@@ -693,11 +184,11 @@
       </li>
     
       <li class="nav-item">
-        <a class="nav-item-link" href="/about">关于</a>
+        <a class="nav-item-link" href="/categories">分类</a>
       </li>
     
       <li class="nav-item">
-        <a class="nav-item-link" href="/archives">归档</a>
+        <a class="nav-item-link" href="/about">关于</a>
       </li>
     
     <li class="nav-item">
@@ -708,14 +199,13 @@
     </li>
   </ul>
 </nav>
-
 <nav class="navbar navbar-bottom">
   <ul class="nav">
-      <li class="nav-item">
-          <div class="totop" id="totop">
-    <i class="fe fe-rocket"></i>
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
 </div>
-      </li>
+    </li>
     <li class="nav-item">
       
         <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
@@ -725,29 +215,22 @@
     </li>
   </ul>
 </nav>
-
 <div class="search-form-wrap">
   <div class="local-search local-search-plugin">
   <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
   <div id="local-search-result" class="local-search-result"></div>
 </div>
 </div>
-</aside>
-<script src="/js/jquery-2.0.3.min.js"></script>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
 <script src="/js/lazyload.min.js"></script>
 <script src="/js/busuanzi-2.3.pure.min.js"></script>
-
 
   <script src="/fancybox/jquery.fancybox.min.js"></script>
 
 
 
-
-
-
-  <script src="/js/search.js"></script>
-
-
 <script src="/js/ocean.js"></script>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 </html>
