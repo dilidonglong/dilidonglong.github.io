@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.site/"/>
-  <updated>2020-04-10T16:52:50.657Z</updated>
+  <updated>2020-05-13T15:15:30.055Z</updated>
   <id>https://dilidonglong.site/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>凯特尼克攻击实验</title>
+    <link href="https://dilidonglong.site/2020/05/13/%E7%B1%B3%E7%89%B9%E5%B0%BC%E5%85%8B%E6%94%BB%E5%87%BB%E5%AE%9E%E9%AA%8C/"/>
+    <id>https://dilidonglong.site/2020/05/13/米特尼克攻击实验/</id>
+    <published>2020-05-13T15:06:30.000Z</published>
+    <updated>2020-05-13T15:15:30.055Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://seedsecuritylabs.org/Labs_16.04/PDF/Mitnick_Attack.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;官方原文档&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;The-Mitnick-Attack-Lab&quot;&gt;&lt;a href=&quot;#The-Mitnick-Attack-Lab&quot; class=&quot;headerlink&quot; title=&quot;The Mitnick Attack Lab&quot;&gt;&lt;/a&gt;The Mitnick Attack Lab&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;米特尼克攻击实验&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1-Overview（概览）&quot;&gt;&lt;a href=&quot;#1-Overview（概览）&quot; class=&quot;headerlink&quot; title=&quot;1.Overview（概览）&quot;&gt;&lt;/a&gt;1.Overview（概览）&lt;/h2&gt;&lt;p&gt;Kevin Mitnick is probably one of the most well-known hackers in USA. He was on FBI’s wanted list of criminals（犯罪分子）. While on the run, he became interested in hacking cellular（细胞） phone networks, and was in need for specialized software that could help him do that. That led him to Tsutomu Shimomura, a researcher working at the San Diego Supercomputer Center, who was one of the leading researchers on the security of cellular phone networks. He had the code that Mitnick wanted.&lt;/p&gt;
+&lt;p&gt;凯文·米特尼克可能是美国最为著名的黑客之一，他的名字被列入联邦调查局的通缉犯名单中。在他逃跑期间，他对入侵手机网络产生了兴趣，并且他需要一个特殊的软件以帮助他来完成这些工作。这让他找到了下村努（日裔美籍的电脑安全专家、计算物理学专家，2008年诺贝尔化学奖得主下村修的儿子），一名工作于圣地亚哥超级计算中心的研究员，他是在移动手机网络安全的领先研究员之一。他拥有米特尼克所想要的代码。&lt;/p&gt;
+&lt;p&gt;In 1994, Mitnick successfully launched（发射，开展） an attack on Shimomura’s computer, by exploiting（利用） the vulnerabilities（Vulnerability漏洞） in the TCP protocol and the trusted relationship between two of Shimomura’s computers. The attack &lt;em&gt;triggered a dramatic（戏剧性地） showdown&lt;/em&gt;（引发了一场激烈的决斗） between the two people, and it eventually（终究） led to the arrest of Mitnick. The showdown was turned into books and Hollywood movies later. The attack is now known as the Mitnick attack, which is a special type of TCP session hijacking（劫持）.&lt;/p&gt;
+&lt;p&gt;1994年，米特尼克利用TCP协议中的漏洞以及下村努的两台计算机之间的信任关系，成功在下村努的电脑上发起了攻击。这次攻击引发了两个人之间的激烈对决，最终导致米特尼克被捕。这次对决之后被载入书籍和好莱坞电影中。这次攻击现在被称为米特尼克攻击，是TCP会话劫持的一种特殊类型。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="SEED Labs" scheme="https://dilidonglong.site/categories/SEED-Labs/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>离线服务器搭建</title>
@@ -715,28 +741,6 @@
     
     
       <category term="实战" scheme="https://dilidonglong.site/categories/%E5%AE%9E%E6%88%98/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>英语名词</title>
-    <link href="https://dilidonglong.site/2019/05/06/%E8%8B%B1%E8%AF%AD%E5%90%8D%E8%AF%8D/"/>
-    <id>https://dilidonglong.site/2019/05/06/英语名词/</id>
-    <published>2019-05-06T14:57:04.000Z</published>
-    <updated>2019-09-15T15:03:55.705Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;英语名词&quot;&gt;&lt;a href=&quot;#英语名词&quot; class=&quot;headerlink&quot; title=&quot;英语名词&quot;&gt;&lt;/a&gt;英语名词&lt;/h1&gt;&lt;h2 id=&quot;1-名词简介&quot;&gt;&lt;a href=&quot;#1-名词简介&quot; class=&quot;headerlink&quot; title=&quot;1.名词简介&quot;&gt;&lt;/a&gt;1.名词简介&lt;/h2&gt;&lt;p&gt;名词是&lt;strong&gt;人&lt;/strong&gt;（people）、&lt;strong&gt;地&lt;/strong&gt;（places）、&lt;strong&gt;事&lt;/strong&gt;（things）和&lt;strong&gt;想法&lt;/strong&gt;（ideas）&lt;/p&gt;
-&lt;h3 id=&quot;1-1单复数名词singular-and-plural-nouns&quot;&gt;&lt;a href=&quot;#1-1单复数名词singular-and-plural-nouns&quot; class=&quot;headerlink&quot; title=&quot;1.1单复数名词singular  and  plural  nouns&quot;&gt;&lt;/a&gt;1.1单复数名词singular  and  plural  nouns&lt;/h3&gt;&lt;p&gt;单数名词只包含名词本身，只有一个事物&lt;/p&gt;
-&lt;p&gt;复数名词意味着有更多（more），即一个以上的事物&lt;/p&gt;
-&lt;p&gt;大部分名词由单数变成复数都是有规律的（即直接在名词后面+s）。但是也有部分名词的变化没有规律&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="英语" scheme="https://dilidonglong.site/categories/%E8%8B%B1%E8%AF%AD/"/>
     
     
   </entry>
