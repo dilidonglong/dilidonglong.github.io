@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.site/"/>
-  <updated>2020-05-13T15:37:41.027Z</updated>
+  <updated>2020-05-16T04:32:45.956Z</updated>
   <id>https://dilidonglong.site/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>协议躲喵喵</title>
+    <link href="https://dilidonglong.site/2020/05/16/%E5%8D%8F%E8%AE%AE%E8%BA%B2%E5%96%B5%E5%96%B5/"/>
+    <id>https://dilidonglong.site/2020/05/16/协议躲喵喵/</id>
+    <published>2020-05-16T03:54:20.000Z</published>
+    <updated>2020-05-16T04:32:45.956Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1.概述&quot;&gt;&lt;/a&gt;1.概述&lt;/h2&gt;&lt;p&gt;本次躲喵喵使用websocket+tls+web方式。我们先要搭建一个网站，而V2Ray客户端访问网站的特定路径时能实现科学飞飞飞。在浏览器上打开网页时会显示bad request，当然也可以搭建一个简单网站。&lt;/p&gt;
+&lt;p&gt;前期需要准备的内容如下：&lt;/p&gt;
+&lt;p&gt;1.&lt;a href=&quot;[https://dilidonglong.site/%2F2019%2F09%2F27%2F%E4%BD%BF%E7%94%A8CDN%E5%8A%A0%E9%80%9F%E5%8D%9A%E5%AE%A2%E6%89%93%E5%BC%80%E9%80%9F%E5%BA%A6%EF%BC%88Cloudflare%EF%BC%89%2F](https://dilidonglong.site/%2F2019%2F09%2F27%2F使用CDN加速博客打开速度（Cloudflare）%2F)&quot;&gt;域名与CDN&lt;/a&gt;，由于使用了cloudflare，所以需要在cloudflare上做A记录。&lt;/p&gt;
+&lt;p&gt;2.服务器上开启BBR&lt;/p&gt;
+&lt;p&gt;3.&lt;a href=&quot;[https://dilidonglong.site/%2F2019%2F09%2F25%2F%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%2F#3-V2Ray-%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2](https://dilidonglong.site/%2F2019%2F09%2F25%2F科学上网%2F#3-V2Ray-简单部署)&quot;&gt;服务器上搭建了V2Ray&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="小技巧" scheme="https://dilidonglong.site/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>米特尼克攻击实验</title>
@@ -335,7 +358,7 @@
     <link href="https://dilidonglong.site/2019/09/25/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
     <id>https://dilidonglong.site/2019/09/25/科学上网/</id>
     <published>2019-09-25T14:21:48.000Z</published>
-    <updated>2020-05-16T02:33:46.566Z</updated>
+    <updated>2020-05-16T04:29:29.889Z</updated>
     
     <summary type="html">
     
@@ -716,31 +739,6 @@
     
     
       <category term="收录文章" scheme="https://dilidonglong.site/categories/%E6%94%B6%E5%BD%95%E6%96%87%E7%AB%A0/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>访问X友软件卡顿</title>
-    <link href="https://dilidonglong.site/2019/06/11/%E8%AE%BF%E9%97%AEX%E5%8F%8B%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF/"/>
-    <id>https://dilidonglong.site/2019/06/11/访问X友软件卡顿/</id>
-    <published>2019-06-11T14:23:27.000Z</published>
-    <updated>2019-09-15T15:02:53.973Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;2017年应用访问卡慢分析&quot;&gt;&lt;a href=&quot;#2017年应用访问卡慢分析&quot; class=&quot;headerlink&quot; title=&quot;2017年应用访问卡慢分析&quot;&gt;&lt;/a&gt;2017年应用访问卡慢分析&lt;/h1&gt;&lt;h2 id=&quot;1-基本情况：&quot;&gt;&lt;a href=&quot;#1-基本情况：&quot; class=&quot;headerlink&quot; title=&quot;1.基本情况：&quot;&gt;&lt;/a&gt;1.基本情况：&lt;/h2&gt;&lt;p&gt;客户环境现象：&lt;/p&gt;
-&lt;p&gt;总部和分支使用sangfor vpn对接，分支内网电脑ping总部内网服务器，没有丢包，没有延时。但是在分支使用X友客户端访问总部的X友服务器会出现卡顿（即打开客户端后，有些内容显示出来的等待时间较长）&lt;/p&gt;
-&lt;p&gt;为了排错，客户那边基本没有其他流量在跑。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;客户内网拓扑：&lt;/p&gt;
-&lt;p&gt;总部和分部通过woc做vpn对接（没开加速），其中eth0口是内网口，pppoe和wan（eth2）口是外网口。分支woc的wan口（pppoe）地址是100.64.7.184，eth0（lan口）地址是10.37.11.254，lan口下连一台测试电脑10.37.11.180。总部单臂部署，X友服务器是10.37.1.77。分支pc通过X友软件和总部的X友服务器做数据交互。&lt;/p&gt;
-&lt;img src=&quot;/2019/06/11/访问X友软件卡顿/1.png&quot; title=&quot;This is an test image&quot;&gt;
-    
-    </summary>
-    
-    
-      <category term="实战" scheme="https://dilidonglong.site/categories/%E5%AE%9E%E6%88%98/"/>
     
     
   </entry>
