@@ -168,7 +168,7 @@
 <p>– permanent #永久生效，没有此参数重启后失效</p>
 </li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@ss-1 ~]<span class="comment"># firewall-cmd --zone=public --add-port=11234/tcp --permanent</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@ss-1 ~]<span class="comment"># firewall-cmd --zone=public --add-port=11234/tcp --permanent</span></span><br><span class="line">[root@ss-1 ~]<span class="comment"># firewall-cmd --zone=public --remove-port=11234/tcp --permanent</span></span><br><span class="line">[root@ss-1 ~]<span class="comment">#firewall-cmd --list-all                       //查看防火墙规则</span></span><br></pre></td></tr></table></figure>
 
 <br>
 
