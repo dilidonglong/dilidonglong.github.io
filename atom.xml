@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.site/"/>
-  <updated>2020-05-16T04:38:27.465Z</updated>
+  <updated>2020-06-03T14:45:46.263Z</updated>
   <id>https://dilidonglong.site/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Nginx无法启动问题解决</title>
+    <link href="https://dilidonglong.site/2020/06/03/Nginx%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
+    <id>https://dilidonglong.site/2020/06/03/Nginx无法启动问题解决/</id>
+    <published>2020-06-03T14:44:40.000Z</published>
+    <updated>2020-06-03T14:45:46.263Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;问题：&quot;&gt;&lt;a href=&quot;#问题：&quot; class=&quot;headerlink&quot; title=&quot;问题：&quot;&gt;&lt;/a&gt;问题：&lt;/h2&gt;&lt;p&gt;Nginx写好配置文件后，启动时报错&lt;/p&gt;
+&lt;p&gt;报错提示：&lt;/p&gt;
+&lt;figure class=&quot;highlight
+        
+      
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://dilidonglong.site/categories/linux/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>协议躲喵喵</title>
@@ -211,7 +238,7 @@
     <link href="https://dilidonglong.site/2019/11/14/%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98word%E8%AF%95%E9%A2%98/"/>
     <id>https://dilidonglong.site/2019/11/14/信息处理技术员word试题/</id>
     <published>2019-11-14T11:35:36.000Z</published>
-    <updated>2019-11-20T15:03:03.080Z</updated>
+    <updated>2020-06-03T14:43:45.594Z</updated>
     
     <summary type="html">
     
@@ -706,39 +733,6 @@
     
     
       <category term="实战" scheme="https://dilidonglong.site/categories/%E5%AE%9E%E6%88%98/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>并行/串行/异步传输</title>
-    <link href="https://dilidonglong.site/2019/06/12/%E5%B9%B6%E8%A1%8C-%E4%B8%B2%E8%A1%8C-%E5%BC%82%E6%AD%A5%E4%BC%A0%E8%BE%93/"/>
-    <id>https://dilidonglong.site/2019/06/12/并行-串行-异步传输/</id>
-    <published>2019-06-12T14:45:28.000Z</published>
-    <updated>2019-09-15T15:00:03.015Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;【转载】什么是并行传输、串行传输、异步传输？&quot;&gt;&lt;a href=&quot;#【转载】什么是并行传输、串行传输、异步传输？&quot; class=&quot;headerlink&quot; title=&quot;【转载】什么是并行传输、串行传输、异步传输？&quot;&gt;&lt;/a&gt;【转载】什么是并行传输、串行传输、异步传输？&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;文章收录自互联网，著作权归原作者所有，若有冒犯请联系我删除。&lt;/p&gt;
-&lt;p&gt;商业转载请联系作者获得授权，非商业转载请注明出处。&lt;/p&gt;
-&lt;p&gt;本人转载只作个人学习及后续查阅使用&lt;/p&gt;
-&lt;p&gt;该篇文档作者：航空航天迷&lt;/p&gt;
-&lt;p&gt;原文链接：&lt;a href=&quot;https://www.zhihu.com/question/29033993&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;什么是并行传输、串行传输、异步传输？&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;来源：知乎&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;img src=&quot;/2019/06/12/并行-串行-异步传输/1.jpg&quot; title=&quot;This is an test image&quot;&gt;
-
-
-
-&lt;p&gt;传输可以分为&lt;strong&gt;串行传输&lt;/strong&gt;和&lt;strong&gt;并行传输。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;串行传输&lt;/strong&gt;可分为&lt;strong&gt;异步传输、同步传输&lt;/strong&gt;和&lt;strong&gt;等时传输&lt;/strong&gt;。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="收录文章" scheme="https://dilidonglong.site/categories/%E6%94%B6%E5%BD%95%E6%96%87%E7%AB%A0/"/>
     
     
   </entry>

@@ -63,6 +63,109 @@
       
         
 
+<article id="post-科学上网" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/09/25/科学上网/">科学上网</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/09/25/科学上网/" class="article-date">
+  <time datetime="2019-09-25T14:21:48.000Z" itemprop="datePublished">2019-09-25</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>该篇文档为自己所做笔记，防止后续忘记如何部署。</p>
+<p>VPS的购买省略，可以参考该文档<a href="http://ibloodline.com/articles/2018/02/01/fuck-wall.html" target="_blank" rel="noopener">《科学上网完全指南》</a>。</p>
+<p>附带：</p>
+<p><a href="https://www.vps234.com/hostwinds-ip-blocked-fix-isp/" target="_blank" rel="noopener">美国VPS Hostwinds IP被屏蔽Ping不通解决新方法</a></p>
+<img src="/2019/09/25/科学上网/1.png" title="This is an test image">
+
+<br>
+
+<p>Shadowsocks和V2Ray任选其一</p>
+<br>
+
+<p>利用上述文档可以更换IP，注意记得更换IP后要重装系统并<strong>重启设备</strong></p>
+<p>同时在hostwinds中可以创建快照。恢复快照是在重装系统中，选择之前的快照恢复即可，同时记得做完上述操作后要重启设备</p>
+<p>同时重装过系统后，密码可能需要修改，修改之后同样要重启设备</p>
+<h2 id="2-Shadowsocks部署"><a href="#2-Shadowsocks部署" class="headerlink" title="2.Shadowsocks部署"></a>2.Shadowsocks部署</h2><h3 id="2-1-服务器部署"><a href="#2-1-服务器部署" class="headerlink" title="2.1 服务器部署"></a>2.1 服务器部署</h3><ol>
+<li>命令行中，输入以下命令，并回车。直接复制即可。这一步是下载安装执行脚本到本地目录下</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>给下载后的脚本添加可执行权限</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x shadowsocks.sh</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>执行该脚本，并把标准输出和错误输出放到shadowsocks.log日志中。</p>
+<p>输入以下命令执行的过程中，会提示你输入<strong>密码、端口和加密方式</strong></p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其他常用命令：</p>
+<p>启动：<code>/etc/init.d/shadowsocks start</code> </p>
+<p>停止：<code>/etc/init.d/shadowsocks stop</code> </p>
+<p>重启：<code>/etc/init.d/shadowsocks restart</code> </p>
+<p>状态：<code>/etc/init.d/shadowsocks status</code></p>
+</blockquote>
+        
+          <a class="article-more-link" href="/2019/09/25/科学上网/">阅读全文</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.site/2019/09/25/科学上网/" data-id="ckazgr3lq001gacvdm12bb3va"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
 <article id="post-数据包的嗅探与欺骗实验" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
   
   <div class="article-inner">
@@ -123,7 +226,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/09/17/数据包的嗅探与欺骗实验/" data-id="cka94xawy000zjgvd6x94widz"
+      <a data-url="https://dilidonglong.site/2019/09/17/数据包的嗅探与欺骗实验/" data-id="ckazgr3lj0014acvdlmpr6abb"
          class="article-share-link">分享</a>
       
     </footer>
@@ -191,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/" data-id="cka94xawj000qjgvdo8ryocjw"
+      <a data-url="https://dilidonglong.site/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/" data-id="ckazgr3l5000tacvdfwj1hgoz"
          class="article-share-link">分享</a>
       
     </footer>
@@ -280,7 +383,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/08/11/markdown语法/" data-id="cka94xavo0007jgvdrpil5408"
+      <a data-url="https://dilidonglong.site/2019/08/11/markdown语法/" data-id="ckazgr3jl000bacvd8xgmkceq"
          class="article-share-link">分享</a>
       
     </footer>
@@ -350,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/08/11/grep-正则表达式-awk-sed/" data-id="cka94xavq0008jgvdvznklnj1"
+      <a data-url="https://dilidonglong.site/2019/08/11/grep-正则表达式-awk-sed/" data-id="ckazgr3hg0009acvdp3ygtmug"
          class="article-share-link">分享</a>
       
     </footer>
@@ -420,7 +523,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/08/11/iptables笔记/" data-id="cka94xavm0005jgvdxd6yikbf"
+      <a data-url="https://dilidonglong.site/2019/08/11/iptables笔记/" data-id="ckazgr3jm000cacvd6m1tb11q"
          class="article-share-link">分享</a>
       
     </footer>
@@ -530,7 +633,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/07/18/新东方赵丽托福英语词汇8000-01/" data-id="cka94xax70014jgvduiszz8y5"
+      <a data-url="https://dilidonglong.site/2019/07/18/新东方赵丽托福英语词汇8000-01/" data-id="ckazgr3lo001dacvd4115f7ep"
          class="article-share-link">分享</a>
       
     </footer>
@@ -624,7 +727,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/07/15/新东方赵丽托福英语词汇8000-00/" data-id="cka94xax20011jgvd5nbqzomy"
+      <a data-url="https://dilidonglong.site/2019/07/15/新东方赵丽托福英语词汇8000-00/" data-id="ckazgr3lf0012acvdce3dm1lq"
          class="article-share-link">分享</a>
       
     </footer>
@@ -701,7 +804,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/07/07/远程桌面访问不了/" data-id="cka94xayw0020jgvds0wd33i8"
+      <a data-url="https://dilidonglong.site/2019/07/07/远程桌面访问不了/" data-id="ckazgr3m1001tacvdpyzv8dml"
          class="article-share-link">分享</a>
       
     </footer>
@@ -769,87 +872,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/06/13/视频会议卡顿/" data-id="cka94xay1001jjgvd6bpzfy5q"
-         class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        
-
-<article id="post-并行-串行-异步传输" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/06/12/并行-串行-异步传输/">并行/串行/异步传输</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/06/12/并行-串行-异步传输/" class="article-date">
-  <time datetime="2019-06-12T14:45:28.000Z" itemprop="datePublished">2019-06-12</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/收录文章/">收录文章</a>
-  </div>
-
-      </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-        <h1 id="【转载】什么是并行传输、串行传输、异步传输？"><a href="#【转载】什么是并行传输、串行传输、异步传输？" class="headerlink" title="【转载】什么是并行传输、串行传输、异步传输？"></a>【转载】什么是并行传输、串行传输、异步传输？</h1><blockquote>
-<p>文章收录自互联网，著作权归原作者所有，若有冒犯请联系我删除。</p>
-<p>商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>本人转载只作个人学习及后续查阅使用</p>
-<p>该篇文档作者：航空航天迷</p>
-<p>原文链接：<a href="https://www.zhihu.com/question/29033993" target="_blank" rel="noopener">什么是并行传输、串行传输、异步传输？</a></p>
-<p>来源：知乎</p>
-</blockquote>
-<hr>
-<img src="/2019/06/12/并行-串行-异步传输/1.jpg" title="This is an test image">
-
-
-
-<p>传输可以分为<strong>串行传输</strong>和<strong>并行传输。</strong></p>
-<p><strong>串行传输</strong>可分为<strong>异步传输、同步传输</strong>和<strong>等时传输</strong>。</p>
-        
-          <a class="article-more-link" href="/2019/06/12/并行-串行-异步传输/">阅读全文</a>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/06/12/并行-串行-异步传输/" data-id="cka94xawl000rjgvd34j8q3h9"
+      <a data-url="https://dilidonglong.site/2019/06/13/视频会议卡顿/" data-id="ckazgr3m2001vacvd4pgyxwvq"
          class="article-share-link">分享</a>
       
     </footer>

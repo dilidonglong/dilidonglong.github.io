@@ -63,6 +63,85 @@
       
         
 
+<article id="post-Nginx无法启动问题解决" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/06/03/Nginx无法启动问题解决/">Nginx无法启动问题解决</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2020/06/03/Nginx无法启动问题解决/" class="article-date">
+  <time datetime="2020-06-03T14:44:40.000Z" itemprop="datePublished">2020-06-03</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h2><p>Nginx写好配置文件后，启动时报错</p>
+<p>报错提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Job for nginx.service failed because the control process exited with error code. See &quot;systemctl status nginx.service&quot; and &quot;journalctl -xe&quot; for details.</span><br></pre></td></tr></table></figure>
+
+<h2 id="问题出现原因："><a href="#问题出现原因：" class="headerlink" title="问题出现原因："></a>问题出现原因：</h2><p>创建配置文件是在/etc/nginx/conf.d/这个目录下，文件名是：default.conf，使用/etc/init.d/nginx reload 命令时提示的错误</p>
+<p>配置文件内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen	443 ssl;</span><br><span class="line">    server_name  xxx.dilidonglong.site;                  #修改为自己的域名</span><br><span class="line">    ssl_certificate ssl/xxx.dilidonglong.site.crt;       #修改为自己的域名</span><br><span class="line">    ssl_certificate_key ssl/xxx.dilidonglong.site.key;   #修改为自己的域名</span><br><span class="line"> </span><br><span class="line">    location /yuuka &#123;                         #修改为你自己的路径，需要和V2RAY里面的路径一样</span><br><span class="line">        proxy_redirect off;</span><br><span class="line">        proxy_pass http://127.0.0.1:2107;       #修改为你自己的v2ray服务器端口</span><br><span class="line">        proxy_http_version 1.1;</span><br><span class="line">        proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">        proxy_set_header Connection &quot;upgrade&quot;;</span><br><span class="line">        proxy_set_header Host $http_host;</span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_connect_timeout 60s;</span><br><span class="line">        proxy_read_timeout 86400s;</span><br><span class="line">        proxy_send_timeout 60s;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解答经过："><a href="#解答经过：" class="headerlink" title="解答经过："></a>解答经过：</h2><p>​    网上说这种错误一般都是目录不存在或者权限不足，所以直接执行下面两条命令即可，结果发现根本行不通。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@typecodes ~]<span class="comment"># cd /var/tmp/</span></span><br><span class="line">[root@typecodes ~]<span class="comment"># mkdir -p /var/tmp/nginx/&#123;client,proxy,fastcgi,uwsgi,scgi&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="最终解决办法："><a href="#最终解决办法：" class="headerlink" title="最终解决办法："></a>最终解决办法：</h2><p>​    1. 使用以下命令，得到错误提示如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-u4x ~]<span class="comment"># systemctl status nginx.service</span></span><br><span class="line">● nginx.service - The nginx HTTP and reverse proxy server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: failed (Result: <span class="built_in">exit</span>-code) since Tue 2020-06-02 15:22:46 CST; 1min 13s ago</span><br><span class="line">  Process: 14014 ExecStartPre=/usr/sbin/nginx -t (code=exited, status=1/FAILURE)</span><br><span class="line">  Process: 14012 ExecStartPre=/usr/bin/rm -f /run/nginx.pid (code=exited, status=0/SUCCESS)</span><br><span class="line"> Main PID: 9181 (code=exited, status=0/SUCCESS)</span><br><span class="line"></span><br><span class="line">Jun 02 15:22:46 ecs-u4x systemd[1]: Starting The nginx HTTP and reverse proxy server...</span><br><span class="line">Jun 02 15:22:46 ecs-u4x nginx[14014]: nginx: [emerg] cannot load certificate <span class="string">"/etc/nginx/ssl/xxx.dili...file)</span></span><br><span class="line"><span class="string">Jun 02 15:22:46 ecs-u4x nginx[14014]: nginx: configuration file /etc/nginx/nginx.conf test failed</span></span><br><span class="line"><span class="string">Jun 02 15:22:46 ecs-u4x systemd[1]: nginx.service: control process exited, code=exited status=1</span></span><br><span class="line"><span class="string">Jun 02 15:22:46 ecs-u4x systemd[1]: Failed to start The nginx HTTP and reverse proxy server.</span></span><br><span class="line"><span class="string">Jun 02 15:22:46 ecs-u4x systemd[1]: Unit nginx.service entered failed state.</span></span><br><span class="line"><span class="string">Jun 02 15:22:46 ecs-u4x systemd[1]: nginx.service failed.</span></span><br><span class="line"><span class="string">Hint: Some lines were ellipsized, use -l to show in full.</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>2. 根据错误提示发现`Jun 02 15:22:46 ecs-u4x nginx[14014]: nginx: [emerg] cannot load certificate &quot;/etc/nginx/ssl/xxx.dili...file)`，这表明无法加载/etc/nginx/ssl/xxx……这个证书文件。于是查看了下/etc/nginx/ssl/目录下的文件，发现只有dilidonglong开头的证书文件，而没有xxx.dilidonglong开头的证书文件。
+   3. 于是把default.conf配置文件中的域名里的xxx.dilidonglong全部删掉`xxx.`。然后再重启Nginx服务，问题解决。</code></pre><h2 id="反思："><a href="#反思：" class="headerlink" title="反思："></a>反思：</h2><p>​    <strong>多看英文，多看错误提示！</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.site/2020/06/03/Nginx无法启动问题解决/" data-id="ckazgr3gx0000acvd734d7y5z"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
 <article id="post-协议躲喵喵" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
   
   <div class="article-inner">
@@ -115,7 +194,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2020/05/16/协议躲喵喵/" data-id="cka94xawc000mjgvdrw0r9yqy"
+      <a data-url="https://dilidonglong.site/2020/05/16/协议躲喵喵/" data-id="ckazgr3l9000xacvdvuonxm0f"
          class="article-share-link">分享</a>
       
     </footer>
@@ -188,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2020/05/13/米特尼克攻击实验/" data-id="cka94xay9001njgvd4fw6n9kr"
+      <a data-url="https://dilidonglong.site/2020/05/13/米特尼克攻击实验/" data-id="ckazgr3lt001kacvd9t7xkoaa"
          class="article-share-link">分享</a>
       
     </footer>
@@ -265,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2020/01/13/离线服务器搭建/" data-id="cka94xaxm001bjgvd2t1p5lh2"
+      <a data-url="https://dilidonglong.site/2020/01/13/离线服务器搭建/" data-id="ckazgr3ls001iacvd7eiasr38"
          class="article-share-link">分享</a>
       
     </footer>
@@ -423,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/11/20/信息处理技术员表格处理真题/" data-id="cka94xaw9000jjgvd0golhv21"
+      <a data-url="https://dilidonglong.site/2019/11/20/信息处理技术员表格处理真题/" data-id="ckazgr3l7000vacvdt193x846"
          class="article-share-link">分享</a>
       
     </footer>
@@ -499,7 +578,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/11/14/信息处理技术员word试题/" data-id="cka94xaw6000ijgvdr8aoh38b"
+      <a data-url="https://dilidonglong.site/2019/11/14/信息处理技术员word试题/" data-id="ckazgr3jt000iacvd56gy5p1z"
          class="article-share-link">分享</a>
       
     </footer>
@@ -581,7 +660,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/10/31/Linux防火墙探索实验/" data-id="cka94xavf0000jgvdg4nekw5v"
+      <a data-url="https://dilidonglong.site/2019/10/31/Linux防火墙探索实验/" data-id="ckazgr3h00001acvdodh319pw"
          class="article-share-link">分享</a>
       
     </footer>
@@ -662,7 +741,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/10/23/电脑开启系统无线功能/" data-id="cka94xaxd0016jgvdp8a79epd"
+      <a data-url="https://dilidonglong.site/2019/10/23/电脑开启系统无线功能/" data-id="ckazgr3lm0019acvd8qwuoz6d"
          class="article-share-link">分享</a>
       
     </footer>
@@ -738,7 +817,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/10/07/ARP缓存中毒攻击实验/" data-id="cka94xavj0002jgvd5tjvysyv"
+      <a data-url="https://dilidonglong.site/2019/10/07/ARP缓存中毒攻击实验/" data-id="ckazgr3h40003acvdm3uf4vcq"
          class="article-share-link">分享</a>
       
     </footer>
@@ -805,110 +884,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/09/27/使用CDN加速博客打开速度（Cloudflare）/" data-id="cka94xaw0000ejgvdlhm3t6wy"
-         class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        
-
-<article id="post-科学上网" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/09/25/科学上网/">科学上网</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/09/25/科学上网/" class="article-date">
-  <time datetime="2019-09-25T14:21:48.000Z" itemprop="datePublished">2019-09-25</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
-  </div>
-
-      </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-        <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>该篇文档为自己所做笔记，防止后续忘记如何部署。</p>
-<p>VPS的购买省略，可以参考该文档<a href="http://ibloodline.com/articles/2018/02/01/fuck-wall.html" target="_blank" rel="noopener">《科学上网完全指南》</a>。</p>
-<p>附带：</p>
-<p><a href="https://www.vps234.com/hostwinds-ip-blocked-fix-isp/" target="_blank" rel="noopener">美国VPS Hostwinds IP被屏蔽Ping不通解决新方法</a></p>
-<img src="/2019/09/25/科学上网/1.png" title="This is an test image">
-
-<br>
-
-<p>Shadowsocks和V2Ray任选其一</p>
-<br>
-
-<p>利用上述文档可以更换IP，注意记得更换IP后要重装系统并<strong>重启设备</strong></p>
-<p>同时在hostwinds中可以创建快照。恢复快照是在重装系统中，选择之前的快照恢复即可，同时记得做完上述操作后要重启设备</p>
-<p>同时重装过系统后，密码可能需要修改，修改之后同样要重启设备</p>
-<h2 id="2-Shadowsocks部署"><a href="#2-Shadowsocks部署" class="headerlink" title="2.Shadowsocks部署"></a>2.Shadowsocks部署</h2><h3 id="2-1-服务器部署"><a href="#2-1-服务器部署" class="headerlink" title="2.1 服务器部署"></a>2.1 服务器部署</h3><ol>
-<li>命令行中，输入以下命令，并回车。直接复制即可。这一步是下载安装执行脚本到本地目录下</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>给下载后的脚本添加可执行权限</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x shadowsocks.sh</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>执行该脚本，并把标准输出和错误输出放到shadowsocks.log日志中。</p>
-<p>输入以下命令执行的过程中，会提示你输入<strong>密码、端口和加密方式</strong></p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其他常用命令：</p>
-<p>启动：<code>/etc/init.d/shadowsocks start</code> </p>
-<p>停止：<code>/etc/init.d/shadowsocks stop</code> </p>
-<p>重启：<code>/etc/init.d/shadowsocks restart</code> </p>
-<p>状态：<code>/etc/init.d/shadowsocks status</code></p>
-</blockquote>
-        
-          <a class="article-more-link" href="/2019/09/25/科学上网/">阅读全文</a>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.site/2019/09/25/科学上网/" data-id="cka94xaxs001ejgvdr0nnlbje"
+      <a data-url="https://dilidonglong.site/2019/09/27/使用CDN加速博客打开速度（Cloudflare）/" data-id="ckazgr3ju000kacvdagy2sstx"
          class="article-share-link">分享</a>
       
     </footer>
