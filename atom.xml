@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.site/"/>
-  <updated>2020-06-03T15:27:50.419Z</updated>
+  <updated>2020-08-11T17:04:52.612Z</updated>
   <id>https://dilidonglong.site/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>编码</title>
+    <link href="https://dilidonglong.site/2020/08/12/%E7%BC%96%E7%A0%81/"/>
+    <id>https://dilidonglong.site/2020/08/12/编码/</id>
+    <published>2020-08-11T16:35:02.000Z</published>
+    <updated>2020-08-11T17:04:52.612Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;通信线路的编码就像商品的包装，商品包装的目的是使商品更适合运输，在运输过程中不受损，同样，线路编码的目的就是使编码后的二进制数据更适合线路传输。&lt;/p&gt;
+&lt;p&gt;物理层的编码可以分为两类。&lt;br&gt;一类是和物理介质相关，常用的光接口码型有NRZ、NRZI；电接口码型有HDB3、BnZS、CMI、Manchester、MLT-3。&lt;br&gt;另一类和物理介质无关，比如百兆以太网用的4B/5B编码，千兆以太网用的8B/10B编码，万兆以太网用的64B/66B编码。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Nginx无法启动问题解决</title>
@@ -705,27 +725,6 @@
 &lt;p&gt;总部有三层环境，AC透明模式部署，分支二层环境，就一个网段&lt;/p&gt;
 &lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;&lt;p&gt;数据包是总部访问分支访问不了的时候抓取的数据包，要求通过数据包，分析问题原因。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="实战" scheme="https://dilidonglong.site/categories/%E5%AE%9E%E6%88%98/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>视频会议卡顿</title>
-    <link href="https://dilidonglong.site/2019/06/13/%E8%A7%86%E9%A2%91%E4%BC%9A%E8%AE%AE%E5%8D%A1%E9%A1%BF/"/>
-    <id>https://dilidonglong.site/2019/06/13/视频会议卡顿/</id>
-    <published>2019-06-13T14:29:26.000Z</published>
-    <updated>2019-09-15T14:32:14.187Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;视频会议卡顿——用wireshark定位问题&quot;&gt;&lt;a href=&quot;#视频会议卡顿——用wireshark定位问题&quot; class=&quot;headerlink&quot; title=&quot;视频会议卡顿——用wireshark定位问题&quot;&gt;&lt;/a&gt;视频会议卡顿——用wireshark定位问题&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;基础知识&lt;/strong&gt;（TCP和UDP的比较）&lt;/p&gt;
-&lt;p&gt;TCP报文和UDP报文如下&lt;/p&gt;
-&lt;img src=&quot;/2019/06/13/视频会议卡顿/1.png&quot; title=&quot;This is an test image&quot;&gt;
     
     </summary>
     
