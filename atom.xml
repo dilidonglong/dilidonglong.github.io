@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.site/"/>
-  <updated>2020-08-11T17:04:52.612Z</updated>
+  <updated>2020-08-19T15:18:57.496Z</updated>
   <id>https://dilidonglong.site/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>网站收集</title>
+    <link href="https://dilidonglong.site/2020/08/19/%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/"/>
+    <id>https://dilidonglong.site/2020/08/19/网站收集/</id>
+    <published>2020-08-19T15:03:26.000Z</published>
+    <updated>2020-08-19T15:18:57.496Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-网络基本功&quot;&gt;&lt;a href=&quot;#1-网络基本功&quot; class=&quot;headerlink&quot; title=&quot;1.网络基本功&quot;&gt;&lt;/a&gt;1.网络基本功&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/wkfvawl/p/12813103.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;计算机网络——TCP拥塞控制&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="网站收集" scheme="https://dilidonglong.site/categories/%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>编码</title>
@@ -700,36 +719,6 @@
     
     
       <category term="英语" scheme="https://dilidonglong.site/categories/%E8%8B%B1%E8%AF%AD/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>远程桌面访问不了</title>
-    <link href="https://dilidonglong.site/2019/07/07/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%AE%BF%E9%97%AE%E4%B8%8D%E4%BA%86/"/>
-    <id>https://dilidonglong.site/2019/07/07/远程桌面访问不了/</id>
-    <published>2019-07-07T08:08:47.000Z</published>
-    <updated>2019-09-15T14:36:22.026Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;远程桌面访问不了&quot;&gt;&lt;a href=&quot;#远程桌面访问不了&quot; class=&quot;headerlink&quot; title=&quot;远程桌面访问不了&quot;&gt;&lt;/a&gt;远程桌面访问不了&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;问题：总部PC去访问分支的服务器3389桌面，会出现不定时中断的问题&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;10.0.2.132为PC 10.16.2.200为远程桌面的服务器&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;拓扑环境&lt;/p&gt;
-&lt;img src=&quot;/2019/07/07/远程桌面访问不了/13.png&quot; title=&quot;This is an test image&quot;&gt;
-
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;总部有三层环境，AC透明模式部署，分支二层环境，就一个网段&lt;/p&gt;
-&lt;ol start=&quot;3&quot;&gt;
-&lt;li&gt;&lt;p&gt;数据包是总部访问分支访问不了的时候抓取的数据包，要求通过数据包，分析问题原因。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="实战" scheme="https://dilidonglong.site/categories/%E5%AE%9E%E6%88%98/"/>
     
     
   </entry>
