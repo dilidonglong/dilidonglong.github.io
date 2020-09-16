@@ -5,9 +5,9 @@
   <subtitle>精卫衔微木，将以填沧海</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://dilidonglong.site/"/>
+  <link href="https://dilidonglong.com/"/>
   <updated>2020-08-23T15:19:15.910Z</updated>
-  <id>https://dilidonglong.site/</id>
+  <id>https://dilidonglong.com/</id>
   
   <author>
     <name>John Doe</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>网站收集</title>
-    <link href="https://dilidonglong.site/2020/08/19/%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/"/>
-    <id>https://dilidonglong.site/2020/08/19/网站收集/</id>
+    <link href="https://dilidonglong.com/2020/08/19/%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/"/>
+    <id>https://dilidonglong.com/2020/08/19/网站收集/</id>
     <published>2020-08-19T15:03:26.000Z</published>
     <updated>2020-08-23T15:19:15.910Z</updated>
     
@@ -30,15 +30,15 @@
     </summary>
     
     
-      <category term="网站收集" scheme="https://dilidonglong.site/categories/%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/"/>
+      <category term="网站收集" scheme="https://dilidonglong.com/categories/%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/"/>
     
     
   </entry>
   
   <entry>
     <title>编码</title>
-    <link href="https://dilidonglong.site/2020/08/12/%E7%BC%96%E7%A0%81/"/>
-    <id>https://dilidonglong.site/2020/08/12/编码/</id>
+    <link href="https://dilidonglong.com/2020/08/12/%E7%BC%96%E7%A0%81/"/>
+    <id>https://dilidonglong.com/2020/08/12/编码/</id>
     <published>2020-08-11T16:35:02.000Z</published>
     <updated>2020-08-11T17:04:52.612Z</updated>
     
@@ -50,15 +50,15 @@
     </summary>
     
     
-      <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
+      <category term="软考" scheme="https://dilidonglong.com/categories/%E8%BD%AF%E8%80%83/"/>
     
     
   </entry>
   
   <entry>
     <title>Nginx无法启动问题解决</title>
-    <link href="https://dilidonglong.site/2020/06/03/Nginx%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
-    <id>https://dilidonglong.site/2020/06/03/Nginx无法启动问题解决/</id>
+    <link href="https://dilidonglong.com/2020/06/03/Nginx%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/"/>
+    <id>https://dilidonglong.com/2020/06/03/Nginx无法启动问题解决/</id>
     <published>2020-06-03T14:44:40.000Z</published>
     <updated>2020-06-03T15:27:50.419Z</updated>
     
@@ -75,15 +75,15 @@
     </summary>
     
     
-      <category term="linux" scheme="https://dilidonglong.site/categories/linux/"/>
+      <category term="linux" scheme="https://dilidonglong.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>协议躲喵喵</title>
-    <link href="https://dilidonglong.site/2020/05/16/%E5%8D%8F%E8%AE%AE%E8%BA%B2%E5%96%B5%E5%96%B5/"/>
-    <id>https://dilidonglong.site/2020/05/16/协议躲喵喵/</id>
+    <link href="https://dilidonglong.com/2020/05/16/%E5%8D%8F%E8%AE%AE%E8%BA%B2%E5%96%B5%E5%96%B5/"/>
+    <id>https://dilidonglong.com/2020/05/16/协议躲喵喵/</id>
     <published>2020-05-16T03:54:20.000Z</published>
     <updated>2020-05-16T04:38:27.465Z</updated>
     
@@ -98,15 +98,15 @@
     </summary>
     
     
-      <category term="小技巧" scheme="https://dilidonglong.site/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
   </entry>
   
   <entry>
     <title>米特尼克攻击实验</title>
-    <link href="https://dilidonglong.site/2020/05/13/%E7%B1%B3%E7%89%B9%E5%B0%BC%E5%85%8B%E6%94%BB%E5%87%BB%E5%AE%9E%E9%AA%8C/"/>
-    <id>https://dilidonglong.site/2020/05/13/米特尼克攻击实验/</id>
+    <link href="https://dilidonglong.com/2020/05/13/%E7%B1%B3%E7%89%B9%E5%B0%BC%E5%85%8B%E6%94%BB%E5%87%BB%E5%AE%9E%E9%AA%8C/"/>
+    <id>https://dilidonglong.com/2020/05/13/米特尼克攻击实验/</id>
     <published>2020-05-13T15:06:30.000Z</published>
     <updated>2020-05-13T15:37:41.027Z</updated>
     
@@ -124,15 +124,15 @@
     </summary>
     
     
-      <category term="SEED Labs" scheme="https://dilidonglong.site/categories/SEED-Labs/"/>
+      <category term="SEED Labs" scheme="https://dilidonglong.com/categories/SEED-Labs/"/>
     
     
   </entry>
   
   <entry>
     <title>离线服务器搭建</title>
-    <link href="https://dilidonglong.site/2020/01/13/%E7%A6%BB%E7%BA%BF%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/"/>
-    <id>https://dilidonglong.site/2020/01/13/离线服务器搭建/</id>
+    <link href="https://dilidonglong.com/2020/01/13/%E7%A6%BB%E7%BA%BF%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/"/>
+    <id>https://dilidonglong.com/2020/01/13/离线服务器搭建/</id>
     <published>2020-01-13T13:29:14.000Z</published>
     <updated>2020-04-10T16:52:50.657Z</updated>
     
@@ -154,15 +154,15 @@
     </summary>
     
     
-      <category term="小技巧" scheme="https://dilidonglong.site/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
   </entry>
   
   <entry>
     <title>信息处理技术员表格处理真题</title>
-    <link href="https://dilidonglong.site/2019/11/20/%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98%E8%A1%A8%E6%A0%BC%E5%A4%84%E7%90%86%E7%9C%9F%E9%A2%98/"/>
-    <id>https://dilidonglong.site/2019/11/20/信息处理技术员表格处理真题/</id>
+    <link href="https://dilidonglong.com/2019/11/20/%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98%E8%A1%A8%E6%A0%BC%E5%A4%84%E7%90%86%E7%9C%9F%E9%A2%98/"/>
+    <id>https://dilidonglong.com/2019/11/20/信息处理技术员表格处理真题/</id>
     <published>2019-11-20T15:01:29.000Z</published>
     <updated>2019-11-20T15:04:14.559Z</updated>
     
@@ -265,15 +265,15 @@
     </summary>
     
     
-      <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
+      <category term="软考" scheme="https://dilidonglong.com/categories/%E8%BD%AF%E8%80%83/"/>
     
     
   </entry>
   
   <entry>
     <title>信息处理技术员word试题</title>
-    <link href="https://dilidonglong.site/2019/11/14/%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98word%E8%AF%95%E9%A2%98/"/>
-    <id>https://dilidonglong.site/2019/11/14/信息处理技术员word试题/</id>
+    <link href="https://dilidonglong.com/2019/11/14/%E4%BF%A1%E6%81%AF%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF%E5%91%98word%E8%AF%95%E9%A2%98/"/>
+    <id>https://dilidonglong.com/2019/11/14/信息处理技术员word试题/</id>
     <published>2019-11-14T11:35:36.000Z</published>
     <updated>2020-06-03T14:43:45.594Z</updated>
     
@@ -294,15 +294,15 @@
     </summary>
     
     
-      <category term="软考" scheme="https://dilidonglong.site/categories/%E8%BD%AF%E8%80%83/"/>
+      <category term="软考" scheme="https://dilidonglong.com/categories/%E8%BD%AF%E8%80%83/"/>
     
     
   </entry>
   
   <entry>
     <title>Linux防火墙探索实验</title>
-    <link href="https://dilidonglong.site/2019/10/31/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E6%8E%A2%E7%B4%A2%E5%AE%9E%E9%AA%8C/"/>
-    <id>https://dilidonglong.site/2019/10/31/Linux防火墙探索实验/</id>
+    <link href="https://dilidonglong.com/2019/10/31/Linux%E9%98%B2%E7%81%AB%E5%A2%99%E6%8E%A2%E7%B4%A2%E5%AE%9E%E9%AA%8C/"/>
+    <id>https://dilidonglong.com/2019/10/31/Linux防火墙探索实验/</id>
     <published>2019-10-31T14:13:22.000Z</published>
     <updated>2019-11-12T14:30:14.518Z</updated>
     
@@ -329,15 +329,15 @@
     </summary>
     
     
-      <category term="SEED Labs" scheme="https://dilidonglong.site/categories/SEED-Labs/"/>
+      <category term="SEED Labs" scheme="https://dilidonglong.com/categories/SEED-Labs/"/>
     
     
   </entry>
   
   <entry>
     <title>电脑开启系统无线功能</title>
-    <link href="https://dilidonglong.site/2019/10/23/%E7%94%B5%E8%84%91%E5%BC%80%E5%90%AF%E7%B3%BB%E7%BB%9F%E6%97%A0%E7%BA%BF%E5%8A%9F%E8%83%BD/"/>
-    <id>https://dilidonglong.site/2019/10/23/电脑开启系统无线功能/</id>
+    <link href="https://dilidonglong.com/2019/10/23/%E7%94%B5%E8%84%91%E5%BC%80%E5%90%AF%E7%B3%BB%E7%BB%9F%E6%97%A0%E7%BA%BF%E5%8A%9F%E8%83%BD/"/>
+    <id>https://dilidonglong.com/2019/10/23/电脑开启系统无线功能/</id>
     <published>2019-10-23T15:16:44.000Z</published>
     <updated>2019-10-23T16:01:27.897Z</updated>
     
@@ -363,15 +363,15 @@
     </summary>
     
     
-      <category term="小技巧" scheme="https://dilidonglong.site/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
   </entry>
   
   <entry>
     <title>ARP缓存中毒攻击实验</title>
-    <link href="https://dilidonglong.site/2019/10/07/ARP%E7%BC%93%E5%AD%98%E4%B8%AD%E6%AF%92%E6%94%BB%E5%87%BB%E5%AE%9E%E9%AA%8C/"/>
-    <id>https://dilidonglong.site/2019/10/07/ARP缓存中毒攻击实验/</id>
+    <link href="https://dilidonglong.com/2019/10/07/ARP%E7%BC%93%E5%AD%98%E4%B8%AD%E6%AF%92%E6%94%BB%E5%87%BB%E5%AE%9E%E9%AA%8C/"/>
+    <id>https://dilidonglong.com/2019/10/07/ARP缓存中毒攻击实验/</id>
     <published>2019-10-07T12:14:47.000Z</published>
     <updated>2019-11-04T14:07:33.834Z</updated>
     
@@ -392,15 +392,15 @@
     </summary>
     
     
-      <category term="SEED Labs" scheme="https://dilidonglong.site/categories/SEED-Labs/"/>
+      <category term="SEED Labs" scheme="https://dilidonglong.com/categories/SEED-Labs/"/>
     
     
   </entry>
   
   <entry>
     <title>使用CDN加速博客打开速度（Cloudflare）</title>
-    <link href="https://dilidonglong.site/2019/09/27/%E4%BD%BF%E7%94%A8CDN%E5%8A%A0%E9%80%9F%E5%8D%9A%E5%AE%A2%E6%89%93%E5%BC%80%E9%80%9F%E5%BA%A6%EF%BC%88Cloudflare%EF%BC%89/"/>
-    <id>https://dilidonglong.site/2019/09/27/使用CDN加速博客打开速度（Cloudflare）/</id>
+    <link href="https://dilidonglong.com/2019/09/27/%E4%BD%BF%E7%94%A8CDN%E5%8A%A0%E9%80%9F%E5%8D%9A%E5%AE%A2%E6%89%93%E5%BC%80%E9%80%9F%E5%BA%A6%EF%BC%88Cloudflare%EF%BC%89/"/>
+    <id>https://dilidonglong.com/2019/09/27/使用CDN加速博客打开速度（Cloudflare）/</id>
     <published>2019-09-27T15:03:52.000Z</published>
     <updated>2019-09-28T14:22:00.038Z</updated>
     
@@ -412,15 +412,15 @@
     </summary>
     
     
-      <category term="小技巧" scheme="https://dilidonglong.site/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
   </entry>
   
   <entry>
     <title>科学上网</title>
-    <link href="https://dilidonglong.site/2019/09/25/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
-    <id>https://dilidonglong.site/2019/09/25/科学上网/</id>
+    <link href="https://dilidonglong.com/2019/09/25/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
+    <id>https://dilidonglong.com/2019/09/25/科学上网/</id>
     <published>2019-09-25T14:21:48.000Z</published>
     <updated>2020-05-16T04:29:29.889Z</updated>
     
@@ -468,15 +468,15 @@
     </summary>
     
     
-      <category term="小技巧" scheme="https://dilidonglong.site/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
   </entry>
   
   <entry>
     <title>数据包的嗅探与欺骗实验</title>
-    <link href="https://dilidonglong.site/2019/09/17/%E6%95%B0%E6%8D%AE%E5%8C%85%E7%9A%84%E5%97%85%E6%8E%A2%E4%B8%8E%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/"/>
-    <id>https://dilidonglong.site/2019/09/17/数据包的嗅探与欺骗实验/</id>
+    <link href="https://dilidonglong.com/2019/09/17/%E6%95%B0%E6%8D%AE%E5%8C%85%E7%9A%84%E5%97%85%E6%8E%A2%E4%B8%8E%E6%AC%BA%E9%AA%97%E5%AE%9E%E9%AA%8C/"/>
+    <id>https://dilidonglong.com/2019/09/17/数据包的嗅探与欺骗实验/</id>
     <published>2019-09-16T16:32:41.000Z</published>
     <updated>2019-10-11T14:17:17.261Z</updated>
     
@@ -499,15 +499,15 @@
     </summary>
     
     
-      <category term="SEED Labs" scheme="https://dilidonglong.site/categories/SEED-Labs/"/>
+      <category term="SEED Labs" scheme="https://dilidonglong.com/categories/SEED-Labs/"/>
     
     
   </entry>
   
   <entry>
     <title>如何使用VirtualBox运行SEED_Ubuntu_VM？</title>
-    <link href="https://dilidonglong.site/2019/09/07/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VirtualBox%E8%BF%90%E8%A1%8CSEED_Ubuntu_VM%EF%BC%9F/"/>
-    <id>https://dilidonglong.site/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/</id>
+    <link href="https://dilidonglong.com/2019/09/07/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VirtualBox%E8%BF%90%E8%A1%8CSEED_Ubuntu_VM%EF%BC%9F/"/>
+    <id>https://dilidonglong.com/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/</id>
     <published>2019-09-07T15:49:44.000Z</published>
     <updated>2019-09-15T14:24:00.296Z</updated>
     
@@ -520,15 +520,15 @@
     </summary>
     
     
-      <category term="SEED Labs" scheme="https://dilidonglong.site/categories/SEED-Labs/"/>
+      <category term="SEED Labs" scheme="https://dilidonglong.com/categories/SEED-Labs/"/>
     
     
   </entry>
   
   <entry>
     <title>markdown语法</title>
-    <link href="https://dilidonglong.site/2019/08/11/markdown%E8%AF%AD%E6%B3%95/"/>
-    <id>https://dilidonglong.site/2019/08/11/markdown语法/</id>
+    <link href="https://dilidonglong.com/2019/08/11/markdown%E8%AF%AD%E6%B3%95/"/>
+    <id>https://dilidonglong.com/2019/08/11/markdown语法/</id>
     <published>2019-08-11T14:09:25.000Z</published>
     <updated>2019-09-15T15:03:20.807Z</updated>
     
@@ -562,15 +562,15 @@
     </summary>
     
     
-      <category term="小技巧" scheme="https://dilidonglong.site/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
   </entry>
   
   <entry>
     <title>grep/正则表达式/awk/sed</title>
-    <link href="https://dilidonglong.site/2019/08/11/grep-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-awk-sed/"/>
-    <id>https://dilidonglong.site/2019/08/11/grep-正则表达式-awk-sed/</id>
+    <link href="https://dilidonglong.com/2019/08/11/grep-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-awk-sed/"/>
+    <id>https://dilidonglong.com/2019/08/11/grep-正则表达式-awk-sed/</id>
     <published>2019-08-11T13:30:15.000Z</published>
     <updated>2019-09-15T14:38:30.931Z</updated>
     
@@ -585,15 +585,15 @@
     </summary>
     
     
-      <category term="linux" scheme="https://dilidonglong.site/categories/linux/"/>
+      <category term="linux" scheme="https://dilidonglong.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>iptables笔记</title>
-    <link href="https://dilidonglong.site/2019/08/11/iptables%E7%AC%94%E8%AE%B0/"/>
-    <id>https://dilidonglong.site/2019/08/11/iptables笔记/</id>
+    <link href="https://dilidonglong.com/2019/08/11/iptables%E7%AC%94%E8%AE%B0/"/>
+    <id>https://dilidonglong.com/2019/08/11/iptables笔记/</id>
     <published>2019-08-11T13:25:59.000Z</published>
     <updated>2019-09-16T14:49:44.239Z</updated>
     
@@ -608,15 +608,15 @@
     </summary>
     
     
-      <category term="linux" scheme="https://dilidonglong.site/categories/linux/"/>
+      <category term="linux" scheme="https://dilidonglong.com/categories/linux/"/>
     
     
   </entry>
   
   <entry>
     <title>新东方赵丽托福英语词汇8000-01</title>
-    <link href="https://dilidonglong.site/2019/07/18/%E6%96%B0%E4%B8%9C%E6%96%B9%E8%B5%B5%E4%B8%BD%E6%89%98%E7%A6%8F%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%878000-01/"/>
-    <id>https://dilidonglong.site/2019/07/18/新东方赵丽托福英语词汇8000-01/</id>
+    <link href="https://dilidonglong.com/2019/07/18/%E6%96%B0%E4%B8%9C%E6%96%B9%E8%B5%B5%E4%B8%BD%E6%89%98%E7%A6%8F%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%878000-01/"/>
+    <id>https://dilidonglong.com/2019/07/18/新东方赵丽托福英语词汇8000-01/</id>
     <published>2019-07-18T14:53:40.000Z</published>
     <updated>2019-09-15T15:03:30.339Z</updated>
     
@@ -671,15 +671,15 @@
     </summary>
     
     
-      <category term="英语" scheme="https://dilidonglong.site/categories/%E8%8B%B1%E8%AF%AD/"/>
+      <category term="英语" scheme="https://dilidonglong.com/categories/%E8%8B%B1%E8%AF%AD/"/>
     
     
   </entry>
   
   <entry>
     <title>新东方赵丽托福英语词汇8000-00</title>
-    <link href="https://dilidonglong.site/2019/07/15/%E6%96%B0%E4%B8%9C%E6%96%B9%E8%B5%B5%E4%B8%BD%E6%89%98%E7%A6%8F%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%878000-00/"/>
-    <id>https://dilidonglong.site/2019/07/15/新东方赵丽托福英语词汇8000-00/</id>
+    <link href="https://dilidonglong.com/2019/07/15/%E6%96%B0%E4%B8%9C%E6%96%B9%E8%B5%B5%E4%B8%BD%E6%89%98%E7%A6%8F%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%878000-00/"/>
+    <id>https://dilidonglong.com/2019/07/15/新东方赵丽托福英语词汇8000-00/</id>
     <published>2019-07-15T13:50:05.000Z</published>
     <updated>2019-09-15T15:03:35.323Z</updated>
     
@@ -718,7 +718,7 @@
     </summary>
     
     
-      <category term="英语" scheme="https://dilidonglong.site/categories/%E8%8B%B1%E8%AF%AD/"/>
+      <category term="英语" scheme="https://dilidonglong.com/categories/%E8%8B%B1%E8%AF%AD/"/>
     
     
   </entry>
