@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.com/"/>
-  <updated>2020-08-23T15:19:15.910Z</updated>
+  <updated>2020-11-21T13:59:36.876Z</updated>
   <id>https://dilidonglong.com/</id>
   
   <author>
@@ -15,6 +15,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>威联通frp内网穿透</title>
+    <link href="https://dilidonglong.com/2020/11/21/%E5%A8%81%E8%81%94%E9%80%9Afrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/"/>
+    <id>https://dilidonglong.com/2020/11/21/威联通frp内网穿透/</id>
+    <published>2020-11-21T13:18:17.000Z</published>
+    <updated>2020-11-21T13:59:36.876Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1.概述&quot;&gt;&lt;/a&gt;1.概述&lt;/h2&gt;&lt;p&gt;该篇文档为自己所做笔记，防止后续忘记如何部署。&lt;/p&gt;
+&lt;p&gt;1、没有公网IP想要访问内网的NAS&lt;/p&gt;
+&lt;p&gt;2、通过VPS搭建Frp服务来访问NAS&lt;/p&gt;
+&lt;br&gt;
+
+&lt;h2 id=&quot;2-FRP服务器安装&quot;&gt;&lt;a href=&quot;#2-FRP服务器安装&quot; class=&quot;headerlink&quot; title=&quot;2.FRP服务器安装&quot;&gt;&lt;/a&gt;2.FRP服务器安装&lt;/h2&gt;&lt;h3 id=&quot;2-1-服务器部署&quot;&gt;&lt;a href=&quot;#2-1-服务器部署&quot; class=&quot;headerlink&quot; title=&quot;2.1 服务器部署&quot;&gt;&lt;/a&gt;2.1 服务器部署&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;命令行中，输入以下命令，并回车。直接复制即可。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget --no-check-certificate https://raw.githubusercontent.com/clangcn/onekey-install-shell/master/frps/install-frps.sh -O ./install-frps.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chmod 700 ./install-frps.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./install-frps.sh install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>网络安全设备基础</title>
+    <link href="https://dilidonglong.com/2020/09/21/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E8%AE%BE%E5%A4%87%E5%9F%BA%E7%A1%80/"/>
+    <id>https://dilidonglong.com/2020/09/21/网络安全设备基础/</id>
+    <published>2020-09-20T16:28:04.000Z</published>
+    <updated>2020-09-20T16:55:41.154Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本系列视频观看地址：&lt;a href=&quot;https://www.youtube.com/watch?v=cMH4yGE73iQ&amp;list=PLSNNzog5eyds5VyHxsbeh6LRMVkjnvm15&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Networking Security Devices&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1-IDS-and-IPS&quot;&gt;&lt;a href=&quot;#1-IDS-and-IPS&quot; class=&quot;headerlink&quot; title=&quot;1.IDS and IPS&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=cMH4yGE73iQ&amp;list=PLSNNzog5eyds5VyHxsbeh6LRMVkjnvm15&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;1.IDS and IPS&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;入侵检测设备与入侵防御设备&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;An intranet is a private network which is heavily protected  by many different networking devices, such as router, firewall, proxy server, honeynet, DMZ, IPS and IDS. &lt;/p&gt;
+&lt;p&gt;This diagram is an overly-simplified version of the reality. I try to put these devices together in a reasonable order, only  for teaching and learning purpose.&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="英语" scheme="https://dilidonglong.com/categories/%E8%8B%B1%E8%AF%AD/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>网站收集</title>
@@ -85,15 +134,15 @@
     <link href="https://dilidonglong.com/2020/05/16/%E5%8D%8F%E8%AE%AE%E8%BA%B2%E5%96%B5%E5%96%B5/"/>
     <id>https://dilidonglong.com/2020/05/16/协议躲喵喵/</id>
     <published>2020-05-16T03:54:20.000Z</published>
-    <updated>2020-05-16T04:38:27.465Z</updated>
+    <updated>2020-11-21T13:15:47.381Z</updated>
     
     <summary type="html">
     
       &lt;h2 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1.概述&quot;&gt;&lt;/a&gt;1.概述&lt;/h2&gt;&lt;p&gt;本次躲喵喵使用websocket+tls+web方式。我们先要搭建一个网站，而V2Ray客户端访问网站的特定路径时能实现科学飞飞飞。在浏览器上打开网页时会显示bad request，当然也可以搭建一个简单网站。&lt;/p&gt;
 &lt;p&gt;前期需要准备的内容如下：&lt;/p&gt;
-&lt;p&gt;1.&lt;a href=&quot;[https://dilidonglong.site/%2F2019%2F09%2F27%2F%E4%BD%BF%E7%94%A8CDN%E5%8A%A0%E9%80%9F%E5%8D%9A%E5%AE%A2%E6%89%93%E5%BC%80%E9%80%9F%E5%BA%A6%EF%BC%88Cloudflare%EF%BC%89%2F](https://dilidonglong.site/%2F2019%2F09%2F27%2F使用CDN加速博客打开速度（Cloudflare）%2F)&quot;&gt;域名与CDN&lt;/a&gt;，由于使用了cloudflare，所以需要在cloudflare上做A记录。&lt;/p&gt;
+&lt;p&gt;1.&lt;a href=&quot;https://dilidonglong.com/%2F2019%2F09%2F27%2F使用CDN加速博客打开速度（Cloudflare）%2F&quot;&gt;域名与CDN&lt;/a&gt;，由于使用了cloudflare，所以需要在cloudflare上做A记录。&lt;/p&gt;
 &lt;p&gt;2.服务器上开启BBR&lt;/p&gt;
-&lt;p&gt;3.&lt;a href=&quot;[https://dilidonglong.site/%2F2019%2F09%2F25%2F%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%2F#3-V2Ray-%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2](https://dilidonglong.site/%2F2019%2F09%2F25%2F科学上网%2F#3-V2Ray-简单部署)&quot;&gt;服务器上搭建了V2Ray&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;3.&lt;a href=&quot;[https://dilidonglong.com/%2F2019%2F09%2F25%2F%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%2F#3-V2Ray-%E7%AE%80%E5%8D%95%E9%83%A8%E7%BD%B2](https://dilidonglong.site/%2F2019%2F09%2F25%2F科学上网%2F#3-V2Ray-简单部署)&quot;&gt;服务器上搭建了V2Ray&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
@@ -609,116 +658,6 @@
     
     
       <category term="linux" scheme="https://dilidonglong.com/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>新东方赵丽托福英语词汇8000-01</title>
-    <link href="https://dilidonglong.com/2019/07/18/%E6%96%B0%E4%B8%9C%E6%96%B9%E8%B5%B5%E4%B8%BD%E6%89%98%E7%A6%8F%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%878000-01/"/>
-    <id>https://dilidonglong.com/2019/07/18/新东方赵丽托福英语词汇8000-01/</id>
-    <published>2019-07-18T14:53:40.000Z</published>
-    <updated>2019-09-15T15:03:30.339Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;新东方赵丽托福英语词汇8000-01&quot;&gt;&lt;a href=&quot;#新东方赵丽托福英语词汇8000-01&quot; class=&quot;headerlink&quot; title=&quot;新东方赵丽托福英语词汇8000-01&quot;&gt;&lt;/a&gt;新东方赵丽托福英语词汇8000-01&lt;/h1&gt;&lt;p&gt;共30词&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&quot;center&quot;&gt;compel&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;repel&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;insidious&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;assist&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;timid&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;toxic&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;compulsive&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;repulsive&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;preside&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;resist&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;intimidate&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;intoxicate&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;compulsion&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;repulsion&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;resident&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;insist&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;Fawn&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;Pawn&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;expel&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;impel&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;Vigor&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;persist&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;Spawn&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;Brawn&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;propel&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;dispel&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;invigorate&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;Lawn&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;Yawn&lt;/strong&gt;&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;&lt;strong&gt;Dawn&lt;/strong&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-    
-    </summary>
-    
-    
-      <category term="英语" scheme="https://dilidonglong.com/categories/%E8%8B%B1%E8%AF%AD/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>新东方赵丽托福英语词汇8000-00</title>
-    <link href="https://dilidonglong.com/2019/07/15/%E6%96%B0%E4%B8%9C%E6%96%B9%E8%B5%B5%E4%B8%BD%E6%89%98%E7%A6%8F%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%878000-00/"/>
-    <id>https://dilidonglong.com/2019/07/15/新东方赵丽托福英语词汇8000-00/</id>
-    <published>2019-07-15T13:50:05.000Z</published>
-    <updated>2019-09-15T15:03:35.323Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;新东方赵丽托福英语词汇8000-00&quot;&gt;&lt;a href=&quot;#新东方赵丽托福英语词汇8000-00&quot; class=&quot;headerlink&quot; title=&quot;新东方赵丽托福英语词汇8000-00&quot;&gt;&lt;/a&gt;新东方赵丽托福英语词汇8000-00&lt;/h1&gt;&lt;p&gt;共18词&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&quot;center&quot;&gt;haunt&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;flaunt&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;daunt&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;vaunt&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;gaunt&lt;/th&gt;
-&lt;th align=&quot;center&quot;&gt;jaunt&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td align=&quot;center&quot;&gt;journey&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;saunter&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;taunt&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;ponderous&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;slurp&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;drone&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td align=&quot;center&quot;&gt;quaff&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;ambition&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;schedule&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;pajama&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;famine&lt;/td&gt;
-&lt;td align=&quot;center&quot;&gt;sanguine&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-    
-    </summary>
-    
-    
-      <category term="英语" scheme="https://dilidonglong.com/categories/%E8%8B%B1%E8%AF%AD/"/>
     
     
   </entry>

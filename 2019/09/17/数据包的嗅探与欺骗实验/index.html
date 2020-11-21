@@ -172,7 +172,7 @@
 <p>捕获特定IP的任意TCP数据包，并且要求目的端口是23</p>
 <blockquote>
 <p>1.我先复制一份task1.1.py，然后再把这份复制的文件改名为task1.1B2.py。</p>
-<p>2.然后再对task1.1B2.py中的sniff（）函数做满足题目要求的修改，<a href="https://dilidonglong.site/2019/04/30/wireshark技巧/#1-6-抓取结合端口的数据流">参考文档</a></p>
+<p>2.然后再对task1.1B2.py中的sniff（）函数做满足题目要求的修改，<a href="https://dilidonglong.site/2019/04/30/wireshark技巧/#1-6-抓取结合端口的数据流" target="_blank" rel="noopener">参考文档</a></p>
 <p>3.我把代码中的过滤条件改成了<code>filter = &#39;tcp dst port 23&#39;</code></p>
 <p>4.然后再次执行测试</p>
 <p>5.可以看到在VM1中的控制台显示出了数据包，同时我再VM2的控制台上也成功登陆到了VM1设备。使用telnet可以明文看到数据，你能从wireshark中看到我输入了账号seed，密码dees和查看ip的命令ifconfig。由于我抓取的内容是只抓目的地址是tcp23号端口的，所以源端口是23号的数据包没有抓取到。这也是为什么在wireshark中，看不到三次握手的完整流程。</p>
@@ -275,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/09/17/数据包的嗅探与欺骗实验/" data-id="cke1iurka0013ekvdyv54hrb1"
+      <a data-url="https://dilidonglong.com/2019/09/17/数据包的嗅探与欺骗实验/" data-id="ckhrrfg68001g9cvduoz0zq0c"
          class="article-share-link">分享</a>
       
     </footer>

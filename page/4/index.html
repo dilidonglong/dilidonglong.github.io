@@ -63,6 +63,156 @@
       
         
 
+<article id="post-wireshark技巧" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/04/30/wireshark技巧/">wireshark技巧</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/04/30/wireshark技巧/" class="article-date">
+  <time datetime="2019-04-30T15:40:03.000Z" itemprop="datePublished">2019-04-30</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="wireshark技巧"><a href="#wireshark技巧" class="headerlink" title="wireshark技巧"></a>wireshark技巧</h1><blockquote>
+<p>资料来源：</p>
+<p><a href="https://community.emc.com/go/chinese" target="_blank" rel="noopener">1.EMC中文支持论坛</a></p>
+<p><a href="https://www.dell.com/community/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E8%AE%A8%E8%AE%BA%E5%8C%BA/%E5%A6%82%E6%9E%9C%E7%9C%8B%E4%BA%86%E8%BF%99%E4%B8%AA%E4%BD%A0%E8%BF%98%E6%98%AF%E4%B8%8D%E4%BC%9A%E7%94%A8Wireshark-%E9%82%A3%E5%B0%B1%E6%9D%A5%E6%89%BE%E6%88%91%E5%90%A7-8%E6%9C%886%E6%97%A5%E5%AE%8C%E7%BB%93/td-p/7007033/page/5" target="_blank" rel="noopener">2.如果看了这个你还是不会用Wireshark-那就来找我吧-8月6日完结</a></p>
+<p><a href="http://linux.51yip.com/search/tcpdump" target="_blank" rel="noopener">3.Linux命令手册-tcpdump</a></p>
+<p><a href="https://chegva.com/3019.html" target="_blank" rel="noopener">4.Linux上使用wireshark(tshark)抓包分析</a></p>
+<p><a href="https://chegva.com/2473.html" target="_blank" rel="noopener">5.tcpdump使用技巧</a></p>
+</blockquote>
+<h2 id="1-抓包前设置过滤条件（捕捉过滤器）"><a href="#1-抓包前设置过滤条件（捕捉过滤器）" class="headerlink" title="1.抓包前设置过滤条件（捕捉过滤器）"></a>1.抓包前设置过滤条件（捕捉过滤器）</h2><p><strong>尽量避免使用抓包过滤。即便多看几个报文，也比漏看一个报文要好。</strong>当你抓取了大量报文的时候，用显示过滤（过滤选项也更多）来重点查看某一数据流。</p>
+<h3 id="1-1-抓取指定IP地址的数据流："><a href="#1-1-抓取指定IP地址的数据流：" class="headerlink" title="1.1 抓取指定IP地址的数据流："></a>1.1 抓取指定IP地址的数据流：</h3><ol>
+<li>host 10.3.1.1：抓取发到/来自10.3.1.1的数据流</li>
+<li>host 2406:da00:ff00::6b16:f02d：抓取发到/来自IPv6地址2406:da00:ff00::6b16:f02d的数据流</li>
+<li>not host 10.3.1.1：抓取除了发到/来自10.3.1.1以外的所有数据流</li>
+<li>src host 10.3.1.1：抓取来自10.3.1.1的数据流</li>
+<li>dst host 10.3.1.1：抓取发到10.3.1.1的数据流</li>
+<li>host 10.3.1.1 or 10.3.1.2：抓取发到/来自10.3.1.1，以及与之通讯的所有数据流，与10.3.1.2，以及与之通讯的所有数据流</li>
+<li>host <a href="http://www.espn.com：抓取发到/来自所有解析为www.espn.com的IP地址的数据流" target="_blank" rel="noopener">www.espn.com：抓取发到/来自所有解析为www.espn.com的IP地址的数据流</a></li>
+</ol>
+        
+          <a class="article-more-link" href="/2019/04/30/wireshark技巧/">阅读全文</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/04/30/wireshark技巧/" data-id="ckhrrfg36000a9cvd90216500"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-文件系统的简单操作" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/04/30/文件系统的简单操作/">文件系统的简单操作</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/04/30/文件系统的简单操作/" class="article-date">
+  <time datetime="2019-04-30T15:34:18.000Z" itemprop="datePublished">2019-04-30</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="文件系统的简单操作"><a href="#文件系统的简单操作" class="headerlink" title="文件系统的简单操作"></a>文件系统的简单操作</h1><h2 id="1-df和du命令"><a href="#1-df和du命令" class="headerlink" title="1.df和du命令"></a>1.df和du命令</h2><h3 id="df"><a href="#df" class="headerlink" title="df"></a>df</h3><p>列出文件系统的整体磁盘使用量，df读取的数据几乎针对一整个文件系统，因为读取范围是<strong>超级区块</strong>内的信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr ~]<span class="comment"># df</span></span><br><span class="line">Filesystem     1K-blocks    Used Available Use% Mounted on</span><br><span class="line">devtmpfs          214728       0    214728   0% /dev</span><br><span class="line">tmpfs             246392       0    246392   0% /dev/shm</span><br><span class="line">/dev/vda1       10291200 2231176   7519412  23% /</span><br><span class="line"><span class="comment"># Filesystem表示文件系统在哪个磁盘分区</span></span><br><span class="line"><span class="comment"># 1K-blocks表示单位为1k，可以利用-h来变成人们易于理解的单位格式</span></span><br><span class="line"><span class="comment"># Mounted on表示挂载点</span></span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">[root@vultr ~]<span class="comment"># df -h</span></span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs        210M     0  210M   0% /dev</span><br><span class="line">tmpfs           241M     0  241M   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1       9.9G  2.2G  7.2G  23% /</span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">[root@vultr ~]<span class="comment"># df -Th</span></span><br><span class="line">Filesystem     Type      Size  Used Avail Use% Mounted on</span><br><span class="line">devtmpfs       devtmpfs  210M     0  210M   0% /dev</span><br><span class="line">tmpfs          tmpfs     241M     0  241M   0% /sys/fs/cgroup</span><br><span class="line">/dev/vda1      ext4      9.9G  2.2G  7.2G  23% /</span><br><span class="line"><span class="comment"># Type表示文件系统类型</span></span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-link" href="/2019/04/30/文件系统的简单操作/">阅读全文</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/04/30/文件系统的简单操作/" data-id="ckhrrfg6400189cvdsffx9iyx"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
 <article id="post-文件系统" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
   
   <div class="article-inner">
@@ -134,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/04/30/文件系统/" data-id="cke1iurk1000yekvdl6dkm0b6"
+      <a data-url="https://dilidonglong.com/2019/04/30/文件系统/" data-id="ckhrrfg6200159cvdu5uj3852"
          class="article-share-link">分享</a>
       
     </footer>
@@ -201,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/04/30/磁盘分区/" data-id="cke1iurlx0022ekvdesfrz6sh"
+      <a data-url="https://dilidonglong.com/2019/04/30/磁盘分区/" data-id="ckhrrfg6l001z9cvdzutaojcu"
          class="article-share-link">分享</a>
       
     </footer>
@@ -281,7 +431,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/04/29/软考试题1/" data-id="cke1iurlz0024ekvdadfi0jj8"
+      <a data-url="https://dilidonglong.com/2019/04/29/软考试题1/" data-id="ckhrrfg6t002c9cvd6b8ulkj5"
          class="article-share-link">分享</a>
       
     </footer>
@@ -360,7 +510,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/04/27/设置分类列表页/" data-id="cke1iurln001pekvdw20qqqwi"
+      <a data-url="https://dilidonglong.com/2019/04/27/设置分类列表页/" data-id="ckhrrfg6m00229cvd27e48ow5"
          class="article-share-link">分享</a>
       
     </footer>
@@ -428,7 +578,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/04/26/tshark使用方法/" data-id="cke1iurmo002iekvdcy9fv107"
+      <a data-url="https://dilidonglong.com/2019/04/26/tshark使用方法/" data-id="ckhrrfg8o002j9cvdc0i6av49"
          class="article-share-link">分享</a>
       
     </footer>
@@ -496,7 +646,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/04/25/使用github-hexo创建一个博客/" data-id="cke1iurj5000gekvdwl2hl15w"
+      <a data-url="https://dilidonglong.com/2019/04/25/使用github-hexo创建一个博客/" data-id="ckhrrfg5z00109cvdozmetuk3"
          class="article-share-link">分享</a>
       
     </footer>

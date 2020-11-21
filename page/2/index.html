@@ -63,6 +63,169 @@
       
         
 
+<article id="post-Linux防火墙探索实验" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/10/31/Linux防火墙探索实验/">Linux防火墙探索实验</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/10/31/Linux防火墙探索实验/" class="article-date">
+  <time datetime="2019-10-31T14:13:22.000Z" itemprop="datePublished">2019-10-31</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SEED-Labs/">SEED Labs</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <blockquote>
+<p>参考文档：</p>
+<p><a href="https://seedsecuritylabs.org/Labs_16.04/PDF/Firewall.pdf" target="_blank" rel="noopener">1.官方原文档</a></p>
+<p><a href="http://www.zsythink.net/archives/1199" target="_blank" rel="noopener">2.iptables详解</a></p>
+<p><a href="https://linux.cn/article-8087-1.html" target="_blank" rel="noopener">3.在 Ubuntu 中用 UFW 配置防火墙</a></p>
+<p><a href="https://wiki.ubuntu.org.cn/Ufw使用指南" target="_blank" rel="noopener">4.Ufw使用指南</a></p>
+</blockquote>
+<h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1. Overview"></a>1. Overview</h1><p>The learning objective of this lab is for students to gain the insights（眼光，内省力） on how firewalls work by playing with firewall software and implement a simplified（简化的） packet filtering firewall. Firewalls have several types; in this lab,  we focus on <em>packet filter</em>.  Packet filters inspect（检测） packets, and decide whether to drop or forward  a packet based on firewall rules. Packet filters are usually <em>stateless</em>; they filter each packet based only on the information contained in that packet, without paying attention to whether a packet is part of an existing stream of traffic. Packet filters often use a combination（组合） of a packet’s source and destination address, its protocol, and, for TCP and UDP traffic, port numbers. In this lab, students will play with this type of firewall, and also through the implementation of some of the key functionalities, they can understand how firewalls work. Moreover, students will learn how to use SSH tunnels to bypass（绕行，撇开） firewalls. This lab covers the following topics:</p>
+<p>本次实验的学习目标是让学生通过接触防火墙软件与实现一个简单的包过滤防火墙，以深入理解防火墙的工作原理。防火墙有几种类型；在本次实验中，我们关注于<em>包过滤防火墙</em>。包过滤器检测数据包，并且基于防火墙规则来决定是丢弃或是转发一个数据包。包过滤器通常来说是<em>无状态的</em>；它们仅基于数据包中包含的信息来过滤每一个数据包，而不关注数据包是否是现有业务流中的一部分。包过滤器经常组合使用一个数据包的源目地址，协议类型，及TCP和UDP流量的端口号。本实验中，学生将接触该类型防火墙，并且实现部分关键功能，他们能理解防火墙是如何工作的。此外，学生将学习如何使用SSH隧道来绕过防火墙。该实验覆盖以下主题：</p>
+<ul>
+<li><p>Firewall（防火墙）</p>
+</li>
+<li><p>Netfilter</p>
+</li>
+<li><p>Loadable kernel module（可加载的内核模块）</p>
+</li>
+<li><p>SSH tunnel（SSH隧道）</p>
+        
+          <a class="article-more-link" href="/2019/10/31/Linux防火墙探索实验/">阅读全文</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/10/31/Linux防火墙探索实验/" data-id="ckhrrfg2w00079cvdti69j1aj"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-电脑开启系统无线功能" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/10/23/电脑开启系统无线功能/">电脑开启系统无线功能</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/10/23/电脑开启系统无线功能/" class="article-date">
+  <time datetime="2019-10-23T15:16:44.000Z" itemprop="datePublished">2019-10-23</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="1-注意事项"><a href="#1-注意事项" class="headerlink" title="1.注意事项"></a>1.注意事项</h2><ol>
+<li>WIN10系统可以快捷开启无线功能</li>
+</ol>
+<img src="/2019/10/23/电脑开启系统无线功能/1.png" title="This is an test image">
+
+<ol start="2">
+<li>要确保网卡支持无线功能</li>
+</ol>
+<br>
+
+<h2 id="2-开启步骤"><a href="#2-开启步骤" class="headerlink" title="2.开启步骤"></a>2.开启步骤</h2><ol>
+<li><p>在cmd中输入netsh wlan show drivers，通过支持的承载网络，来确认网络是否能承载</p>
+<img src="/2019/10/23/电脑开启系统无线功能/2.png" title="This is an test image">
+</li>
+<li><p>如果显示的“是”，则输入以下两条命令</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan set hostednetwork mode=all ssid=接入的名称 key=接入的密码</span><br><span class="line">netsh wlan start hostednetwork</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-link" href="/2019/10/23/电脑开启系统无线功能/">阅读全文</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/10/23/电脑开启系统无线功能/" data-id="ckhrrfg66001b9cvdky3wmue7"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
 <article id="post-ARP缓存中毒攻击实验" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
   
   <div class="article-inner">
@@ -121,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/10/07/ARP缓存中毒攻击实验/" data-id="cke1iuric0000ekvdhyc65lbu"
+      <a data-url="https://dilidonglong.com/2019/10/07/ARP缓存中毒攻击实验/" data-id="ckhrrfg1p00009cvd1mt2tnhp"
          class="article-share-link">分享</a>
       
     </footer>
@@ -188,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/09/27/使用CDN加速博客打开速度（Cloudflare）/" data-id="cke1iurja000jekvdfc2j6436"
+      <a data-url="https://dilidonglong.com/2019/09/27/使用CDN加速博客打开速度（Cloudflare）/" data-id="ckhrrfg39000b9cvdd23aa3nm"
          class="article-share-link">分享</a>
       
     </footer>
@@ -291,7 +454,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/09/25/科学上网/" data-id="cke1iurkt001bekvdsfab28t7"
+      <a data-url="https://dilidonglong.com/2019/09/25/科学上网/" data-id="ckhrrfg6a001i9cvdxlm5o35z"
          class="article-share-link">分享</a>
       
     </footer>
@@ -369,7 +532,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/09/17/数据包的嗅探与欺骗实验/" data-id="cke1iurka0013ekvdyv54hrb1"
+      <a data-url="https://dilidonglong.com/2019/09/17/数据包的嗅探与欺骗实验/" data-id="ckhrrfg68001g9cvduoz0zq0c"
          class="article-share-link">分享</a>
       
     </footer>
@@ -437,7 +600,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/" data-id="cke1iurjj000pekvda59nmyeb"
+      <a data-url="https://dilidonglong.com/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/" data-id="ckhrrfg3m000l9cvd7uf4yteg"
          class="article-share-link">分享</a>
       
     </footer>
@@ -526,7 +689,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/08/11/markdown语法/" data-id="cke1iurit0009ekvdth3hqdis"
+      <a data-url="https://dilidonglong.com/2019/08/11/markdown语法/" data-id="ckhrrfg3g000g9cvdsxbh12y4"
          class="article-share-link">分享</a>
       
     </footer>
@@ -596,7 +759,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/08/11/grep-正则表达式-awk-sed/" data-id="cke1iuriz000cekvd1it20nyu"
+      <a data-url="https://dilidonglong.com/2019/08/11/grep-正则表达式-awk-sed/" data-id="ckhrrfg2o00039cvdbepcenun"
          class="article-share-link">分享</a>
       
     </footer>
@@ -666,211 +829,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/08/11/iptables笔记/" data-id="cke1iuriq0007ekvdsdou2ous"
-         class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        
-
-<article id="post-新东方赵丽托福英语词汇8000-01" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/07/18/新东方赵丽托福英语词汇8000-01/">新东方赵丽托福英语词汇8000-01</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/07/18/新东方赵丽托福英语词汇8000-01/" class="article-date">
-  <time datetime="2019-07-18T14:53:40.000Z" itemprop="datePublished">2019-07-18</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/英语/">英语</a>
-  </div>
-
-      </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-        <h1 id="新东方赵丽托福英语词汇8000-01"><a href="#新东方赵丽托福英语词汇8000-01" class="headerlink" title="新东方赵丽托福英语词汇8000-01"></a>新东方赵丽托福英语词汇8000-01</h1><p>共30词</p>
-<table>
-<thead>
-<tr>
-<th align="center">compel</th>
-<th align="center">repel</th>
-<th align="center">insidious</th>
-<th align="center">assist</th>
-<th align="center">timid</th>
-<th align="center">toxic</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><strong>compulsive</strong></td>
-<td align="center"><strong>repulsive</strong></td>
-<td align="center"><strong>preside</strong></td>
-<td align="center"><strong>resist</strong></td>
-<td align="center"><strong>intimidate</strong></td>
-<td align="center"><strong>intoxicate</strong></td>
-</tr>
-<tr>
-<td align="center"><strong>compulsion</strong></td>
-<td align="center"><strong>repulsion</strong></td>
-<td align="center"><strong>resident</strong></td>
-<td align="center"><strong>insist</strong></td>
-<td align="center"><strong>Fawn</strong></td>
-<td align="center"><strong>Pawn</strong></td>
-</tr>
-<tr>
-<td align="center"><strong>expel</strong></td>
-<td align="center"><strong>impel</strong></td>
-<td align="center"><strong>Vigor</strong></td>
-<td align="center"><strong>persist</strong></td>
-<td align="center"><strong>Spawn</strong></td>
-<td align="center"><strong>Brawn</strong></td>
-</tr>
-<tr>
-<td align="center"><strong>propel</strong></td>
-<td align="center"><strong>dispel</strong></td>
-<td align="center"><strong>invigorate</strong></td>
-<td align="center"><strong>Lawn</strong></td>
-<td align="center"><strong>Yawn</strong></td>
-<td align="center"><strong>Dawn</strong></td>
-</tr>
-</tbody></table>
-        
-          <a class="article-more-link" href="/2019/07/18/新东方赵丽托福英语词汇8000-01/">阅读全文</a>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/07/18/新东方赵丽托福英语词汇8000-01/" data-id="cke1iurlp001sekvdns4eftxu"
-         class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        
-
-<article id="post-新东方赵丽托福英语词汇8000-00" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/07/15/新东方赵丽托福英语词汇8000-00/">新东方赵丽托福英语词汇8000-00</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/07/15/新东方赵丽托福英语词汇8000-00/" class="article-date">
-  <time datetime="2019-07-15T13:50:05.000Z" itemprop="datePublished">2019-07-15</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/英语/">英语</a>
-  </div>
-
-      </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-        <h1 id="新东方赵丽托福英语词汇8000-00"><a href="#新东方赵丽托福英语词汇8000-00" class="headerlink" title="新东方赵丽托福英语词汇8000-00"></a>新东方赵丽托福英语词汇8000-00</h1><p>共18词</p>
-<table>
-<thead>
-<tr>
-<th align="center">haunt</th>
-<th align="center">flaunt</th>
-<th align="center">daunt</th>
-<th align="center">vaunt</th>
-<th align="center">gaunt</th>
-<th align="center">jaunt</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">journey</td>
-<td align="center">saunter</td>
-<td align="center">taunt</td>
-<td align="center">ponderous</td>
-<td align="center">slurp</td>
-<td align="center">drone</td>
-</tr>
-<tr>
-<td align="center">quaff</td>
-<td align="center">ambition</td>
-<td align="center">schedule</td>
-<td align="center">pajama</td>
-<td align="center">famine</td>
-<td align="center">sanguine</td>
-</tr>
-</tbody></table>
-        
-          <a class="article-more-link" href="/2019/07/15/新东方赵丽托福英语词汇8000-00/">阅读全文</a>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/07/15/新东方赵丽托福英语词汇8000-00/" data-id="cke1iurk60011ekvdjyfg2m4z"
+      <a data-url="https://dilidonglong.com/2019/08/11/iptables笔记/" data-id="ckhrrfg2p00049cvdb71as2oz"
          class="article-share-link">分享</a>
       
     </footer>
