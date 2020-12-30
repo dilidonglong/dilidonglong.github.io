@@ -115,7 +115,115 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2020/08/19/网站收集/" data-id="ckhrrfg6f001q9cvdvbtknfwr"
+      <a data-url="https://dilidonglong.com/2020/08/19/网站收集/" data-id="ckjbl2q64001p7svdusg7zms0"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
+        
+
+<article id="post-关闭UDP登陆远程桌面" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/12/30/关闭UDP登陆远程桌面/">关闭UDP登陆远程桌面</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2020/12/30/关闭UDP登陆远程桌面/" class="article-date">
+  <time datetime="2020-12-30T15:27:44.000Z" itemprop="datePublished">2020-12-30</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
+  </div>
+
+      </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="1-现象及猜测"><a href="#1-现象及猜测" class="headerlink" title="1.现象及猜测"></a>1.现象及猜测</h2><p>windows VPS部署在国外，需要通过远程桌面的方式进行登陆。在连接过程中会产生卡顿，极大限度影响操作。查看桌面上的连接提示，说是尝试使用了UDP登陆。</p>
+<p>但是我有一台线路良好的中转服务器把流量转发到windows vps上，转发的是TCP流量。怀疑是使用远程登陆的过程中，本地使用了udp协议连接到windows VPS，导致流量没有走中转服务器转发。同时udp被qos，导致访问出现卡顿现象。</p>
+<br>
+
+<h2 id="2-本地电脑禁用UDP方式登陆远程桌面"><a href="#2-本地电脑禁用UDP方式登陆远程桌面" class="headerlink" title="2.本地电脑禁用UDP方式登陆远程桌面"></a>2.本地电脑禁用UDP方式登陆远程桌面</h2><ol>
+<li><p>因为是win10家庭版电脑，无法打开组策略，所以通过修改注册表（运行—regedit）的方式关闭udp</p>
+</li>
+<li><p>此策略设置指定是否使用 UDP 协议以通过远程桌面协议访问服务器。</p>
+<p>如果启用此策略设置，则远程桌面协议流量仅使用 TCP 协议。</p>
+<p>如果禁用或未配置此策略设置，则远程桌面协议流量将尝试同时使用 TCP 和 UDP 协议。</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Registry Hive</th>
+<th>HKEY_LOCAL_MACHINE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Registry Path</td>
+<td>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\Client</td>
+</tr>
+<tr>
+<td>Value Name</td>
+<td>fClientDisableUDP</td>
+</tr>
+<tr>
+<td>Value Type</td>
+<td>REG_DWORD</td>
+</tr>
+<tr>
+<td>Enabled Value</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Disabled Value</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<img src="/2020/12/30/关闭UDP登陆远程桌面/1.jpg" title="This is an test image">
+
+<ol start="3">
+<li>关闭udp后，果然问题解决。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2020/12/30/关闭UDP登陆远程桌面/" data-id="ckjbl2q3s000m7svdbbbg86gi"
          class="article-share-link">分享</a>
       
     </footer>
@@ -189,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2020/11/21/威联通frp内网穿透/" data-id="ckhrrfg5v000w9cvdht3isc7j"
+      <a data-url="https://dilidonglong.com/2020/11/21/威联通frp内网穿透/" data-id="ckjbl2q43000u7svd7gug55cq"
          class="article-share-link">分享</a>
       
     </footer>
@@ -258,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2020/09/21/网络安全设备基础/" data-id="ckhrrfg6e001o9cvdpr6wkxp7"
+      <a data-url="https://dilidonglong.com/2020/09/21/网络安全设备基础/" data-id="ckjbl2q6i001w7svdv9t1r75n"
          class="article-share-link">分享</a>
       
     </footer>
@@ -325,7 +433,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2020/08/12/编码/" data-id="ckhrrfg6g001s9cvdy5un0ntp"
+      <a data-url="https://dilidonglong.com/2020/08/12/编码/" data-id="ckjbl2q60001n7svdrs8bi59g"
          class="article-share-link">分享</a>
       
     </footer>
@@ -397,7 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2020/06/03/Nginx无法启动问题解决/" data-id="ckhrrfg2r00069cvdt774lplb"
+      <a data-url="https://dilidonglong.com/2020/06/03/Nginx无法启动问题解决/" data-id="ckjbl2q2u00027svd1vmqxq5y"
          class="article-share-link">分享</a>
       
     </footer>
@@ -467,7 +575,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2020/05/16/协议躲喵喵/" data-id="ckhrrfg3j000j9cvdifkfcyym"
+      <a data-url="https://dilidonglong.com/2020/05/16/协议躲喵喵/" data-id="ckjbl2q3z000r7svdipmzjm1k"
          class="article-share-link">分享</a>
       
     </footer>
@@ -540,7 +648,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2020/05/13/米特尼克攻击实验/" data-id="ckhrrfg6c001l9cvddyha2q8b"
+      <a data-url="https://dilidonglong.com/2020/05/13/米特尼克攻击实验/" data-id="ckjbl2q6a001r7svd0rrgycds"
          class="article-share-link">分享</a>
       
     </footer>
@@ -617,7 +725,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2020/01/13/离线服务器搭建/" data-id="ckhrrfg6c001m9cvdkhqmds1y"
+      <a data-url="https://dilidonglong.com/2020/01/13/离线服务器搭建/" data-id="ckjbl2q5q001i7svddpjg4pg5"
          class="article-share-link">分享</a>
       
     </footer>
@@ -775,83 +883,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/11/20/信息处理技术员表格处理真题/" data-id="ckhrrfg5x000y9cvdi5b4vdhg"
-         class="article-share-link">分享</a>
-      
-    </footer>
-
-  </div>
-
-  
-
-  
-
-</article>
-
-
-
-      
-        
-
-<article id="post-信息处理技术员word试题" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-  
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2019/11/14/信息处理技术员word试题/">信息处理技术员word试题</a>
-    </h2>
-  
-  
-
-
-
-
-      </header>
-    
-
-    
-      <div class="article-meta">
-        <a href="/2019/11/14/信息处理技术员word试题/" class="article-date">
-  <time datetime="2019-11-14T11:35:36.000Z" itemprop="datePublished">2019-11-14</time>
-</a>
-        
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/软考/">软考</a>
-  </div>
-
-      </div>
-    
-
-    
-
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-        <h1 id="信息处理技术员—文字处理真题讲解"><a href="#信息处理技术员—文字处理真题讲解" class="headerlink" title="信息处理技术员—文字处理真题讲解"></a>信息处理技术员—文字处理真题讲解</h1><h2 id="案例1"><a href="#案例1" class="headerlink" title="案例1"></a>案例1</h2><p>利用系统提供的素材，按题目要求完成后，用Word的保存功能直接存盘。    </p>
-<p>奥林匹克运动会</p>
-<p>奥林匹克运动会（英语：Olympic Games）简称“奥运会”，是国际奥林匹克委员会主办的世界规模最大的综合性运动会，每四年一届，会期不超过16日，分为夏季奥运会（奥运会）、夏季残奥会、冬季奥运会（冬奥会）、冬季残奥会、夏季青年奥运会（青奥会）、冬季青年奥运会和特殊奥林匹克运动会（特奥会）。</p>
-<p><strong>要求：</strong></p>
-<ol>
-<li>将文章标题设置为宋体、二号、加粗、居中；正文设置为仿宋、小四。</li>
-<li>将页面设置为横向，纸张宽度21厘米、高度15厘米，页面内容居中对齐。</li>
-<li>为正文添加双线条的边框，并设置为红色、3磅。</li>
-<li>为正文填充白色、背景1、深色25%底纹。</li>
-<li>在正文第一自然段后另起行录入第二段文字：奥运会中，各个国家用运动交流各国文化，以及切磋体育技能，其目的是为了鼓励人们不断进行体育运动。</li>
-</ol>
-        
-          <a class="article-more-link" href="/2019/11/14/信息处理技术员word试题/">阅读全文</a>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/11/14/信息处理技术员word试题/" data-id="ckhrrfg3c000e9cvdnyhnzipo"
+      <a data-url="https://dilidonglong.com/2019/11/20/信息处理技术员表格处理真题/" data-id="ckjbl2q3w000p7svd7h255ekb"
          class="article-share-link">分享</a>
       
     </footer>

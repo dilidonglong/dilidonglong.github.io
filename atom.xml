@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.com/"/>
-  <updated>2020-11-21T13:59:36.876Z</updated>
+  <updated>2020-12-30T15:37:01.931Z</updated>
   <id>https://dilidonglong.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>关闭UDP登陆远程桌面</title>
+    <link href="https://dilidonglong.com/2020/12/30/%E5%85%B3%E9%97%ADUDP%E7%99%BB%E9%99%86%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2/"/>
+    <id>https://dilidonglong.com/2020/12/30/关闭UDP登陆远程桌面/</id>
+    <published>2020-12-30T15:27:44.000Z</published>
+    <updated>2020-12-30T15:37:01.931Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-现象及猜测&quot;&gt;&lt;a href=&quot;#1-现象及猜测&quot; class=&quot;headerlink&quot; title=&quot;1.现象及猜测&quot;&gt;&lt;/a&gt;1.现象及猜测&lt;/h2&gt;&lt;p&gt;windows
+        
+      
+    
+    </summary>
+    
+    
+      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>威联通frp内网穿透</title>
@@ -630,29 +655,6 @@
 &lt;p&gt;sed适合编辑我们查找到的文本&lt;/p&gt;
 &lt;p&gt;awk对于查找到的文本，可以进行格式化处理，即输出成我们想要看到的样子&lt;/p&gt;
 &lt;p&gt;正则表达式是公式。我们可以在三剑客中按（正则表达式）条件查找到我们需要的东西&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="linux" scheme="https://dilidonglong.com/categories/linux/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>iptables笔记</title>
-    <link href="https://dilidonglong.com/2019/08/11/iptables%E7%AC%94%E8%AE%B0/"/>
-    <id>https://dilidonglong.com/2019/08/11/iptables笔记/</id>
-    <published>2019-08-11T13:25:59.000Z</published>
-    <updated>2019-09-16T14:49:44.239Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;iptables笔记&quot;&gt;&lt;a href=&quot;#iptables笔记&quot; class=&quot;headerlink&quot; title=&quot;iptables笔记&quot;&gt;&lt;/a&gt;iptables笔记&lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.zsythink.net/archives/category/%E8%BF%90%E7%BB%B4%E7%9B%B8%E5%85%B3/iptables/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;朱双印博客-iptables规则&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;数据经过防火墙流程图&lt;/p&gt;
-&lt;img src=&quot;/2019/08/11/iptables笔记/1.png&quot; title=&quot;This is an test image&quot;&gt;
     
     </summary>
     

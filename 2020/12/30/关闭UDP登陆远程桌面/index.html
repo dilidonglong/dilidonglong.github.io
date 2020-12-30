@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    新东方赵丽托福英语词汇8000-01 |
+    关闭UDP登陆远程桌面 |
     
     望伊如西の博客</title>
   
@@ -29,7 +29,7 @@
   <section class="outer">
   
 
-<article id="post-新东方赵丽托福英语词汇8000-01" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+<article id="post-关闭UDP登陆远程桌面" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
   
   <div class="article-inner">
     
@@ -37,7 +37,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      新东方赵丽托福英语词汇8000-01
+      关闭UDP登陆远程桌面
     </h1>
   
   
@@ -50,12 +50,12 @@
 
     
       <div class="article-meta">
-        <a href="/2019/07/18/新东方赵丽托福英语词汇8000-01/" class="article-date">
-  <time datetime="2019-07-18T14:53:40.000Z" itemprop="datePublished">2019-07-18</time>
+        <a href="/2020/12/30/关闭UDP登陆远程桌面/" class="article-date">
+  <time datetime="2020-12-30T15:27:44.000Z" itemprop="datePublished">2020-12-30</time>
 </a>
         
   <div class="article-category">
-    <a class="article-category-link" href="/categories/英语/">英语</a>
+    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
   </div>
 
       </div>
@@ -78,120 +78,56 @@
       
 
       
-        <h1 id="新东方赵丽托福英语词汇8000-01"><a href="#新东方赵丽托福英语词汇8000-01" class="headerlink" title="新东方赵丽托福英语词汇8000-01"></a>新东方赵丽托福英语词汇8000-01</h1><p>共30词</p>
+        <h2 id="1-现象及猜测"><a href="#1-现象及猜测" class="headerlink" title="1.现象及猜测"></a>1.现象及猜测</h2><p>windows VPS部署在国外，需要通过远程桌面的方式进行登陆。在连接过程中会产生卡顿，极大限度影响操作。查看桌面上的连接提示，说是尝试使用了UDP登陆。</p>
+<p>但是我有一台线路良好的中转服务器把流量转发到windows vps上，转发的是TCP流量。怀疑是使用远程登陆的过程中，本地使用了udp协议连接到windows VPS，导致流量没有走中转服务器转发。同时udp被qos，导致访问出现卡顿现象。</p>
+<br>
+
+<h2 id="2-本地电脑禁用UDP方式登陆远程桌面"><a href="#2-本地电脑禁用UDP方式登陆远程桌面" class="headerlink" title="2.本地电脑禁用UDP方式登陆远程桌面"></a>2.本地电脑禁用UDP方式登陆远程桌面</h2><ol>
+<li><p>因为是win10家庭版电脑，无法打开组策略，所以通过修改注册表（运行—regedit）的方式关闭udp</p>
+</li>
+<li><p>此策略设置指定是否使用 UDP 协议以通过远程桌面协议访问服务器。</p>
+<p>如果启用此策略设置，则远程桌面协议流量仅使用 TCP 协议。</p>
+<p>如果禁用或未配置此策略设置，则远程桌面协议流量将尝试同时使用 TCP 和 UDP 协议。</p>
+</li>
+</ol>
 <table>
 <thead>
 <tr>
-<th align="center">compel</th>
-<th align="center">repel</th>
-<th align="center">insidious</th>
-<th align="center">assist</th>
-<th align="center">timid</th>
-<th align="center">toxic</th>
+<th>Registry Hive</th>
+<th>HKEY_LOCAL_MACHINE</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><strong>compulsive</strong></td>
-<td align="center"><strong>repulsive</strong></td>
-<td align="center"><strong>preside</strong></td>
-<td align="center"><strong>resist</strong></td>
-<td align="center"><strong>intimidate</strong></td>
-<td align="center"><strong>intoxicate</strong></td>
+<td>Registry Path</td>
+<td>SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services\Client</td>
 </tr>
 <tr>
-<td align="center"><strong>compulsion</strong></td>
-<td align="center"><strong>repulsion</strong></td>
-<td align="center"><strong>resident</strong></td>
-<td align="center"><strong>insist</strong></td>
-<td align="center"><strong>Fawn</strong></td>
-<td align="center"><strong>Pawn</strong></td>
+<td>Value Name</td>
+<td>fClientDisableUDP</td>
 </tr>
 <tr>
-<td align="center"><strong>expel</strong></td>
-<td align="center"><strong>impel</strong></td>
-<td align="center"><strong>Vigor</strong></td>
-<td align="center"><strong>persist</strong></td>
-<td align="center"><strong>Spawn</strong></td>
-<td align="center"><strong>Brawn</strong></td>
+<td>Value Type</td>
+<td>REG_DWORD</td>
 </tr>
 <tr>
-<td align="center"><strong>propel</strong></td>
-<td align="center"><strong>dispel</strong></td>
-<td align="center"><strong>invigorate</strong></td>
-<td align="center"><strong>Lawn</strong></td>
-<td align="center"><strong>Yawn</strong></td>
-<td align="center"><strong>Dawn</strong></td>
+<td>Enabled Value</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Disabled Value</td>
+<td>0</td>
 </tr>
 </tbody></table>
-<a id="more"></a>
+<img src="/2020/12/30/关闭UDP登陆远程桌面/1.jpg" title="This is an test image">
 
-<h2 id="4-词根词缀法"><a href="#4-词根词缀法" class="headerlink" title="4.词根词缀法"></a>4.词根词缀法</h2><p>词根:(本义) body</p>
-<p>前缀:改变含义不变词性  anti(反)+body(体)-抗体</p>
-<p>后缀:改变词性,不变含义 pass       passable</p>
-<br>
-
-<ol>
-<li><p>词性转换库:</p>
-<p>pel表示推（verb）—pulsive（形容词）—pulsion（名词）</p>
-<p>compel （com共同+pel）</p>
-<blockquote>
-<p>verb:强迫，迫使</p>
-<p>The law can compel fathers to make regular payments for their children.<br>这项法律可强制父亲定期支付子女的费用。</p>
-</blockquote>
-<blockquote>
-<p>compulsive( adjective ):难以制止的；难控制的</p>
-<p>compulsive eating/spending/gambling<br>强迫性进食╱消费；上瘾的赌博</p>
-<p>The programme made compulsive viewing.<br>这节目引人入胜，收看起来欲罢不能。</p>
-</blockquote>
-<blockquote>
-<p>compulsion（noun）:强迫；强制</p>
-<p>compulsion(on sb) to do sth</p>
-<p>There are no compulsions on students to attend classes.<br>没有强求学生上课。</p>
-</blockquote>
-<br>
-
-<p>repel(re向后+pel)</p>
-<blockquote>
-<p>verb:击退；驱逐</p>
-<p>Troops repelled an attempt to infiltrate the south of the island.<br>部队挫败了对该岛南部的潜入企图。</p>
-</blockquote>
-<br>
-
-<p> expel (ex老大+pel)</p>
-<blockquote>
-<p>verb:把…开除（或除名）;驱逐出境;排出；喷出</p>
-<p>1.She was expelled from school at 15.<br>她 15 岁时被学校开除了。</p>
-<p>2.Foreign journalists are being expelled.<br>外国记者被驱逐出境。</p>
-</blockquote>
-<br>
-
-<p>impel (im内心深处+pel)</p>
-<blockquote>
-<p>verb:迫使(激励)</p>
-<p>He felt impelled to investigate further.<br>他觉得有必要作进一步调查。</p>
-</blockquote>
-<br>
-
-<p>propel (pro向前+pel)</p>
-<blockquote>
-<p>verb:推动；驱动；推进</p>
-<p>He succeeded in propelling the ball across the line.<br>他成功地把球带过线。</p>
-<p>Fury propelled her into action.<br>怒火驱使她行动起来。</p>
-</blockquote>
-<br>
-
-<p>dispel(dis分开+pel)</p>
-<blockquote>
-<p>verb:驱散，消除（尤指感觉或信仰）</p>
-<p>His speech dispelled any fears about his health.<br>他的发言消除了人们对他身体健康的担心。</p>
-</blockquote>
-</li>
+<ol start="3">
+<li>关闭udp后，果然问题解决。</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dilidonglong.com/2019/07/18/新东方赵丽托福英语词汇8000-01/" data-id="ckjbl2q5b001a7svd3oo3wd67"
+      <a data-url="https://dilidonglong.com/2020/12/30/关闭UDP登陆远程桌面/" data-id="ckjbl2q3s000m7svdbbbg86gi"
          class="article-share-link">分享</a>
       
     </footer>
@@ -202,19 +138,10 @@
     
   <nav class="article-nav">
     
-      <a href="/2019/08/11/iptables笔记/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            iptables笔记
-          
-        </div>
-      </a>
     
-    
-      <a href="/2019/07/15/新东方赵丽托福英语词汇8000-00/" class="article-nav-link">
+      <a href="/2020/11/21/威联通frp内网穿透/" class="article-nav-link">
         <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">新东方赵丽托福英语词汇8000-00</div>
+        <div class="article-nav-title">威联通frp内网穿透</div>
       </a>
     
   </nav>
