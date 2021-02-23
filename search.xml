@@ -35,7 +35,7 @@
   <entry>
     <title><![CDATA[网站收集]]></title>
     <url>%2F2020%2F08%2F19%2F%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86%2F</url>
-    <content type="text"><![CDATA[收录学习过程中觉得不错的文档或网站 1.网络基本功计算机网络——TCP拥塞控制 朱双印的博客 曹世宏的博客 2.网络安全【漏洞日记】深信服EDR 吾还没见过，就听说被人日穿了 3.编程相关浅谈轻量化的虚拟技术- Docker容器 4.学习方法How to escape tutorial purgatory as a new developer — or at any time in your career. 5.测试工具FOFA:是白帽汇推出的一款网络空间搜索引擎，它通过进行网络空间测绘，能够帮助研究人员或者企业迅速进行网络资产匹配，例如进行漏洞影响范围分析、应用分布统计、应用流行度排名统计等。 FOFA使用说明 ping test ip查询]]></content>
+    <content type="text"><![CDATA[收录学习过程中觉得不错的文档或网站 1.网络基本功计算机网络——TCP拥塞控制 朱双印的博客 曹世宏的博客 面试准备 TCP 知识，看这一篇就够了 详解 TCP 三次握手、四次挥手，附带精美图解和超高频面试题 HTTPS 详解一：附带最精美详尽的 HTTPS 原理图 HTTPS详解二：SSL / TLS 工作原理和详细握手过程 2.网络安全【漏洞日记】深信服EDR 吾还没见过，就听说被人日穿了 3.编程相关浅谈轻量化的虚拟技术- Docker容器 4.学习方法How to escape tutorial purgatory as a new developer — or at any time in your career. 5.测试工具FOFA:是白帽汇推出的一款网络空间搜索引擎，它通过进行网络空间测绘，能够帮助研究人员或者企业迅速进行网络资产匹配，例如进行漏洞影响范围分析、应用分布统计、应用流行度排名统计等。 FOFA使用说明 ping test ip查询]]></content>
       <categories>
         <category>网站收集</category>
       </categories>
