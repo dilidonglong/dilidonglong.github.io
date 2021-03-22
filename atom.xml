@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.com/"/>
-  <updated>2021-01-08T13:32:08.273Z</updated>
+  <updated>2021-03-22T14:09:36.695Z</updated>
   <id>https://dilidonglong.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CPU性能排查笔记</title>
+    <link href="https://dilidonglong.com/2021/03/22/CPU%E6%80%A7%E8%83%BD%E6%8E%92%E6%9F%A5/"/>
+    <id>https://dilidonglong.com/2021/03/22/CPU性能排查/</id>
+    <published>2021-03-22T13:24:23.000Z</published>
+    <updated>2021-03-22T14:09:36.695Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-平均负载&quot;&gt;&lt;a href=&quot;#1-平均负载&quot; class=&quot;headerlink&quot; title=&quot;1.平均负载&quot;&gt;&lt;/a&gt;1.平均负载&lt;/h2&gt;&lt;p&gt;平均负载load average：是单位时间内的平均活跃进程数，它和 CPU 使用率并没有直接关系&lt;/p&gt;
+&lt;p&gt;活跃进程数：系统处于&lt;strong&gt;可运行状态&lt;/strong&gt;和&lt;strong&gt;不可中断状态&lt;/strong&gt;的进程数&lt;/p&gt;
+&lt;p&gt;可运行状态进程：&lt;em&gt;正在使用 CPU&lt;/em&gt; 或者&lt;em&gt;正在等待 CPU&lt;/em&gt;的进程&lt;/p&gt;
+&lt;p&gt;不可中断状态的进程：正处于内核态关键流程中的进程，并且这些流程是不可打断的，比如最常见的是等待硬件设备的 I/O 响应&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@ecs-M79hl ~]&lt;span class=&quot;comment&quot;&gt;# uptime&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 21:39:02 up 30 days,  9:30,  1 user,  load average: 0.05, 0.09, 0.04&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;或&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[root@ecs-M79hl ~]&lt;span class=&quot;comment&quot;&gt;# watch -d uptime&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="linux" scheme="https://dilidonglong.com/categories/linux/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>将word试题卷转换成ppt课件方法</title>
@@ -123,7 +146,7 @@
     <link href="https://dilidonglong.com/2020/08/19/%E7%BD%91%E7%AB%99%E6%94%B6%E9%9B%86/"/>
     <id>https://dilidonglong.com/2020/08/19/网站收集/</id>
     <published>2020-08-19T15:03:26.000Z</published>
-    <updated>2021-02-23T13:57:38.997Z</updated>
+    <updated>2021-02-24T12:14:00.855Z</updated>
     
     <summary type="html">
     
@@ -623,48 +646,6 @@
     
     
       <category term="SEED Labs" scheme="https://dilidonglong.com/categories/SEED-Labs/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>markdown语法</title>
-    <link href="https://dilidonglong.com/2019/08/11/markdown%E8%AF%AD%E6%B3%95/"/>
-    <id>https://dilidonglong.com/2019/08/11/markdown语法/</id>
-    <published>2019-08-11T14:09:25.000Z</published>
-    <updated>2019-09-15T15:03:20.807Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;插入数学公式&quot;&gt;&lt;a href=&quot;#插入数学公式&quot; class=&quot;headerlink&quot; title=&quot;插入数学公式&quot;&gt;&lt;/a&gt;插入数学公式&lt;/h1&gt;&lt;p&gt;在Markdown中插入数学公式的语法是&lt;code&gt;$数学公式$&lt;/code&gt;和&lt;code&gt;$$数学公式$$&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;行内公式&lt;/strong&gt;是可以让公式在文中与文字或其他东西混编，不独占一行。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;质能方程$E = mc^2$&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;显示&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;质能方程$E=mc^2$&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;独立公式&lt;/strong&gt;使公式单独占一行，不与文中其他文字等混编。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;质能方程$$E = mc^2$$&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;显示&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;质能方程&lt;/p&gt;
-&lt;p&gt;$$E=mc^2$$&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="小技巧" scheme="https://dilidonglong.com/categories/%E5%B0%8F%E6%8A%80%E5%B7%A7/"/>
     
     
   </entry>
