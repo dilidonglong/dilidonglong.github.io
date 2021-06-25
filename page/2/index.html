@@ -722,43 +722,6 @@
 
       
         <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>该篇文档为自己所做笔记，防止后续忘记如何部署。</p>
-<p>VPS的购买省略，可以参考该文档<a href="http://ibloodline.com/articles/2018/02/01/fuck-wall.html" target="_blank" rel="noopener">《科学上网完全指南》</a>。</p>
-<p>附带：</p>
-<p><a href="https://www.vps234.com/hostwinds-ip-blocked-fix-isp/" target="_blank" rel="noopener">美国VPS Hostwinds IP被屏蔽Ping不通解决新方法</a></p>
-<img src="/2019/09/25/科学上网/1.png" title="This is an test image">
-
-<br>
-
-<p>Shadowsocks和V2Ray任选其一</p>
-<br>
-
-<p>利用上述文档可以更换IP，注意记得更换IP后要重装系统并<strong>重启设备</strong></p>
-<p>同时在hostwinds中可以创建快照。恢复快照是在重装系统中，选择之前的快照恢复即可，同时记得做完上述操作后要重启设备</p>
-<p>同时重装过系统后，密码可能需要修改，修改之后同样要重启设备</p>
-<h2 id="2-Shadowsocks部署"><a href="#2-Shadowsocks部署" class="headerlink" title="2.Shadowsocks部署"></a>2.Shadowsocks部署</h2><h3 id="2-1-服务器部署"><a href="#2-1-服务器部署" class="headerlink" title="2.1 服务器部署"></a>2.1 服务器部署</h3><ol>
-<li>命令行中，输入以下命令，并回车。直接复制即可。这一步是下载安装执行脚本到本地目录下</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>给下载后的脚本添加可执行权限</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x shadowsocks.sh</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>执行该脚本，并把标准输出和错误输出放到shadowsocks.log日志中。</p>
-<p>输入以下命令执行的过程中，会提示你输入<strong>密码、端口和加密方式</strong></p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其他常用命令：</p>
-<p>启动：<code>/etc/init.d/shadowsocks start</code> </p>
-<p>停止：<code>/etc/init.d/shadowsocks stop</code> </p>
-<p>重启：<code>/etc/init.d/shadowsocks restart</code> </p>
-<p>状态：<code>/etc/init.d/shadowsocks status</code></p>
-</blockquote>
         
           <a class="article-more-link" href="/2019/09/25/科学上网/">阅读全文</a>
         

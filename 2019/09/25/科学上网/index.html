@@ -79,65 +79,22 @@
 
       
         <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h2><p>该篇文档为自己所做笔记，防止后续忘记如何部署。</p>
-<p>VPS的购买省略，可以参考该文档<a href="http://ibloodline.com/articles/2018/02/01/fuck-wall.html" target="_blank" rel="noopener">《科学上网完全指南》</a>。</p>
-<p>附带：</p>
-<p><a href="https://www.vps234.com/hostwinds-ip-blocked-fix-isp/" target="_blank" rel="noopener">美国VPS Hostwinds IP被屏蔽Ping不通解决新方法</a></p>
-<img src="/2019/09/25/科学上网/1.png" title="This is an test image">
-
-<br>
-
-<p>Shadowsocks和V2Ray任选其一</p>
-<br>
-
-<p>利用上述文档可以更换IP，注意记得更换IP后要重装系统并<strong>重启设备</strong></p>
-<p>同时在hostwinds中可以创建快照。恢复快照是在重装系统中，选择之前的快照恢复即可，同时记得做完上述操作后要重启设备</p>
-<p>同时重装过系统后，密码可能需要修改，修改之后同样要重启设备</p>
-<h2 id="2-Shadowsocks部署"><a href="#2-Shadowsocks部署" class="headerlink" title="2.Shadowsocks部署"></a>2.Shadowsocks部署</h2><h3 id="2-1-服务器部署"><a href="#2-1-服务器部署" class="headerlink" title="2.1 服务器部署"></a>2.1 服务器部署</h3><ol>
-<li>命令行中，输入以下命令，并回车。直接复制即可。这一步是下载安装执行脚本到本地目录下</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>给下载后的脚本添加可执行权限</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x shadowsocks.sh</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>执行该脚本，并把标准输出和错误输出放到shadowsocks.log日志中。</p>
-<p>输入以下命令执行的过程中，会提示你输入<strong>密码、端口和加密方式</strong></p>
-</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其他常用命令：</p>
-<p>启动：<code>/etc/init.d/shadowsocks start</code> </p>
-<p>停止：<code>/etc/init.d/shadowsocks stop</code> </p>
-<p>重启：<code>/etc/init.d/shadowsocks restart</code> </p>
-<p>状态：<code>/etc/init.d/shadowsocks status</code></p>
-</blockquote>
 <a id="more"></a>
 
-<br>
-
-<h3 id="2-2-客户端使用"><a href="#2-2-客户端使用" class="headerlink" title="2.2 客户端使用"></a>2.2 客户端使用</h3><p>参考该文档<a href="https://crifan.github.io/scientific_network_summary/website/server_client_mode/ss_client/#shadowsocks的客户端" target="_blank" rel="noopener">Shadowsocks的客户端</a>，相当详细了。</p>
-<br>
-
-<h2 id="3-V2Ray-简单部署"><a href="#3-V2Ray-简单部署" class="headerlink" title="3.V2Ray 简单部署"></a>3.V2Ray 简单部署</h2><h3 id="3-1-V2Ray服务器部署"><a href="#3-1-V2Ray服务器部署" class="headerlink" title="3.1 V2Ray服务器部署"></a><a href="http://ibloodline.com/articles/2019/06/24/v2ray.html" target="_blank" rel="noopener">3.1 V2Ray服务器部署</a></h3><ol>
-<li>下载V2Ray，以下两条命令2选其1</li>
+<h2 id="2-V2Ray-简单部署"><a href="#2-V2Ray-简单部署" class="headerlink" title="2.V2Ray 简单部署"></a>2.V2Ray 简单部署</h2><h3 id="2-1-V2Ray服务器部署"><a href="#2-1-V2Ray服务器部署" class="headerlink" title="2.1 V2Ray服务器部署"></a><a href="https://www.rootfw.com/en/posts/f3e24172.html" target="_blank" rel="noopener">2.1 V2Ray服务器部署</a></h3><ol>
+<li>安装依赖及执行以下代码</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://install.direct/go.sh</span><br><span class="line">bash &lt;(curl -L -s https://install.direct/go.sh)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum makecache</span><br><span class="line">yum install curl</span><br><span class="line"></span><br><span class="line">curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh</span><br><span class="line">curl -O https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-dat-release.sh</span><br><span class="line">bash install-release.sh</span><br><span class="line">bash install-dat-release.sh</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>然后执行脚本安装 V2Ray</li>
+<li>在/usr/local/etc/v2ray下面创建一个新的config.json配置文件</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[root@ss-1 ~]<span class="comment"># bash go.sh</span></span><br><span class="line">Installing V2Ray v4.19.1 on x86_64</span><br><span class="line">Downloading V2Ray: https://github.com/v2ray/v2ray-core/releases/download/v4.19.1/v2ray-linux-64.zip</span><br><span class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100   608    0   608    0     0   2026      0 --:--:-- --:--:-- --:--:--  2033</span><br><span class="line">100 11.2M  100 11.2M    0     0  4894k      0  0:00:02  0:00:02 --:--:-- 7245k</span><br><span class="line">Updating software repo</span><br><span class="line">http://mirror.nodesdirect.com/epel/7/x86_64/repodata/d61cfa966bb2988b5ecc41dc76376385f8d0094d473a3d2bfb26c0416adda7eb-updateinfo.xml.bz2: [Errno 14] HTTP Error 404 - Not Found</span><br><span class="line">正在尝试其它镜像。</span><br><span class="line">To address this issue please refer to the below wiki article</span><br><span class="line"></span><br><span class="line">https://wiki.centos.org/yum-errors</span><br><span class="line"></span><br><span class="line">If above article doesn<span class="string">'t help to resolve this issue please use https://bugs.centos.org/.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">https://mirror.vcu.edu/pub/gnu%2Blinux/epel/7/x86_64/repodata/ac968a1fb8c66bbce1c8f8e5f524fad2163e3dd799f35a02fd138ed8ae0f6797-filelists.sqlite.bz2: [Errno 14] HTTPS Error 404 - Not Found</span></span><br><span class="line"><span class="string">正在尝试其它镜像。</span></span><br><span class="line"><span class="string">http://mirror.us.leaseweb.net/epel/7/x86_64/repodata/8b3a849ac7aae91918aba9fb66c2d2532e9bb39a2700c8168eff11ad0b6e7b7e-other.sqlite.bz2: [Errno 14] HTTP Error 404 - Not Found</span></span><br><span class="line"><span class="string">正在尝试其它镜像。</span></span><br><span class="line"><span class="string">Installing unzip</span></span><br><span class="line"><span class="string">Extracting V2Ray package to /tmp/v2ray.</span></span><br><span class="line"><span class="string">Archive:  /tmp/v2ray/v2ray.zip</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/config.json</span></span><br><span class="line"><span class="string">   creating: /tmp/v2ray/doc/</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/doc/readme.md</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/geoip.dat</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/geosite.dat</span></span><br><span class="line"><span class="string">   creating: /tmp/v2ray/systemd/</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/systemd/v2ray.service</span></span><br><span class="line"><span class="string">   creating: /tmp/v2ray/systemv/</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/systemv/v2ray</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/v2ctl</span></span><br><span class="line"><span class="string"> extracting: /tmp/v2ray/v2ctl.sig</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/v2ray</span></span><br><span class="line"><span class="string"> extracting: /tmp/v2ray/v2ray.sig</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/vpoint_socks_vmess.json</span></span><br><span class="line"><span class="string">  inflating: /tmp/v2ray/vpoint_vmess_freedom.json</span></span><br><span class="line"><span class="string">PORT:11234</span></span><br><span class="line"><span class="string">UUID:62b1262c-8c69-4f04-aa33-b45bf1eb8414</span></span><br><span class="line"><span class="string">Created symlink from /etc/systemd/system/multi-user.target.wants/v2ray.service to /etc/systemd/system/v2ray.service.</span></span><br><span class="line"><span class="string">V2Ray v4.19.1 is installed.</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"inbounds"</span>: [&#123;</span><br><span class="line">    <span class="string">"port"</span>: xxxx,           //此处为安装时生成的端口，可修改随意，但是保证和下面提到的端口号相同</span><br><span class="line">    <span class="string">"listen"</span>:<span class="string">"127.0.0.1"</span>,	//设置了监听地址后，后续在客户端上直接使用服务器IP是无法连接成功的</span><br><span class="line">    <span class="string">"protocol"</span>: <span class="string">"vmess"</span>,</span><br><span class="line">    <span class="string">"settings"</span>: &#123;</span><br><span class="line">      <span class="string">"clients"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="string">"id"</span>: <span class="string">"xxxxx-xxxx-xxxxx-xxxx-xxxxxx"</span>, //此处为安装时生成的id</span><br><span class="line">          <span class="string">"level"</span>: 1,</span><br><span class="line">          <span class="string">"alterId"</span>: 64      //此处为安装时生成的alterId</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"streamSettings"</span>: &#123;</span><br><span class="line">      <span class="string">"network"</span>: <span class="string">"ws"</span>,</span><br><span class="line">      <span class="string">"wsSettings"</span>: &#123;</span><br><span class="line">        <span class="string">"path"</span>: <span class="string">"/yuuka"</span>    //此处为路径，需要和下面NGINX上面的路径配置一样</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;],</span><br><span class="line">  <span class="string">"outbounds"</span>: [&#123;</span><br><span class="line">    <span class="string">"protocol"</span>: <span class="string">"freedom"</span>,</span><br><span class="line">    <span class="string">"settings"</span>: &#123;&#125;</span><br><span class="line">  &#125;,&#123;</span><br><span class="line">    <span class="string">"protocol"</span>: <span class="string">"blackhole"</span>,</span><br><span class="line">    <span class="string">"settings"</span>: &#123;&#125;,</span><br><span class="line">    <span class="string">"tag"</span>: <span class="string">"blocked"</span></span><br><span class="line">  &#125;],</span><br><span class="line">  <span class="string">"routing"</span>: &#123;</span><br><span class="line">    <span class="string">"rules"</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"type"</span>: <span class="string">"field"</span>,</span><br><span class="line">        <span class="string">"ip"</span>: [<span class="string">"geoip:private"</span>],</span><br><span class="line">        <span class="string">"outboundTag"</span>: <span class="string">"blocked"</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>以上的 <code>PORT:11234</code> 和 <code>UUID:62b1262c-8c69-4f04-aa33-b45bf1eb8414</code>，在后面会用到。</p>
 <ol start="3">
 <li>启动V2Ray</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start v2ray</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart v2ray</span><br><span class="line">systemctl status -l v2ray</span><br><span class="line">systemctl <span class="built_in">enable</span> v2ray</span><br></pre></td></tr></table></figure>
 
 <ol start="4">
 <li>开启防火墙</li>
@@ -177,13 +134,7 @@
 
 <br>
 
-<ol start="5">
-<li>服务器端口的配置文件 /etc/v2ray/config.json。可以从该配置文件修改某些信息</li>
-<li>查看v2ray状态命令<code>service v2ray status</code></li>
-</ol>
-<br>
-
-<h3 id="3-2-V2Ray客户端使用"><a href="#3-2-V2Ray客户端使用" class="headerlink" title="3.2 V2Ray客户端使用"></a>3.2 V2Ray客户端使用</h3><p><a href="https://v2ray.com/awesome/tools.html" target="_blank" rel="noopener">神一样的工具们</a></p>
+<h3 id="2-2-V2Ray客户端使用"><a href="#2-2-V2Ray客户端使用" class="headerlink" title="2.2 V2Ray客户端使用"></a>2.2 V2Ray客户端使用</h3><p><a href="https://v2ray.com/awesome/tools.html" target="_blank" rel="noopener">神一样的工具们</a></p>
 <ol>
 <li><p>我在windows中，下载的上面的图形工具是V2RayW。其实解压了该压缩包，运行<strong>V2RayW.exe</strong>文件也会给出提示要下载V2Ray。</p>
 </li>

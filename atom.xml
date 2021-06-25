@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dilidonglong.com/"/>
-  <updated>2021-03-22T14:33:59.093Z</updated>
+  <updated>2021-03-28T13:12:39.053Z</updated>
   <id>https://dilidonglong.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://dilidonglong.com/2021/03/22/CPU%E6%80%A7%E8%83%BD%E6%8E%92%E6%9F%A5/"/>
     <id>https://dilidonglong.com/2021/03/22/CPU性能排查/</id>
     <published>2021-03-22T13:24:23.000Z</published>
-    <updated>2021-03-22T14:33:59.093Z</updated>
+    <updated>2021-03-28T13:12:39.053Z</updated>
     
     <summary type="html">
     
@@ -210,7 +210,7 @@
     <link href="https://dilidonglong.com/2020/05/16/%E5%8D%8F%E8%AE%AE%E8%BA%B2%E5%96%B5%E5%96%B5/"/>
     <id>https://dilidonglong.com/2020/05/16/协议躲喵喵/</id>
     <published>2020-05-16T03:54:20.000Z</published>
-    <updated>2020-11-21T13:15:47.381Z</updated>
+    <updated>2021-06-25T14:29:16.239Z</updated>
     
     <summary type="html">
     
@@ -547,48 +547,11 @@
     <link href="https://dilidonglong.com/2019/09/25/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/"/>
     <id>https://dilidonglong.com/2019/09/25/科学上网/</id>
     <published>2019-09-25T14:21:48.000Z</published>
-    <updated>2020-05-16T04:29:29.889Z</updated>
+    <updated>2021-06-25T13:56:46.796Z</updated>
     
     <summary type="html">
     
       &lt;h2 id=&quot;1-概述&quot;&gt;&lt;a href=&quot;#1-概述&quot; class=&quot;headerlink&quot; title=&quot;1.概述&quot;&gt;&lt;/a&gt;1.概述&lt;/h2&gt;&lt;p&gt;该篇文档为自己所做笔记，防止后续忘记如何部署。&lt;/p&gt;
-&lt;p&gt;VPS的购买省略，可以参考该文档&lt;a href=&quot;http://ibloodline.com/articles/2018/02/01/fuck-wall.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;《科学上网完全指南》&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;附带：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.vps234.com/hostwinds-ip-blocked-fix-isp/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;美国VPS Hostwinds IP被屏蔽Ping不通解决新方法&lt;/a&gt;&lt;/p&gt;
-&lt;img src=&quot;/2019/09/25/科学上网/1.png&quot; title=&quot;This is an test image&quot;&gt;
-
-&lt;br&gt;
-
-&lt;p&gt;Shadowsocks和V2Ray任选其一&lt;/p&gt;
-&lt;br&gt;
-
-&lt;p&gt;利用上述文档可以更换IP，注意记得更换IP后要重装系统并&lt;strong&gt;重启设备&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;同时在hostwinds中可以创建快照。恢复快照是在重装系统中，选择之前的快照恢复即可，同时记得做完上述操作后要重启设备&lt;/p&gt;
-&lt;p&gt;同时重装过系统后，密码可能需要修改，修改之后同样要重启设备&lt;/p&gt;
-&lt;h2 id=&quot;2-Shadowsocks部署&quot;&gt;&lt;a href=&quot;#2-Shadowsocks部署&quot; class=&quot;headerlink&quot; title=&quot;2.Shadowsocks部署&quot;&gt;&lt;/a&gt;2.Shadowsocks部署&lt;/h2&gt;&lt;h3 id=&quot;2-1-服务器部署&quot;&gt;&lt;a href=&quot;#2-1-服务器部署&quot; class=&quot;headerlink&quot; title=&quot;2.1 服务器部署&quot;&gt;&lt;/a&gt;2.1 服务器部署&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;命令行中，输入以下命令，并回车。直接复制即可。这一步是下载安装执行脚本到本地目录下&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;ol start=&quot;2&quot;&gt;
-&lt;li&gt;给下载后的脚本添加可执行权限&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chmod +x shadowsocks.sh&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;ol start=&quot;3&quot;&gt;
-&lt;li&gt;&lt;p&gt;执行该脚本，并把标准输出和错误输出放到shadowsocks.log日志中。&lt;/p&gt;
-&lt;p&gt;输入以下命令执行的过程中，会提示你输入&lt;strong&gt;密码、端口和加密方式&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;./shadowsocks.sh 2&amp;gt;&amp;amp;1 | tee shadowsocks.log&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;其他常用命令：&lt;/p&gt;
-&lt;p&gt;启动：&lt;code&gt;/etc/init.d/shadowsocks start&lt;/code&gt; &lt;/p&gt;
-&lt;p&gt;停止：&lt;code&gt;/etc/init.d/shadowsocks stop&lt;/code&gt; &lt;/p&gt;
-&lt;p&gt;重启：&lt;code&gt;/etc/init.d/shadowsocks restart&lt;/code&gt; &lt;/p&gt;
-&lt;p&gt;状态：&lt;code&gt;/etc/init.d/shadowsocks status&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
     
     </summary>
     
