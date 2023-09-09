@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    软考试题2 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-软考试题2" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      软考试题2
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/05/06/软考试题2/" class="article-date">
+  <time datetime="2019-05-06T14:55:13.000Z" itemprop="datePublished">2019-05-06</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/软考/">软考</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="软考试题2"><a href="#软考试题2" class="headerlink" title="软考试题2"></a>软考试题2</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用64K×8的RAM芯片和32K×16的ROM芯片设计一个256K×16的存储器，地址范围为00000H～3FFFFH，其中ROM的地址范围为10000H～1FFFFH，其余为RAM的地址。则地址线为（）根，数据线为（）根；RAM需要（）片，ROM需要（）片。<br>问题1选项<br>A 18       B 9          C 16        D 8<br>问题2选项<br>A 18            B 9             C 16            D 8<br>问题3选项<br>A 1             B 2             C 3                D 6<br>问题4选项<br>A 12            B 2             C 9               D 6</p>
+<a id="more"></a>
+
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><ol>
+<li><p>64Kx8表示什么？</p>
+<p>表示一个芯片的容量。其中64K表示一个芯片内地址块的数目，8表示每个地址块里面存放的比特位数。</p>
+<p>其中，1K=1024，1M=1024K。64K=64x1024=65536，即一个芯片内有65536个地址块</p>
+<p>你可以理解成，有一个大菜地（芯片），你把这个大菜地分成65536个小菜地（地址块）。每个小菜地里面都能种8颗白菜（比特位数）。一个芯片的容量就是整个大菜地里面能种的白菜数量。</p>
+<hr>
+</li>
+<li><p>64Kx8与地址线，数据线的关系？</p>
+<p>64K是一个十进制数，即$2^{16}$。</p>
+<p>地址线传递地址信息。如果用1个比特，可以表示2个地址块（地址块数目是$2^1$），即编号为0的地址块和编号为1的地址块。如果用2个比特，可以表示4个地址块（地址块数目是$2^2$），即编号为00，01，10，11的四个地址块。那么我有16个比特的话，就能表示64K个地址块。<strong>一根地址线就占一个比特位，有16根地址线就表示有16个地址比特位。</strong></p>
+<p>数据线传递数据信息。<strong>一根数据线就占一个比特位，8根数据线就占8个数据比特位。</strong></p>
+<p>这些所谓的线，通过电平的高低变化来表示0或1。只是说不同的线，传递的信息是不同的。地址线传地址信息，数据线传数据信息，控制线传控制信息。这些信息是用0和1表示出来的。</p>
+<hr>
+</li>
+<li><p>一个256K×16的存储器，由64K×8的RAM芯片和32K×16的ROM芯片组成。</p>
+<p>你可以理解成，一个超级大菜地分成2个中型菜地，一个种白菜，一个种辣椒。</p>
+<p>这两个中型菜地又分别由小菜地（RAM和ROM芯片）组成。</p>
+<hr>
+</li>
+<li><p>一个256K×16的存储器，地址范围为00000H～3FFFFH（地址编号为十六进制数）。表示有（3FFFF-00000+1）H个地址块。你想下如果有3个数，编号分别为0~3，是不是一共有4个地址块。用3-0=3是不对的，还得再+1。</p>
+<p>即这个存储器（超级大菜地）有（3FFFF-00000+1）H=40000H个地址块，每个地址块能容纳16个比特位数（种16个农作物）。</p>
+<hr>
+</li>
+<li><p>其中ROM的地址范围为10000H～1FFFFH，这是占了超级大菜地里面的一部分地址块。这部分地址块的数目是多少呢？是（1FFFF-10000+1）H=10000H个。这个十六进制数换成十进制数是64K。</p>
+<p>存储器中ROM芯片给的地址块是64K，每个地址块能容纳16个比特。所以存储器中关于ROM的总容量就是64Kx16。</p>
+<p>由于题目中说了，存储器是由32K×16的ROM芯片组成。ROM总容量已知，每个ROM芯片的容量也已知，此时问你需要多少片<strong>ROM，聪明如你，相信已经知道答案了。（64Kx16）/（32Kx16）=2</strong></p>
+<hr>
+</li>
+<li><p>ROM占了整个存储器的地址块有64K个。存储器共有256K个。那么留下来给RAM的地址块数目即是（256-64）K=192K个。RAM的总容量就是192Kx16。</p>
+<p>知道RAM的总容量，知道每片RAM芯片的容量64K×8，问你需要多少片<strong>RAM。聪明如你，相信已经知道答案了。（192Kx16）/（64Kx8）=6</strong></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.xilearn.top/2019/05/06/软考试题2/" data-id="clmc13gqf002l0otfg96k7f88"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/05/06/软考试题3/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            软考试题3
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/04/30/tcpdump技巧/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">tcpdump技巧</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    远程桌面访问不了 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-远程桌面访问不了" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      远程桌面访问不了
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/07/07/远程桌面访问不了/" class="article-date">
+  <time datetime="2019-07-07T08:08:47.000Z" itemprop="datePublished">2019-07-07</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/实战/">实战</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="远程桌面访问不了"><a href="#远程桌面访问不了" class="headerlink" title="远程桌面访问不了"></a>远程桌面访问不了</h1><p><strong>问题：总部PC去访问分支的服务器3389桌面，会出现不定时中断的问题</strong></p>
+<ol>
+<li><p>10.0.2.132为PC 10.16.2.200为远程桌面的服务器</p>
+</li>
+<li><p>拓扑环境</p>
+<img src="/2019/07/07/远程桌面访问不了/13.png" title="This is an test image">
+
+</li>
+</ol>
+<p>总部有三层环境，AC透明模式部署，分支二层环境，就一个网段</p>
+<ol start="3">
+<li><p>数据包是总部访问分支访问不了的时候抓取的数据包，要求通过数据包，分析问题原因。</p>
+<a id="more"></a>
+
+</li>
+</ol>
+<hr>
+<p><strong>排查思路：</strong></p>
+<ol>
+<li><p>只抓取了分支vpn上eth0口的包和总部vpn设备eth0上的包（建议是分支电脑和总部服务器都抓取，抓不了也没    办法）</p>
+</li>
+<li><p>因为是终端pc访问服务器的时候经常断开。所以先看在终端侧的数据包，也即是查看zbssleth0这个包</p>
+<blockquote>
+<ol>
+<li>打开之后，先点击<strong>Statistics</strong>，选中<strong>conversation</strong></li>
+</ol>
+
+
+<ol start="2">
+<li>出现下图界面，选中<strong>TCP</strong>，看到存在三个连接。说明应该是测试过3次。其中注意到字节数Bytes， 第二个连接有112kB，比其他连接传输的数据都多，那我们就先来看这个连接。</li>
+</ol>
+<img src="/2019/07/07/远程桌面访问不了/2.jpg" title="This is an test image">
+
+<ol start="3">
+<li>怎么看呢？右键该连接后，照下图操作</li>
+</ol>
+<img src="/2019/07/07/远程桌面访问不了/3.jpg" title="This is an test image">
+
+<ol start="4">
+<li>wireshark自动过滤该连接，显示如下界面</li>
+</ol>
+<img src="/2019/07/07/远程桌面访问不了/4.jpg" title="This is an test image">
+
+<ol start="5">
+<li>我们可以点开专家分析来看看，是否存在什么问题。点开之后，记得把<strong>Limit to Display ﬁlter</strong> 给勾上，这样才会显示在wireshark过滤后展示页面的信息。</li>
+</ol>
+<img src="/2019/07/07/远程桌面访问不了/5.jpg" title="This is an test image">
+
+<img src="/2019/07/07/远程桌面访问不了/6.jpg" title="This is an test image">
+
+<ol start="6">
+<li>由于不涉及访问卡慢的问题，所以此时我们没必要看重传等信息。重点应该关注是什么导致的连接  断开。此时，明显能看到告警信息中，存在RST包，那我们就可以看下304号包与306号包。</li>
+</ol>
+<img src="/2019/07/07/远程桌面访问不了/7.jpg" title="This is an test image">
+
+<ol start="7">
+<li>找到304号包与306包后，发现后面就再也没有数据了，说明此时连接是中断了。明明数据传的好好   的，怎么突然客户端10.0.2.132就发送一个RST包呢。此时需要注意的是，我们的数据包是在总部vpn设备上eth0口抓的，也就是说这个流量是从内部传过来的。结合着总部的拓扑情况，出现中断，  可能存在2种情况。要么是客户端自己的问题，要么就是有啥子设备替客户端发送了这个RST包。</li>
+</ol>
+<img src="/2019/07/07/远程桌面访问不了/8.jpg" title="This is an test image">
+
+<ol start="8">
+<li><p>一个直接的办法就是在客户端上抓包。看下客户端有没有发出这个RST包。如果没有，结合着网络拓  扑，那基本就可以确定是AC发了这个RST包了（第一个，客户环境比较简单；第二个，谁叫AC是行  为管控呢）。如果客户端上的抓包有这个RST，那就是客户端的问题。</p>
+</li>
+<li><p>如果客户说，我电脑上不能安装其他软件（不管为啥，你就当死活不允许好了）。那就是说，我们  不能在客户端上抓包。那好，我们就只能在现有的数据包中获取蛛丝马迹了。</p>
+</li>
+<li><p>此时，我们还有一个方法判断是不是由客户端发出的这个RST包，那就是通过IP.ID这个参数。</p>
+</li>
+<li><p>IP.ID是什么鬼？那我们要知道数据包是如何封装的，如下图所示。如果看不懂，请参考<a href="https://wizardforcel.gitbooks.io/network-basic/content/0.html" target="_blank" rel="noopener">网络基本功</a>。IP.ID是IP数据报头中的一个字段。表明了一个数据包的身份，比如一个数据内容过大，被传输的时候就要对这个数据进行切割，即进行分片。当接收方收到这些分片后，需要把这些分片组装起来，那接收方每次收这么多的数据包，它咋知道哪些分片是从同一个数据内容中出来的呢？就要靠IP.ID了，通过IP.ID就可以把这些分片组装起来，还原成最初始的大块数据。就像你玩乐高玩具，乐  高里面这么多零件，如果这些零件中混入了其他玩具的零件。那你想把这个乐高玩具组装起来肯定需要一个标识来进行识别哪些零件是同属于一个乐高模型的。</p>
+</li>
+</ol>
+<img src="/2019/07/07/远程桌面访问不了/9.jpg" title="This is an test image">
+
+<ol start="12">
+<li><p>上述还只是告诉了你，啥是IP.ID。那回到问题中来，你还需要知道的一个点就是，如果是一个设备   去发数据包，那么他的IP.ID增长是线性的。即一般来说，同一台设备发出第一个包，如果IP.ID是1，   第二个包就是2。就算不符合这规律，那数值起码也不会差太多。</p>
+</li>
+<li><p>我们再来看下wireshark，299号包的IP.ID=18970。302号包的IP.ID=18971。而304号包的IP.ID=22566。那RST包和之前的两个包，这数值也差的太多了啊，所以基本能判断这个包不是客户端发出的。</p>
+</li>
+</ol>
+<img src="/2019/07/07/远程桌面访问不了/10.jpg" title="This is an test image">
+
+
+
+<img src="/2019/07/07/远程桌面访问不了/11.jpg" title="This is an test image">
+
+
+
+<img src="/2019/07/07/远程桌面访问不了/12.jpg" title="This is an test image">
+
+</blockquote>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.xilearn.top/2019/07/07/远程桌面访问不了/" data-id="clmc13gqg002n0otf3wl8el4l"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/07/15/新东方赵丽托福英语词汇8000-00/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            新东方赵丽托福英语词汇8000-00
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/06/13/视频会议卡顿/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">视频会议卡顿</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
