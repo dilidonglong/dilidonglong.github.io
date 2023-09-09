@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    tshark使用方法 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-tshark使用方法" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      tshark使用方法
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/04/26/tshark使用方法/" class="article-date">
+  <time datetime="2019-04-25T16:10:34.000Z" itemprop="datePublished">2019-04-26</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="tshark使用方法"><a href="#tshark使用方法" class="headerlink" title="tshark使用方法"></a>tshark使用方法</h1><p><a href="https://www.wireshark.org/docs/man-pages/tshark.html" target="_blank" rel="noopener">tshark官方文档</a></p>
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h2><p><strong>TShark</strong> is a network protocol analyzer. It lets you capture packet data from a live network, or read packets from a previously saved capture file, either printing a decoded form of those packets to the standard output or writing the packets to a file. <strong>TShark</strong>‘s native capture file format is <strong>pcapng</strong> format, which is also the format used by <strong>wireshark</strong> and various other tools.</p>
+<p><strong>TShark</strong>是一个网络分析工具。它能帮你在实时网络中捕获数据包，或是从预先保存好的捕获文件中读取数据包，或是打印出这些数据包的解码形式到标准输出，再或是把数据包写入到一个文件中。<strong>TShark</strong>的本地捕获文件格式是pcapng格式，这种pcapng格式也被<strong>wireshark</strong>和多种其他工具使用。</p>
+<a id="more"></a>
+
+<p>Without any options set, <strong>TShark</strong> will work much like <strong>tcpdump</strong>. It will use the pcap library to capture traffic from the first available network interface and displays a summary line on the standard output for each received packet.</p>
+<p>如果没有设置任何选项，<strong>TShark</strong>将像<strong>tcpdump</strong>一样工作。它使用pcap库，从第一个可使用的网络接口捕获流量。并且为每个接收到的包展示其摘要行到标准输出上。</p>
+<p>When run with the <strong>-r</strong> option, specifying a capture file from which to read, <strong>TShark</strong> will again work much like <strong>tcpdump</strong>, reading packets from the file and displaying a summary line on the standard output for each packet read. <strong>TShark</strong> is able to detect, read and write the same capture files that are supported by <strong>Wireshark</strong>. The input file doesn’t need a specific filename extension; the file format and an optional gzip compression will be automatically detected. Near the beginning of the DESCRIPTION section of wireshark(1) or <a href="https://www.wireshark.org/docs/man-pages/wireshark.html" target="_blank" rel="noopener">https://www.wireshark.org/docs/man-pages/wireshark.html</a> is a detailed description of the way <strong>Wireshark</strong> handles this, which is the same way <strong>Tshark</strong> handles this.</p>
+<p>当使用-r选项，会从我们指定的文件中读取数据包信息。<strong>TShark</strong>将再次像<strong>tcpdump</strong>一样工作，从文件中读取数据包并且把读取的数据包在标准输出上展示其摘要行。<strong>TShark</strong>可以检测，读取和写入同一份捕获文件，这些操作在<strong>Wireshark</strong>中也是支持的。输出文件不需要一个指定的文件扩展名；它将动态检测文件格式和可选的gzip压缩。在<strong>Wireshark</strong>的开始描述部分附近或是在链接<a href="https://www.wireshark.org/docs/man-pages/wireshark.html" target="_blank" rel="noopener">https://www.wireshark.org/docs/man-pages/wireshark.html</a> 中，介绍了关于<strong>Wireshark</strong>处理这些问题的方法细节描述，这些方法同样适用于<strong>TShark</strong>。</p>
+<p>Compressed file support uses (and therefore requires) the zlib library. If the zlib library is not present when compiling <strong>TShark</strong>, it will be possible to compile it, but the resulting program will be unable to read compressed files.</p>
+<p>支持压缩文件要使用（因此需要）zlib库。如果编译<strong>TShark</strong>时zlib库不存在，也可以编译它，但是最终程序将不可读取压缩文件。</p>
+<p>When displaying packets on the standard output, <strong>TShark</strong> writes, by default, a summary line containing the fields specified by the preferences file (which are also the fields displayed in the packet list pane in <strong>Wireshark</strong>), although if it’s writing packets as it captures them, rather than writing packets from a saved capture file, it won’t show the “frame number” field. If the <strong>-V</strong> option is specified, it instead writes a view of the details of the packet, showing all the fields of all protocols in the packet. If the <strong>-O</strong> option is specified, it will only show the full details for the protocols specified, and show only the top-level detail line for all other protocols. Use the output of “<strong>tshark -G protocols</strong>“ to find the abbreviations of the protocols you can specify. If the <strong>-P</strong> option is specified with either the <strong>-V</strong> or <strong>-O</strong> options, both the summary line for the entire packet and the details will be displayed.</p>
+<p>当在标准输出显示数据包时，默认情况下<strong>TShark</strong>输出摘要行信息，摘要行里包含首选项文件指定的字段（这些字段也展示在wireshark中的包列表窗），但是如果在捕获流量时输出数据包而不是在保存的文件中输出数据包的话，将不会显示“帧编号”字段。如果指定了<strong>-V</strong>选项，这将输出数据包的细节信息视图，展示了数据包中所有协议的所有字段信息。如果指定了<strong>-O</strong>选项，它将仅显示指定协议的完整详细信息，并仅显示所有其他协议的顶级详细信息行。在命令行中输入“<strong>tshark -G protocols</strong>”可以查找指定的协议缩写。如果<strong>-P</strong>选项和<strong>-V</strong>或<strong>-O</strong>一起使用，将会展示整个包的摘要行和细节信息。</p>
+<p>Packet capturing is performed with the pcap library. That library supports specifying a filter expression; packets that don’t match that filter are discarded. The <strong>-f</strong> option is used to specify a capture filter. The syntax of a capture filter is defined by the pcap library; this syntax is different from the read filter syntax described below, and the filtering mechanism is limited in its abilities.</p>
+<p>数据包捕获时使用pcap库。pcap库支持指定的过滤表达式；数据包没有匹配上过滤表达式则会被丢弃。<strong>-f</strong>选项被用来指定捕获过滤表达式。捕获过滤的语法在pcap库中定义；这些捕获过滤的语法不同于以下所描述的显示过滤器语法，并且其过滤机制的能力有限。</p>
+<p>Read filters in <strong>TShark</strong>, which allow you to select which packets are to be decoded or written to a file, are very powerful; more fields are filterable in <strong>TShark</strong> than in other protocol analyzers, and the syntax you can use to create your filters is richer. As <strong>TShark</strong> progresses, expect more and more protocol fields to be allowed in read filters. Read filters use the same syntax as display and color filters in <strong>Wireshark</strong>; a read filter is specified with the <strong>-R</strong> option.</p>
+<p>在<strong>TShark</strong>中的显示过滤器允许你选择哪一个包被解码或是把该数据包写入到一个文件，这是很强大的功能；<strong>TShark</strong>相比于其他协议分析器可以过滤出更多的字段，并且你能使用并创建的过滤器语法更为丰富。随着<strong>TShark</strong>的发展，期待更多协议字段被允许出现在显示过滤器中。显示过滤器使用与<strong>wireshark</strong>中的展示和色彩过滤器一样的语法；使用<strong>-R</strong>选项来指定显示过滤器。</p>
+<p>Read filters can be specified when capturing or when reading from a capture file. Note that that capture filters are much more efficient than read filters, and it may be more difficult for <strong>TShark</strong> to keep up with a busy network if a read filter is specified for a live capture, so you might be more likely to lose packets if you’re using a read filter.</p>
+<p>当正在捕获或是从一个捕获文件中读取时是可以指定显示过滤器的。需要注意的是捕获过滤器比显示过滤器会更有效率；并且在一个繁忙的网络中如果进行实时捕获时使用了显示过滤器，那么<strong>TShark</strong>可能更难跟上这个繁忙网络，同时你要是使用了显示过滤器还可能会丢失数据包。</p>
+<p>A capture or read filter can either be specified with the <strong>-f</strong> or <strong>-R</strong> option, respectively, in which case the entire filter expression must be specified as a single argument (which means that if it contains spaces, it must be quoted), or can be specified with command-line arguments after the option arguments, in which case all the arguments after the filter arguments are treated as a filter expression. If the filter is specified with command-line arguments after the option arguments, it’s a capture filter if a capture is being done (i.e., if no <strong>-r</strong> option was specified) and a read filter if a capture file is being read (i.e., if a <strong>-r</strong> option was specified).</p>
+<p>捕获或是显示过滤器能分别使用<strong>-f</strong>或是<strong>-R</strong>选项来指定。在这种情况下，整个过滤表达式必须作为一个参数被指定（这意味着如果含有空格，就需要使用“ ”被引用）；或者是在选项参数之后使用命令行参数被指定，在这种情况下，所有在过滤器参数之后的参数会被视为过滤表达式。如果在选项参数后，使用命令行参数来指定过滤器，那么捕获正在进行时它就是捕获过滤器（即，没有-r选项）；如果捕获文件正在被读取，那么它就是显示过滤器（即，<strong>-r</strong>选项是被指定的）。</p>
+<p>If the <strong>-w</strong> option is specified when capturing packets or reading from a capture file, <strong>TShark</strong> does not display packets on the standard output. Instead, it writes the packets to a capture file with the name specified by the <strong>-w</strong> option.</p>
+<p>当正在捕获数据包，或是从一个捕获文件中读取时，如果使用了-w选项，那么<strong>TShark</strong>不会在标准输出上显示数据包。相反，它将把数据包写入捕获文件，其名称由<strong>-w</strong>选项指定。</p>
+<p>If you want to write the decoded form of packets to a file, run <strong>TShark</strong> without the <strong>-w</strong> option, and redirect its standard output to the file (do <em>not</em> use the <strong>-w</strong> option).</p>
+<p>如果要将解码后的数据包形式写入文件，那么使用<strong>TShark</strong>时不要带上-w选项，同时会将其标准输出重定向到文件。（不要使用<strong>-w</strong>选项）</p>
+<p>If you want the packets to be displayed to the standard output and also saved to a file, specify the <strong>-P</strong> option in addition to the <strong>-w</strong> option to have the summary line displayed, specify the <strong>-V</strong> option in addition to the <strong>-w</strong> option to have the details of the packet displayed, and specify the <strong>-O</strong> option, with a list of protocols, to have the full details of the specified protocols and the top-level detail line for all other protocols to be displayed. If the <strong>-P</strong> option is used together with the <strong>-V</strong> or <strong>-O</strong> option, the summary line will be displayed along with the detail lines.</p>
+<p>如果你想数据包在标准输出上显示并且还能保存到一个文件中，那么除了-w选项还需要指定-P选项来显示摘要行。使用<strong>-w</strong>选项及<strong>-V</strong>选项将展示数据包的细节。如果再加上<strong>-O</strong>选项，带上了列出的协议，将显示指定协议的所有细节以及所有其他协议的顶层细节行。如果<strong>-P</strong>选项和<strong>-V</strong>或是<strong>-O</strong>选项一起使用，那么摘要行将会和细节信息一起展示。</p>
+<p>When writing packets to a file, <strong>TShark</strong>, by default, writes the file in <strong>pcapng</strong> format, and writes all of the packets it sees to the output file. The <strong>-F</strong> option can be used to specify the format in which to write the file. This list of available file formats is displayed by the <strong>-F</strong> option without a value. However, you can’t specify a file format for a live capture.</p>
+<p>当把数据包写入一个文件，<strong>TShark</strong>默认情况下会使用<strong>pcapng</strong>格式，并将其所有看到的包写入到输出文件。使用<strong>-F</strong>选项可以指定输出文件的格式。使用<strong>-F</strong>选项不带任何参数值，将显示可以得到的文件格式列表。但是对于实时捕获，你不能指定其文件格式。</p>
+<p>When capturing packets, <strong>TShark</strong> writes to the standard error an initial line listing the interfaces from which packets are being captured and, if packet information isn’t being displayed to the terminal, writes a continuous count of packets captured to the standard output. If the <strong>-q</strong> option is specified, neither the continuous count nor the packet information will be displayed; instead, at the end of the capture, a count of packets captured will be displayed. If the <strong>-Q</strong> option is specified, neither the initial line, nor the packet information, nor any packet counts will be displayed. If the <strong>-q</strong> or <strong>-Q</strong> option is used, the <strong>-P</strong>, <strong>-V</strong>, or <strong>-O</strong> option can be used to cause the corresponding output to be displayed even though other output is suppressed.</p>
+<p>当正在捕获数据包时，<strong>TShark</strong>把捕获到数据包接口的初始化行写入到标准错误中。如果数据包信息没有被展示在终端，则将写入连续的捕获数据包统计到标准输出。如果<strong>-q</strong>选项被指定，则不管是连续统计还是数据包信息都不会被展示出来；相反，在捕获结束后，被捕获的数据包统计将会显示出来。如果<strong>-Q</strong>选项被指定，初始化行、数据包信息或是任何一个数据包统计都不会被展示。如果使用<strong>-q</strong>或<strong>-Q</strong>选项，则可以使用<strong>-P</strong>，<strong>-V</strong>或<strong>-O</strong>选项来显示相应的输出，即使其他输出被抑制也是如此。</p>
+<p>When reading packets, the <strong>-q</strong> and <strong>-Q</strong> option will suppress the display of the packet summary or details; this would be used if <strong>-z</strong> options are specified in order to display statistics, so that only the statistics, not the packet information, is displayed.</p>
+<p>读取数据包时，<strong>-q</strong>和<strong>-Q</strong>选项将禁止显示数据包摘要或详细信息;如果指定<strong>-z</strong>选项以显示统计信息，那么只有统计信息会被展示，而不会展示数据包信息。</p>
+<p>The <strong>-G</strong> option is a special mode that simply causes <strong>Tshark</strong> to dump one of several types of internal glossaries and then exit.</p>
+<p><strong>-G</strong>选项是一种特殊模式，它只会导致<strong>TShark</strong>转储几种类型的内部词汇表中的一种，然后退出。</p>
+<hr>
+<h2 id="2-选项概要"><a href="#2-选项概要" class="headerlink" title="2.选项概要"></a>2.选项概要</h2><p><strong>Capture interface:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-i &lt;interface&gt;               <span class="comment"># name or idx of interface (def: first non-loopback)</span></span><br><span class="line">-f &lt;capture filter&gt;          <span class="comment"># packet filter in libpcap filter syntax</span></span><br><span class="line">-s &lt;snaplen&gt;                 <span class="comment"># packet snapshot length (def: 262144)</span></span><br><span class="line">-p                           <span class="comment"># don't capture in promiscuous mode</span></span><br><span class="line">-I                           <span class="comment"># capture in monitor mode, if available</span></span><br><span class="line">-B &lt;buffer size&gt;             <span class="comment"># size of kernel buffer (def: 4MB)</span></span><br><span class="line">-y &lt;link <span class="built_in">type</span>&gt;               <span class="comment"># link layer type (def: first appropriate)</span></span><br><span class="line">-D                           <span class="comment"># print list of interfaces and exit</span></span><br><span class="line">-L                           <span class="comment"># print list of link-layer types of iface and exit</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Capture stop conditions:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-c &lt;packet count&gt;             <span class="comment"># stop after n packets (def: infinite)</span></span><br><span class="line">-a &lt;autostop cond.&gt; ...  </span><br><span class="line">​                             duration:NUM - stop after NUM seconds</span><br><span class="line">​                             filesize:NUM - stop this file after NUM KB</span><br><span class="line">​                             files:NUM - stop after NUM files</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Capture output:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-b &lt;ringbuffer opt.&gt; ... </span><br><span class="line"></span><br><span class="line">​                            duration:NUM - switch to next file after NUM secs</span><br><span class="line">​                            filesize:NUM - switch to next file after NUM KB</span><br><span class="line">​                            files:NUM - ringbuffer: replace after NUM files</span><br></pre></td></tr></table></figure>
+
+<p><strong>Input file:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-r &lt;infile&gt;                  <span class="comment"># set the filename to read from (no stdin!)</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Processing:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-2                           <span class="comment"># perform a two-pass analysis</span></span><br><span class="line">-R &lt;<span class="built_in">read</span> filter&gt;             <span class="comment"># packet Read filter in Wireshark display filter syntax</span></span><br><span class="line">-Y &lt;display filter&gt;          <span class="comment"># packet displaY filter in Wireshark display filter syntax</span></span><br><span class="line">-n                           <span class="comment"># disable all name resolutions (def: all enabled)</span></span><br><span class="line">-N &lt;name resolve flags&gt;      <span class="comment"># enable specific name resolution(s): "mnNtC"</span></span><br><span class="line">-d &lt;layer_type&gt;== &lt;selector&gt;,&lt;decode_as_protocol&gt; ...</span><br><span class="line">                             <span class="comment"># "Decode As", see the man page for details</span></span><br><span class="line">                             <span class="comment"># Example: tcp.port==8888,http</span></span><br><span class="line">-H &lt;hosts file&gt;         </span><br><span class="line">​            <span class="built_in">read</span> a list of entries from a hosts file, <span class="built_in">which</span> will  <span class="keyword">then</span> be written to a capture file. (Implies -W n)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>Output:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">-w &lt;outfile|-&gt;               <span class="comment"># write packets to a pcap-format file named "outfile"</span></span><br><span class="line">                             <span class="comment"># (or to the standard output for "-")</span></span><br><span class="line">                             </span><br><span class="line">-C &lt;config profile&gt;          <span class="comment"># start with specified configuration profile</span></span><br><span class="line">-F &lt;output file <span class="built_in">type</span>&gt;        <span class="comment"># set the output file type, default is pcapng</span></span><br><span class="line">                             <span class="comment"># an empty "-F" option will list the file types</span></span><br><span class="line">                             </span><br><span class="line">-V                           <span class="comment"># add output of packet tree (Packet Details)</span></span><br><span class="line">-O &lt;protocols&gt;               <span class="comment"># Only show packet details of these protocols, comma                                        separated</span></span><br><span class="line"></span><br><span class="line">-P                           <span class="comment"># print packet summary even when writing to a file</span></span><br><span class="line">-S &lt;separator&gt;               <span class="comment"># the line separator to print between packets</span></span><br><span class="line">-x                           <span class="comment"># add output of hex and ASCII dump (Packet Bytes)</span></span><br><span class="line">-T pdml|ps|psml|text|fields  <span class="comment"># format of text output (def: text)</span></span><br><span class="line"></span><br><span class="line">-e &lt;field&gt;                   <span class="comment"># field to print if -Tfields selected (e.g. tcp.port,                                      col.Info);this option can be repeated to print multiple                                  fields</span></span><br><span class="line"></span><br><span class="line">-E&lt;fieldsoption&gt;=&lt;value&gt;     <span class="comment"># set options for output when -Tfields selected:</span></span><br><span class="line">     header=y|n                 switch headers on and off</span><br><span class="line">     separator=/t|/s|&lt;char&gt;     select tab, space, printable character as separator</span><br><span class="line">     occurrence=f|l|a           <span class="built_in">print</span> first, last or all occurrences of each field</span><br><span class="line">     aggregator=,|/s|&lt;char&gt;     select comma, space, printable character as  aggregator</span><br><span class="line">     quote=d|s|n                select double, single, no quotes <span class="keyword">for</span> values</span><br><span class="line">     </span><br><span class="line">-t a|ad|d|dd|e|r|u|ud        <span class="comment"># output format of time stamps (def: r: rel. to first)</span></span><br><span class="line">-u s|hms                     <span class="comment"># output format of seconds (def: s: seconds)</span></span><br><span class="line">-l                           <span class="comment"># flush standard output after each packet</span></span><br><span class="line">-q                           <span class="comment"># be more quiet on stdout (e.g. when using statistics)</span></span><br><span class="line">-Q                           <span class="comment"># only log true errors to stderr (quieter than -q)</span></span><br><span class="line">-g                           <span class="comment"># enable group read access on the output file(s)</span></span><br><span class="line">-W n                         <span class="comment"># Save extra information in the file, if supported.</span></span><br><span class="line">                             <span class="comment"># n = write network address resolution information</span></span><br><span class="line">  </span><br><span class="line">-X &lt;key&gt;:&lt;value&gt;             <span class="comment"># eXtension options, see the man page for details</span></span><br><span class="line">-z &lt;statistics&gt;              <span class="comment"># various statistics, see the man page for details</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Miscellaneous:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-h                           <span class="comment"># display this help and exit</span></span><br><span class="line">-v                           <span class="comment"># display version info and exit</span></span><br><span class="line">-o &lt;name&gt;:&lt;value&gt; ...        <span class="comment"># override preference setting</span></span><br><span class="line">-K &lt;keytab&gt;                  <span class="comment"># keytab file to use for kerberos decryption</span></span><br><span class="line">-G [report]                  <span class="comment"># dump one of several available reports and exit</span></span><br><span class="line">                             <span class="comment"># default report="fields"  </span></span><br><span class="line">                             <span class="comment"># use "-G ?" for more help</span></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="3-选项细节"><a href="#3-选项细节" class="headerlink" title="3.选项细节"></a>3.选项细节</h2><h3 id="3-1-Capture-interface-捕获接口"><a href="#3-1-Capture-interface-捕获接口" class="headerlink" title="3.1 Capture interface:捕获接口"></a>3.1 Capture interface:捕获接口</h3><h4 id="i-指定接口"><a href="#i-指定接口" class="headerlink" title="-i        指定接口"></a>-i        指定接口</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-i &lt;interface&gt;               <span class="comment"># name or idx of interface (def: first non-loopback)</span></span><br></pre></td></tr></table></figure>
+
+<p>Set the name of the network interface or pipe to use for live packet capture.</p>
+<p>为实时数据包捕获设置网络接口或管道的名称。</p>
+<p>Network interface names should match one of the names listed in “<strong>tshark -D</strong>“ (described above); a number, as reported by “<strong>tshark -D</strong>“, can also be used. If you’re using UNIX, “<strong>netstat -i</strong>“, “<strong>ifconfig -a</strong>“ or “<strong>ip link</strong>“ might also work to list interface names, although not all versions of UNIX support the <strong>-a</strong> option to <strong>ifconfig</strong>.</p>
+<p>网络接口名称应该是使用“<strong>tshark -D</strong>”命令后显示的接口名称列表中的一个。当然也可以使用“<strong>tshark -D</strong>”展示的列表中的数字。如果你使用UNIX系统，“<strong>netstat -i</strong>”，“<strong>ifconfig -a</strong>”或是“<strong>iplink</strong>”也可以显示出接口名称，尽管不是所有的NUIX版本都支持在<strong>ifconfig</strong>中使用<strong>-a</strong>参数。</p>
+<img src="/2019/04/26/tshark使用方法/1553424287090.png" title="This is an test image">
+
+
+
+<p>If no interface is specified, <strong>TShark</strong> searches the list of interfaces, choosing the first non-loopback interface if there are any non-loopback interfaces, and choosing the first loopback interface if there are no non-loopback interfaces. If there are no interfaces at all, <strong>TShark</strong> reports an error and doesn’t start the capture.</p>
+<p>如果没有接口被指定，<strong>TShark</strong>寻找接口列表，若在列表中存在多个非回环接口，将选择第一个非回环接口。若在列表中没有非回环接口，则选择第一个回环接口。如果设备没有一个接口，那<strong>TShark</strong>会报告一个错误，并且不会开始捕获数据。</p>
+<p>Pipe names should be either the name of a FIFO (named pipe) or “-“ to read data from the standard input. On Windows systems, pipe names must be of the form “\\pipe\.\pipename”. Data read from pipes must be in standard pcapng or pcap format. Pcapng data must have the same endianness as the capturing host.</p>
+<p>管道名称（此处略）</p>
+<p>This option can occur multiple times. When capturing from multiple interfaces, the capture file will be saved in pcapng format.</p>
+<p>这个选项可以出现多次。当从多个接口进行数据捕获，捕获文件将被保存为pcapng格式。</p>
+<img src="/2019/04/26/tshark使用方法/1553424388817.png" title="This is an test image">
+
+
+
+<h4 id="f-设置捕获时的过滤条件"><a href="#f-设置捕获时的过滤条件" class="headerlink" title="-f        设置捕获时的过滤条件"></a>-f        设置捕获时的过滤条件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-f &lt;capture filter&gt;            <span class="comment"># packet filter in libpcap filter syntax</span></span><br></pre></td></tr></table></figure>
+
+<p>Set the capture filter expression.设置捕获过滤器表达式</p>
+<p>This option can occur multiple times. If used before the first occurrence of the <strong>-i</strong> option, it sets the default capture filter expression. If used after an <strong>-i</strong> option, it sets the capture filter expression for the interface specified by the last <strong>-i</strong> option occurring before this option. If the capture filter expression is not set specifically, the default capture filter expression is used if provided.</p>
+<p>这个选项可以多次出现。如果在第一次出现<strong>-i</strong>选项之前使用，则会设置默认的捕获过滤器表达式。如果在<strong>-i</strong>选项之后使用，则会为最后一个<strong>-i</strong>选项指定的接口设置捕获过滤器表达式。如果捕获过滤器表达式没有设置指定，则使用默认的捕获过滤表达式（如果提供的话）</p>
+<p>Pre-defined capture filter names, as shown in the GUI menu item Capture-&gt;Capture Filters, can be used by prefixing the argument with “predef:”. Example: <strong>tshark -f “predef:MyPredefinedHostOnlyFilter”</strong></p>
+<p>通过在参数前面添加前缀”predef:”可以使用预定义捕获过滤器名称，就像在GUI菜单选项 Capture-&gt;Capture Filters中一样。举个例子：<strong>tshark -f “predef:MyPredefinedHostOnlyFilter”</strong></p>
+<img src="/2019/04/26/tshark使用方法/1553424447858.png" title="This is an test image">
+
+
+
+<p>ps：捕获过滤器条件写法参考自己之前做的总结文档</p>
+<h4 id="s-设置捕获的数据包长度"><a href="#s-设置捕获的数据包长度" class="headerlink" title="-s        设置捕获的数据包长度"></a>-s        设置捕获的数据包长度</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-s &lt;snaplen&gt;                <span class="comment"># packet snapshot length (def: 262144)</span></span><br></pre></td></tr></table></figure>
+
+<p>Set the default snapshot length to use when capturing live data. No more than <em>snaplen</em> bytes of each network packet will be read into memory, or saved to disk. A value of 0 specifies a snapshot length of 262144, so that the full packet is captured; this is the default.</p>
+<p>当在捕获实时数据时，设置一个默认的快照长度。每个网络数据包的快照字节将会读入到内存或是保存在硬盘中。</p>
+<p>数值0指定了快照长度是262144字节，以便捕获完整数据包；这个也是默认的。</p>
+<p>This option can occur multiple times. If used before the first occurrence of the <strong>-i</strong> option, it sets the default snapshot length. If used after an <strong>-i</strong> option, it sets the snapshot length for the interface specified by the last <strong>-i</strong> option occurring before this option. If the snapshot length is not set specifically, the default snapshot length is used if provided.</p>
+<p>这个选项能出现多次。如果在第一次出现<strong>-i</strong>选项前使用，则将设置默认的快照长度。如果在<strong>-i</strong>选项后使用，则将为最后一个出现的<strong>-i</strong>选项所指定的接口设置快照长度。如果快照长度没有被指定，则使用默认的快照长度（如果被提供的话）</p>
+<img src="/2019/04/26/tshark使用方法/1553424534932.png" title="This is an test image">
+
+
+
+<h4 id="p-设置接口为非混杂模式"><a href="#p-设置接口为非混杂模式" class="headerlink" title="-p        设置接口为非混杂模式"></a>-p        设置接口为非混杂模式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-p                        <span class="comment"># don't capture in promiscuous mode</span></span><br></pre></td></tr></table></figure>
+
+<p><em>Don’t</em> put the interface into promiscuous mode. Note that the interface might be in promiscuous mode for some other reason; hence, <strong>-p</strong> cannot be used to ensure that the only traffic that is captured is traffic sent to or from the machine on which <strong>TShark</strong> is running, broadcast traffic, and multicast traffic to addresses received by that machine.</p>
+<p>不让接口成为混杂模式。</p>
+<p>This option can occur multiple times. If used before the first occurrence of the <strong>-i</strong> option, no interface will be put into the promiscuous mode. If used after an <strong>-i</strong> option, the interface specified by the last <strong>-i</strong> option occurring before this option will not be put into the promiscuous mode.</p>
+<p>这个选项能出现多次。如果在第一次出现-i选项前使用，那么没有接口会被设置为混杂模式。如果在<strong>-i</strong>选项后被使用，那么在<strong>-p</strong>选项前的最后一个<strong>-i</strong>选项指定的接口将不会被设置为混杂模式。</p>
+<h4 id="I-为IEEE802-11设置监控模式"><a href="#I-为IEEE802-11设置监控模式" class="headerlink" title="-I        为IEEE802.11设置监控模式"></a>-I        为IEEE802.11设置监控模式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-I                          <span class="comment"># capture in monitor mode, if available</span></span><br></pre></td></tr></table></figure>
+
+<p>Put the interface in “monitor mode”; this is supported only on IEEE 802.11 Wi-Fi interfaces, and supported only on some operating systems.</p>
+<p>设置为监控模式；这仅在IEEE802.11 Wi-Fi接口和某些操作系统上支持。</p>
+<h4 id="B-设置捕获缓冲区大小"><a href="#B-设置捕获缓冲区大小" class="headerlink" title="-B        设置捕获缓冲区大小"></a>-B        设置捕获缓冲区大小</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-B &lt;buffer size&gt;                 <span class="comment"># size of kernel buffer (def: 4MB)</span></span><br></pre></td></tr></table></figure>
+
+<p>Set capture buffer size (in MiB, default is 2 MiB). </p>
+<p>设置捕获缓冲区大小，TSshark官方文档中说默认是2MB。在我这台Linux服务器显示是4MB</p>
+<h4 id="y-设置数据链路类型"><a href="#y-设置数据链路类型" class="headerlink" title="-y        设置数据链路类型"></a>-y        设置数据链路类型</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-y &lt;link <span class="built_in">type</span>&gt;                 <span class="comment"># link layer type (def: first appropriate)</span></span><br></pre></td></tr></table></figure>
+
+<p>Set the data link type to use while capturing packets. The values reported by <strong>-L</strong> are the values that can be used.</p>
+<p>当在捕获数据包时，设置数据链路类型。能够使用的值在<strong>-L</strong>参数中被展示</p>
+<img src="/2019/04/26/tshark使用方法/1553424590831.png" title="This is an test image">
+
+<img src="/2019/04/26/tshark使用方法/1553424678354.png" title="This is an test image">
+
+
+
+<p>This option can occur multiple times. If used before the first occurrence of the <strong>-i</strong> option, it sets the default capture link type. If used after an <strong>-i</strong> option, it sets the capture link type for the interface specified by the last <strong>-i</strong> option occurring before this option. If the capture link type is not set specifically, the default capture link type is used if provided.</p>
+<h4 id="D-输出接口列表"><a href="#D-输出接口列表" class="headerlink" title="-D        输出接口列表"></a>-D        输出接口列表</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-D                        <span class="comment"># print list of interfaces and exit</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2019/04/26/tshark使用方法/1553424287090.png" title="This is an test image">
+
+
+
+<h4 id="L-显示数据链路类型"><a href="#L-显示数据链路类型" class="headerlink" title="-L        显示数据链路类型"></a>-L        显示数据链路类型</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-L                        <span class="comment"># print list of link-layer types of iface and exit</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-2-Capture-stop-conditions-捕获停止选项"><a href="#3-2-Capture-stop-conditions-捕获停止选项" class="headerlink" title="3.2 Capture stop conditions:捕获停止选项"></a>3.2 Capture stop conditions:捕获停止选项</h3><h4 id="c-在N个数据包后停止捕获"><a href="#c-在N个数据包后停止捕获" class="headerlink" title="-c 在N个数据包后停止捕获"></a>-c 在N个数据包后停止捕获</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-c &lt;packet count&gt;         <span class="comment"># stop after n packets (def: infinite)</span></span><br></pre></td></tr></table></figure>
+
+<p>Set the maximum number of packets to read when capturing live data. If reading a capture file, set the maximum number of packets to read.</p>
+<p>在捕获实时数据时，设置一个最大的数据包读取数。如果是在读取捕获文件，依旧是要设置一个读取数据包的数量。第一张图是实时捕获的情况，第二张图是读取http_google.pcap文件只看前3个包的情况。</p>
+<img src="/2019/04/26/tshark使用方法/1553424792984.png" title="This is an test image">
+
+
+
+<h4 id="a-设置停止捕获条件"><a href="#a-设置停止捕获条件" class="headerlink" title="-a 设置停止捕获条件"></a>-a 设置停止捕获条件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-a &lt;autostop cond.&gt; ...  </span><br><span class="line"></span><br><span class="line">​                           duration:NUM - stop after NUM seconds</span><br><span class="line">​                           filesize:NUM - stop this file after NUM KB</span><br><span class="line">​                           files:NUM - stop after NUM files</span><br></pre></td></tr></table></figure>
+
+<p>Specify a criterion that specifies when <strong>TShark</strong> is to stop writing to a capture file. The criterion is of the form <strong><em>test:value</em></strong>, where <em>test</em> is one of:</p>
+<p>指定一个标准，指定<strong>TShark</strong>何时停止写入捕获文件。标准的写法是test：value，其中test是以下之一</p>
+<p><strong>duration</strong>:<em>value</em>   Stop writing to a capture file after <em>value</em> seconds have elapsed. Floating point values (e.g. 0.5) are allowed.</p>
+<p><strong>duration</strong>:<em>value</em>    经过value秒后停止捕获文件。duration是持续时间的意思。浮点数值也是被允许的（比如0.5）。下图测试，确实在1s后停止捕获，同时还告诉你6个包被捕获到了</p>
+<img src="/2019/04/26/tshark使用方法/1553424874791.png" title="This is an test image">
+
+
+
+<p><strong>files</strong>:<em>value</em>        Stop writing to capture files after <em>value</em> number of files were written.</p>
+<p><strong>files</strong>:<em>value</em>        在捕获value个文件后，就停止捕获</p>
+<p><strong>filesize</strong>:<em>value</em>    Stop writing to a capture file after it reaches a size of <em>value</em> kB. If this option is used together with the -b option, <strong>TShark</strong> will stop writing to the current capture file and switch to the next one if filesize is reached. When reading a capture file, <strong>TShark</strong> will stop reading the file after the number of bytes read exceeds this number (the complete packet will be read, so more bytes than this number may be read). Note that the filesize is limited to a maximum value of 2 GiB.</p>
+<p><strong>filesize</strong>:<em>value</em>    在达到value kB的大小后停止写入捕获文件。如果此选项与-b选项一起使用，则<strong>TShark</strong>将停止写入当前捕获文件，并在达到文件大小时切换到下一个文件。读取捕获文件时，<strong>TShark</strong>将在读取的字节数超过此数字后停止读取该文件（因为要读取完整数据包，所以可能会读取出超出这个数值的字节数）。请注意，文件大小限制为2 GiB。</p>
+<img src="/2019/04/26/tshark使用方法/1553425008635.png" title="This is an test image">
+
+
+
+<hr>
+<h3 id="3-3-Capture-output-捕获输出"><a href="#3-3-Capture-output-捕获输出" class="headerlink" title="3.3 Capture output:捕获输出"></a>3.3 Capture output:捕获输出</h3><h4 id="b-设置循环写入多个数据包条件"><a href="#b-设置循环写入多个数据包条件" class="headerlink" title="-b 设置循环写入多个数据包条件"></a>-b 设置循环写入多个数据包条件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-b &lt;ringbuffer opt.&gt; ... </span><br><span class="line">​                            duration:NUM - switch to next file after NUM secs</span><br><span class="line">​                            filesize:NUM - switch to next file after NUM KB</span><br><span class="line">​                            files:NUM - ringbuffer: replace after NUM files</span><br></pre></td></tr></table></figure>
+
+<p>Cause <strong>TShark</strong> to run in “multiple files” mode. In “multiple files” mode, <strong>TShark</strong> will write to several capture files. When the first capture file fills up, <strong>TShark</strong> will switch writing to the next file and so on.</p>
+<p>导致<strong>TShark</strong>使用“多文件”模式运行。在“多文件”模式下，<strong>TShark</strong>将写入多个捕获文件。当第一个捕获文件写满，<strong>TShark</strong>将切换写入到下一个文件，以此类推。</p>
+<p>The created filenames are based on the filename given with the <strong>-w</strong> option, the number of the file and on the creation date and time, e.g. outfile_00001_20190714120117.pcap, outfile_00002_20190714120523.pcap, …</p>
+<p>被创建的这些文件名是基于<strong>-w</strong>选项所给出的“文件名，文件的编号以及在创建时的数据和时间”。例如 outfile_00001_20190714120117.pcap，outfile_00002_20190714120523.pcap, …</p>
+<p>With the <em>files</em> option it’s also possible to form a “ring buffer”. This will fill up new files until the number of files specified, at which point <strong>TShark</strong> will discard the data in the first file and start writing to that file and so on. If the <em>files</em> option is not set, new files filled up until one of the capture stop conditions match (or until the disk is full).</p>
+<p>使用files选项还可以形成“环形缓冲区”。这将填充新文件直到所指定的文件数。在这一点上，<strong>TShark</strong>将丢弃在第一个文件中的数据并开始把数据写入另一个文件中，以此类推。如果files选项没有被设置，则将填满新文件，直到其中一个捕获停止条件匹配为止（或是直到硬盘被填满）。</p>
+<p>The criterion is of the form <em>key:value</em>, where <em>key</em> is one of:</p>
+<p>标准格式是<em>key:value</em>，<em>key</em>是以下参数中的一个：</p>
+<p><strong>duration</strong>:<em>value</em>   switch to the next file after <em>value</em> seconds have elapsed, even if the current file is not completely filled up. Floating point values (e.g. 0.5) are allowed.</p>
+<p><strong>duration</strong>:<em>value</em>    在经过<em>value</em>秒后切换到下一个文件，即便现在的文件没有被完全填满。浮点数值（例如0.5）也是可以使用的。</p>
+<img src="/2019/04/26/tshark使用方法/1553317134423.png" title="This is an test image">
+
+
+
+<p><strong>files</strong>:<em>value</em>     begin again with the first file after <em>value</em> number of files were written (form a ring buffer). This value must be less than 100000. Caution should be used when using large numbers of files: some filesystems do not handle many files in a single directory well. The <strong>files</strong> criterion requires either <strong>duration</strong>, <strong>interval</strong> or <strong>filesize</strong> to be specified to control when to go to the next file. It should be noted that each <strong>-b</strong> parameter takes exactly one criterion; to specify two criterion, each must be preceded by the <strong>-b</strong> option.</p>
+<p><strong>files</strong>:<em>value</em>    在<em>value</em>个文件数被写入后，再次从第一个文件开始（形成环形缓冲区）。这个数值必须小于100000。当使用大量的文件数时，需要谨慎使用：因为一些文件系统不能在当个的目录下处理好大量的文件。文件标准要求指定持续时间，间隔或文件大小以控制何时转到下一个文件。需要注意的是每个<strong>-b</strong>参数只使用一个标准；想要使用两个标准，那么每个标准前都要加上<strong>-b</strong>参数</p>
+<img src="/2019/04/26/tshark使用方法/1553317668809.png" title="This is an test image">
+
+
+
+<p><strong>filesize</strong>:<em>value</em>   switch to the next file after it reaches a size of <em>value</em> kB. Note that the filesize is limited to a maximum value of 2 GiB.</p>
+<p><strong>filesize</strong>:<em>value</em>     在到达<em>value</em> kB后，切换到下一个文件。需要注意的是文件大小被限制在2GB以下。</p>
+<hr>
+<h3 id="3-4-Input-file-读取本地文件"><a href="#3-4-Input-file-读取本地文件" class="headerlink" title="3.4 Input file:读取本地文件"></a>3.4 Input file:读取本地文件</h3><h4 id="r"><a href="#r" class="headerlink" title="-r"></a>-r</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-r &lt;infile&gt;                  <span class="comment"># set the filename to read from (no stdin!)</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2019/04/26/tshark使用方法/1553318042410.png" title="This is an test image">
+
+
+
+<hr>
+<h3 id="3-5-Processing-处理过程"><a href="#3-5-Processing-处理过程" class="headerlink" title="3.5 Processing:处理过程"></a>3.5 Processing:处理过程</h3><h4 id="2-执行2次分析"><a href="#2-执行2次分析" class="headerlink" title="-2 执行2次分析"></a>-2 执行2次分析</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-2                           <span class="comment"># perform a two-pass analysis</span></span><br></pre></td></tr></table></figure>
+
+<p>执行两次分析</p>
+<h4 id="R-设置显示过滤器"><a href="#R-设置显示过滤器" class="headerlink" title="-R 设置显示过滤器"></a>-R 设置显示过滤器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-R &lt;<span class="built_in">read</span> filter&gt;             <span class="comment"># packet Read filter in Wireshark display filter syntax</span></span><br></pre></td></tr></table></figure>
+
+<p>Cause the specified filter (which uses the syntax of read/display filters, rather than that of capture filters) to be applied during the first pass of analysis. Packets not matching the filter are not considered for future passes. Only makes sense with multiple passes, see -2. For regular filtering on single-pass dissect see -Y instead.</p>
+<p>在第一遍分析中使用指定过滤器（该过滤器使用的是读取/显示过滤器的语法，而不是捕获过滤器的语法）。没有匹配过滤器的数据包将不会在后续展示。<strong>-R</strong>对于数据包进行多次分析才有意义，可以参考<strong>-2</strong>。对于单次的常规分析详见<strong>-Y</strong>。</p>
+<h4 id="Y-设置显示过滤器（单次分析）"><a href="#Y-设置显示过滤器（单次分析）" class="headerlink" title="-Y 设置显示过滤器（单次分析）"></a>-Y 设置显示过滤器（单次分析）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Y &lt;display filter&gt;          <span class="comment"># packet displaY filter in Wireshark display filter syntax</span></span><br></pre></td></tr></table></figure>
+
+<p>Cause the specified filter (which uses the syntax of read/display filters, rather than that of capture filters) to be applied before printing a decoded form of packets or writing packets to a file. Packets matching the filter are printed or written to file; packets that the matching packets depend upon (e.g., fragments), are not printed but are written to file; packets not matching the filter nor depended upon are discarded rather than being printed or written.</p>
+<p>在输出数据包的解码形式或写入数据包到文件前，使用指定的过滤器（过滤器使用读取/显示过滤器的语法，而不是捕获过滤器）。匹配过滤的数据包将输出或是写入到文件；基于匹配的数据包（例如：数据段），将不会输出但是会写入到文件；不匹配过滤器的数据包被丢弃而不是被打印或写入。</p>
+<p>Use this instead of -R for filtering using single-pass analysis. If doing two-pass analysis (see -2) then only packets matching the read filter (if there is one) will be checked against this filter.</p>
+<p>对于过滤时使用-R将进行单次分析。如果做2次分析（见-2），那么只有数据包匹配了读取过滤器（如果有的话），将会针对这个过滤器再次检查。</p>
+<h4 id="n-设置不做名称解析"><a href="#n-设置不做名称解析" class="headerlink" title="-n 设置不做名称解析"></a>-n 设置不做名称解析</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-n                           <span class="comment"># disable all name resolutions (def: all enabled)</span></span><br></pre></td></tr></table></figure>
+
+<p>Disable network object name resolution (such as hostname, TCP and UDP port names); the <strong>-N</strong> option might override this one.</p>
+<p>关闭所有名称解析（例如主机名，TCP和UDP的端口名）；<strong>-N</strong>选项将覆盖-n选项。</p>
+<h4 id="N-设置只为特定情况做名称解析"><a href="#N-设置只为特定情况做名称解析" class="headerlink" title="-N 设置只为特定情况做名称解析"></a>-N 设置只为特定情况做名称解析</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-N &lt;name resolve flags&gt;      <span class="comment"># enable specific name resolution(s): "mnNtC"</span></span><br></pre></td></tr></table></figure>
+
+<p>Turn on name resolving only for particular types of addresses and port numbers, with name resolving for other types of addresses and port numbers turned off. This option overrides <strong>-n</strong> if both <strong>-N</strong> and <strong>-n</strong> are present. If both <strong>-N</strong> and <strong>-n</strong> options are not present, all name resolutions are turned on.</p>
+<p>只为特定的地址和端口号类型打开名称解析，对于没有指定的则不进行地址解析。如果<strong>-N</strong>和<strong>-n</strong>选项同时出现，则会覆盖<strong>-n</strong>选项。如果<strong>-N</strong>和<strong>-n</strong>选项都没出现，则名称解析会被开启。</p>
+<p>The argument is a string that may contain the letters:</p>
+<p>参数是包含以下字母的字符串</p>
+<p><strong>d</strong> to enable resolution from captured DNS packets</p>
+<p>从捕获的DNS数据包中开始解析</p>
+<p><strong>m</strong> to enable MAC address resolution</p>
+<p>开启MAC地址解析</p>
+<p><strong>n</strong> to enable network address resolution</p>
+<p>开启网络地址解析</p>
+<p><strong>N</strong> to enable using external resolvers (e.g., DNS) for network address resolution</p>
+<p>使用外部解析器（如DNS）来对网络地址进行解析</p>
+<p><strong>t</strong> to enable transport-layer port number resolution</p>
+<p>开启传输层端口号解析</p>
+<p><strong>v</strong> to enable VLAN IDs to names resolution</p>
+<p>开启VLAN ID的名称解析</p>
+<h4 id="d-设置解码格式"><a href="#d-设置解码格式" class="headerlink" title="-d 设置解码格式"></a>-d 设置解码格式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-d &lt;layer_type&gt;== &lt;selector&gt;,&lt;decode_as_protocol&gt; ...</span><br><span class="line">                             <span class="comment"># "Decode As", see the man page for details</span></span><br><span class="line">                             <span class="comment"># Example: tcp.port==8888,http</span></span><br></pre></td></tr></table></figure>
+
+<p>Like Wireshark’s <strong>Decode As…</strong> feature, this lets you specify how a layer type should be dissected. If the layer type in question (for example, <strong>tcp.port</strong> or <strong>udp.port</strong> for a TCP or UDP port number) has the specified selector value, packets should be dissected as the specified protocol.</p>
+<p>类似于Wireshark的<strong>Decode As…</strong>这个功能让你指定如何对每层类型进行分析。如果请求的层次类型（如TCP或是UDP端口号中的<strong>tcp.port</strong> 、<strong>udp.port</strong> ）有指定的选择值，则数据包将会使用指定的协议进行分析。</p>
+<p>Example: <strong>tshark -d tcp.port==8888,http</strong> will decode any traffic running over TCP port 8888 as HTTP.</p>
+<p>例如：<strong>tshark -d tcp.port==8888,http</strong>将会解码每一个TCP端口号是8888的流量为HTTP协议。</p>
+<p>Example: <strong>tshark -d tcp.port==8888:3,http</strong> will decode any traffic running over TCP ports 8888, 8889 or 8890 as HTTP.</p>
+<p>例如：<strong>tshark -d tcp.port==8888:3,http</strong>将会解码每一个TCP端口号是8888，8889,8890的流量为HTTP协议。</p>
+<p>Example: <strong>tshark -d tcp.port==8888-8890,http</strong> will decode any traffic running over TCP ports 8888, 8889 or 8890 as HTTP.</p>
+<p>含义同上，只是写法有区别</p>
+<p>Using an invalid selector or protocol will print out a list of valid selectors and protocol names, respectively.</p>
+<p>使用无效的解析器或协议将会分别打印出有效解析器和协议名称的表。</p>
+<p>Example: <strong>tshark -d .</strong> is a quick way to get a list of valid selectors.</p>
+<p>例如：<strong>tshark -d .</strong>以最快的方式列出有效解析器</p>
+<p>Example: <strong>tshark -d ethertype==0x0800.</strong> is a quick way to get a list of protocols that can be selected with an ethertype.</p>
+<p>例如：<strong>tshark -d ethertype==0x0800.</strong>以最快的方式获取能选择的以太网类型的协议列表</p>
+<h4 id="H"><a href="#H" class="headerlink" title="-H"></a>-H</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-H &lt;hosts file&gt;         </span><br><span class="line">​            <span class="built_in">read</span> a list of entries from a hosts file, <span class="built_in">which</span> will  <span class="keyword">then</span> be written to a capture file. (Implies -W n)</span><br></pre></td></tr></table></figure>
+
+<p>Read a list of entries from a “hosts” file, which will then be written to a capture file. Implies <strong>-W n</strong>. Can be called multiple times.</p>
+<p>从“hosts”文件中读取条目列表，然后将其写入捕获文件。也可以使用<strong>-W n</strong>。可以多次调用。</p>
+<hr>
+<h3 id="3-6-Output-输出"><a href="#3-6-Output-输出" class="headerlink" title="3.6 Output:输出"></a>3.6 Output:输出</h3><h4 id="w-写入文件"><a href="#w-写入文件" class="headerlink" title="-w  写入文件"></a>-w  写入文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-w &lt;outfile|-&gt;               <span class="comment"># write packets to a pcap-format file named "outfile"</span></span><br><span class="line">                             <span class="comment"># (or to the standard output for "-")</span></span><br></pre></td></tr></table></figure>
+
+<p>Write raw packet data to <em>outfile</em> or to the standard output if <em>outfile</em> is ‘-‘.</p>
+<p>在标准输出或是输出文件中写入原始数据包</p>
+<p>NOTE: -w provides raw packet data, not text. If you want text output you need to redirect stdout (e.g. using ‘&gt;’), don’t use the <strong>-w</strong> option for this.</p>
+<p>注意：<strong>-w</strong>提供的是原始数据包，而非文本。如果你想输出文本，你需要重定向（例如使用‘&gt;’），而非使用-w选项。</p>
+<h4 id="F-设置写入文件格式"><a href="#F-设置写入文件格式" class="headerlink" title="-F  设置写入文件格式"></a>-F  设置写入文件格式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-F &lt;output file <span class="built_in">type</span>&gt;        <span class="comment"># set the output file type, default is pcapng</span></span><br><span class="line">                             <span class="comment"># an empty "-F" option will list the file types</span></span><br></pre></td></tr></table></figure>
+
+<p>Set the file format of the output capture file written using the <strong>-w</strong> option. The output written with the <strong>-w</strong> option is raw packet data, not text, so there is no <strong>-F</strong> option to request text output. The option <strong>-F</strong> without a value will list the available formats.</p>
+<p>使用<strong>-w</strong>选项设置输出捕获文件写入的文件格式。使用<strong>-w</strong>选项写入的输出是原始数据包而非文本。<strong>-F</strong>选项后不接值，则将列出可获得的格式。</p>
+<h4 id="V（大写V，显示数据包细节）"><a href="#V（大写V，显示数据包细节）" class="headerlink" title="-V（大写V，显示数据包细节）"></a>-V（大写V，显示数据包细节）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-V                           <span class="comment"># add output of packet tree (Packet Details)</span></span><br></pre></td></tr></table></figure>
+
+<p>Cause <strong>TShark</strong> to print a view of the packet details.</p>
+<img src="/2019/04/26/tshark使用方法/1553425274015.png" title="This is an test image">
+
+
+
+<h4 id="O-显示此选项指定的协议的详细信息"><a href="#O-显示此选项指定的协议的详细信息" class="headerlink" title="-O 显示此选项指定的协议的详细信息"></a>-O 显示此选项指定的协议的详细信息</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-O &lt;protocols&gt;               <span class="comment"># Only show packet details of these protocols, comma                                        separated</span></span><br></pre></td></tr></table></figure>
+
+<p>Similar to the <strong>-V</strong> option, but causes <strong>TShark</strong> to only show a detailed view of the comma-separated list of <em>protocols</em> specified, and show only the top-level detail line for all other protocols, rather than a detailed view of all protocols. Use the output of “<strong>tshark -G protocols</strong>“ to find the abbreviations of the protocols you can specify.</p>
+<p>类似于<strong>-V</strong>，只是<strong>TShark</strong>仅显示指定协议的以逗号分隔开的协议细节。同时仅为其他的协议显示顶层细节行，而非全体细节。使用 “<strong>tshark -G protocols</strong>“ 你可以获得可以指定的协议列表。</p>
+<h4 id="T-与-e一起使用，显示相应的特定内容"><a href="#T-与-e一起使用，显示相应的特定内容" class="headerlink" title="-T 与-e一起使用，显示相应的特定内容"></a>-T 与-e一起使用，显示相应的特定内容</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-T pdml|ps|psml|text|fields  <span class="comment"># format of text output (def: text)</span></span><br></pre></td></tr></table></figure>
+
+<p>Set the format of the output when viewing decoded packet data. The options are one of:</p>
+<p>当在查看解码数据包数据时设置输出格式。选项可以为以下之一（我只列出常用的）：</p>
+<p><strong>fields</strong> The values of fields specified with the <strong>-e</strong> option, in a form specified by the <strong>-E</strong> option. For example,</p>
+<p><strong>fields</strong>  使用<strong>-e</strong>选项指定字段的值，采用-E选项指定格式。例如，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tshark -T fields -E separator=, -E quote=d</span><br></pre></td></tr></table></figure>
+
+<img src="/2019/04/26/tshark使用方法/1553425343018.png" title="This is an test image">
+
+
+
+<h4 id="e"><a href="#e" class="headerlink" title="-e"></a>-e</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-e &lt;field&gt;                   <span class="comment"># field to print if -Tfields selected (e.g. tcp.port,                                      col.Info);this option can be repeated to print multiple                                  fields</span></span><br></pre></td></tr></table></figure>
+
+<p>Add a field to the list of fields to display if <strong>-T ek|fields|json|pdml</strong> is selected. This option can be used multiple times on the command line. At least one field must be provided if the <strong>-T fields</strong> option is selected. </p>
+<p>如果选择了<strong>-T ek|fields|json|pdml</strong>，则添加一个字段来显示字段列表。在命令行，这个选项可以使用多次。如果使用的是 <strong>-T fields</strong> ，则至少要提供一个字段。</p>
+<p>Example: *<em>tshark -e frame.number -e ip.addr -e udp *</em></p>
+<p>例如：*<em>tshark -e frame.number -e ip.addr -e udp *</em></p>
+<p>Giving a protocol rather than a single field will print multiple items of data about the protocol as a single field. Fields are separated by tab characters by default. <strong>-E</strong> controls the format of the printed fields.</p>
+<p>给定一个协议而不是单个字段，将会打印出这个协议作为单个字段的多个项目数据。字段默认情况下会被制表符分隔。<strong>-E</strong>控制打印字段的格式。</p>
+<h4 id="E-设置控制字段打印的选项"><a href="#E-设置控制字段打印的选项" class="headerlink" title="-E 设置控制字段打印的选项"></a>-E 设置控制字段打印的选项</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-E&lt;fieldsoption&gt;=&lt;value&gt;     <span class="comment"># set options for output when -Tfields selected:</span></span><br><span class="line">     header=y|n                 switch headers on and off</span><br><span class="line">     separator=/t|/s|&lt;char&gt;     select tab, space, printable character as separator</span><br><span class="line">     occurrence=f|l|a           <span class="built_in">print</span> first, last or all occurrences of each field</span><br><span class="line">     aggregator=,|/s|&lt;char&gt;     select comma, space, printable character as  aggregator</span><br><span class="line">     quote=d|s|n                select double, single, no quotes <span class="keyword">for</span> values</span><br></pre></td></tr></table></figure>
+
+<h4 id="t-设置时间显示格式"><a href="#t-设置时间显示格式" class="headerlink" title="-t 设置时间显示格式"></a>-t 设置时间显示格式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-t a|ad|d|dd|e|r|u|ud        <span class="comment"># output format of time stamps (def: r: rel. to first)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="u-设置秒的类型"><a href="#u-设置秒的类型" class="headerlink" title="-u  设置秒的类型"></a>-u  设置秒的类型</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-u s|hms                     <span class="comment"># output format of seconds (def: s: seconds)</span></span><br></pre></td></tr></table></figure>
+
+<p>Specifies the seconds type. Valid choices are:</p>
+<p><strong>s</strong> for seconds</p>
+<p><strong>hms</strong> for hours, minutes and seconds</p>
+<h4 id="W-n"><a href="#W-n" class="headerlink" title="-W n"></a>-W n</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-W n                         <span class="comment"># Save extra information in the file, if supported.</span></span><br><span class="line">                             <span class="comment"># n = write network address resolution information</span></span><br></pre></td></tr></table></figure>
+
+<p>Save extra information in the file if the format supports it. For example,</p>
+<p>如果格式支持，则保存额外的信息到文件中。例如，使用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tshark -F pcapng -W n</span><br></pre></td></tr></table></figure>
+
+<p>will save host name resolution records along with captured packets.</p>
+<p>则将保存主机名称解析的解码到捕获数据包中。</p>
+<p>Future versions of <strong>Tshark</strong> may automatically change the capture format to <strong>pcapng</strong> as needed.</p>
+<p>未来版本的<strong>Tshark</strong>可能会根据需要自动将捕获格式更改为pcapng。</p>
+<p>The argument is a string that may contain the following letter:</p>
+<p><strong>n</strong> write network address resolution information (pcapng only)</p>
+<p>参数可以是以下的字符串：</p>
+<p><strong>n</strong> 写入网络地址解析信息(仅限pcapng)</p>
+<h4 id="q与-z-获取各种统计信息（只挑选了部分常用的）"><a href="#q与-z-获取各种统计信息（只挑选了部分常用的）" class="headerlink" title="-q与-z 获取各种统计信息（只挑选了部分常用的）"></a>-q与-z 获取各种统计信息（只挑选了部分常用的）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-q                           <span class="comment"># be more quiet on stdout (e.g. when using statistics)</span></span><br><span class="line">-z &lt;statistics&gt;              <span class="comment"># various statistics, see the man page for details</span></span><br></pre></td></tr></table></figure>
+
+<p>Get <strong>TShark</strong> to collect various types of statistics and display the result after finishing reading the capture file. Use the <strong>-q</strong> option if you’re reading a capture file and only want the statistics printed, not any per-packet information.</p>
+<p>让<strong>TShark</strong>收集统计的各种类型，并且在完成读取的捕获文件后展示出来。如果你正在读取捕获文件，并只想打印出统计信息，而不是每个包的信息，则使用<strong>-q</strong>选项。</p>
+<p>Note that the <strong>-z proto</strong> option is different - it doesn’t cause statistics to be gathered and printed when the capture is complete, it modifies the regular packet summary output to include the values of fields specified with the option. Therefore you must not use the <strong>-q</strong> option, as that option would suppress the printing of the regular packet summary output, and must also not use the <strong>-V</strong> option, as that would cause packet detail information rather than packet summary information to be printed.</p>
+<p>注意的是<strong>-z proto</strong>有不同之处。当在捕获完成时，它不会收集统计信息并打印出来，而是修改常规数据包汇总输出，包括选项中指定字段的数值。因此，你不能使用<strong>-q</strong>选项，因为该选项会禁止打印常规数据包的汇总输出。同时，也不能使用<strong>-V</strong>选项，因为这会导致数据包的细节信息被打印出来，而非数据包的汇总信息。</p>
+<p>Currently implemented statistics are:目前实现的统计有如下内容：</p>
+<ul>
+<li><p><strong>-z help</strong></p>
+<p>Display all possible values for <strong>-z</strong>.</p>
+<p>显示所有可能的数值</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>-z afp,srt[,<em>filter</em>]</strong></p>
+<p>Show Apple Filing Protocol service response time statistics.</p>
+<p>显示AFP服务器响应时间统计</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>-z conv,<em>type</em>[,<em>filter</em>]</strong></p>
+<p>Create a table that lists all conversations that could be seen in the capture. <em>type</em> specifies the conversation endpoint types for which we want to generate the statistics; currently the supported ones are:</p>
+<p>创建一个表，里面包含了所有统计信息，这些信息可以在捕获中看到。<em>type</em>指定了我们想要生成的统计信息的会话终端类型。目前支持的内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"bluetooth"</span>               Bluetooth addresses</span><br><span class="line"><span class="string">"eth"</span>                     Ethernet addresses</span><br><span class="line"><span class="string">"fc"</span>                      Fibre Channel addresses</span><br><span class="line"><span class="string">"fddi"</span>                    FDDI addresses</span><br><span class="line"><span class="string">"ip"</span>                      IPv4 addresses</span><br><span class="line"><span class="string">"ipv6"</span>                    IPv6 addresses</span><br><span class="line"><span class="string">"ipx"</span>                     IPX addresses</span><br><span class="line"><span class="string">"jxta"</span>                    JXTA message addresses</span><br><span class="line"><span class="string">"ncp"</span>                     NCP connections</span><br><span class="line"><span class="string">"rsvp"</span>                    RSVP connections</span><br><span class="line"><span class="string">"sctp"</span>                    SCTP addresses</span><br><span class="line"><span class="string">"tcp"</span>                     TCP/IP socket pairs  Both IPv4 and IPv6 are supported</span><br><span class="line"><span class="string">"tr"</span>                      Token Ring addresses</span><br><span class="line"><span class="string">"usb"</span>                     USB addresses</span><br><span class="line"><span class="string">"udp"</span>                     UDP/IP socket pairs  Both IPv4 and IPv6 are supported</span><br><span class="line"><span class="string">"wlan"</span>                    IEEE 802.11 addresses</span><br></pre></td></tr></table></figure>
+
+<p>If the optional <em>filter</em> is specified, only those packets that match the filter will be used in the calculations.</p>
+<p>如果指定了<em>filter</em>，则在计算时会使用匹配了过滤条件的这些数据包。</p>
+<p>The table is presented with one line for each conversation and displays the number of packets/bytes in each direction as well as the total number of packets/bytes. The table is sorted according to the total number of frames.</p>
+<p>这个表会为每个会话显示一行，并且显示每个方向的数据包/字节的数目及其总数。该表会依据数据帧数进行排序。</p>
+<img src="/2019/04/26/tshark使用方法/1553419331871.png" title="This is an test image">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>-z bootp,stat[,<em>filter</em>]</strong></p>
+<p>Show DHCP (BOOTP) statistics.</p>
+<p>显示DHCP统计信息</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>-z dns,tree[,<em>filter</em>]</strong></p>
+<p>Create a summary of the captured DNS packets. General information are collected such as qtype and qclass distribution. For some data (as qname length or DNS payload) max, min and average values are also displayed.</p>
+<p>为捕获的DNS数据包创建一个汇总。核心信息包含了如qtype，qclass distribution。对于一些数据（如qname长度或是DNS负载）的最大，最小，平均值也会被显示出来。</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>-z endpoints,<em>type</em>[,<em>filter</em>]</strong></p>
+<p>Create a table that lists all endpoints that could be seen in the capture. <em>type</em> specifies the endpoint types for which we want to generate the statistics; currently the supported ones are:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"bluetooth"</span>               Bluetooth addresses</span><br><span class="line"><span class="string">"eth"</span>                     Ethernet addresses</span><br><span class="line"><span class="string">"fc"</span>                      Fibre Channel addresses</span><br><span class="line"><span class="string">"fddi"</span>                    FDDI addresses</span><br><span class="line"><span class="string">"ip"</span>                      IPv4 addresses</span><br><span class="line"><span class="string">"ipv6"</span>                    IPv6 addresses</span><br><span class="line"><span class="string">"ipx"</span>                     IPX addresses</span><br><span class="line"><span class="string">"jxta"</span>                    JXTA message addresses</span><br><span class="line"><span class="string">"ncp"</span>                     NCP connections</span><br><span class="line"><span class="string">"rsvp"</span>                    RSVP connections</span><br><span class="line"><span class="string">"sctp"</span>                    SCTP addresses</span><br><span class="line"><span class="string">"tcp"</span>                     TCP/IP socket pairs  Both IPv4 and IPv6 are supported</span><br><span class="line"><span class="string">"tr"</span>                      Token Ring addresses</span><br><span class="line"><span class="string">"usb"</span>                     USB addresses</span><br><span class="line"><span class="string">"udp"</span>                     UDP/IP socket pairs  Both IPv4 and IPv6 are supported</span><br><span class="line"><span class="string">"wlan"</span>                    IEEE 802.11 addresses</span><br></pre></td></tr></table></figure>
+
+<p>If the optional <em>filter</em> is specified, only those packets that match the filter will be used in the calculations（计算）.The table is presented with one line for each conversation and displays the number of packets/bytes in each direction as well as the total number of packets/bytes. The table is sorted according to the total number of frames.</p>
+<p>与<strong>-z conv,<em>type</em>[,<em>filter</em>]</strong>类似</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>-z expert [<em>,error|,warn|,note|,chat|,comment*][</em>,filter*]</strong></p>
+<p>Collects information about all expert info, and will display them in order, grouped by severity.</p>
+<p>Example: <strong>-z expert,sip</strong> will show expert items of all severity for frames that match the sip protocol.</p>
+<p>This option can be used multiple times on the command line.</p>
+<p>收集所有的expert info专家信息，并按顺序及重要性分组来显示他们。</p>
+<p>例如: <strong>-z expert,sip</strong> 将显示与sip协议匹配的帧的所有重要专家项。</p>
+</li>
+</ul>
+<p>  If the optional <em>filter</em> is provided, the stats will only be calculated on those calls that match that filter.</p>
+<p>  Example: <strong>-z “expert,note,tcp”</strong> will only collect expert items for frames that include the tcp protocol, with a severity of note or higher.</p>
+<p>  如果提供了<em>filter</em>，则只会根据与该过滤器匹配的调用计算统计信息。</p>
+<p>  例如：<strong>-z “expert,note,tcp”</strong> 将仅收集note或更高层级的包含了tcp协议的数据帧的专家项</p>
+  <img src="/2019/04/26/tshark使用方法/1553419674561.png" title="This is an test image">
+
+
+
+<ul>
+<li><p><strong>-z flow,<em>name</em>,<em>mode</em>,[<em>filter</em>]</strong></p>
+<p>Displays the flow of data between two nodes. Output is the same as ASCII format saved from GUI.</p>
+<p><em>name</em> specifies the flow name. It can be one of:</p>
+<p>显示在两端的数据流。输出与从GUI保存的ASCII格式相同。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">any         All frames</span><br><span class="line">icmp        ICMP</span><br><span class="line">icmpv6      ICMPv6</span><br><span class="line">lbm_uim     UIM</span><br><span class="line">tcp         TCP</span><br></pre></td></tr></table></figure>
+
+<p><em>mode</em> specifies the address type. It can be one of:</p>
+<p><em>mode</em> 指定了地址类型。可以是以下之一</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">standard    Any address</span><br><span class="line">network     Network address</span><br></pre></td></tr></table></figure>
+
+<p>Example: <strong>-z flow,tcp,network</strong> will show data flow for all TCP frame</p>
+<p>例如： <strong>-z flow,tcp,network</strong>将展示所有TCP帧的数据流</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>-z follow,<em>prot</em>,<em>mode</em>,<em>filter</em>[<em>,range</em>]</strong></p>
+<p>Displays the contents of a TCP or UDP stream between two nodes. </p>
+<p>展示在两端的TCP或是UDP流的内容。</p>
+<p><em>prot</em> specifies the transport protocol. It can be one of:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tcp     TCP</span><br><span class="line">udp     UDP</span><br><span class="line">tls     TLS or SSL</span><br></pre></td></tr></table></figure>
+
+<p><em>mode</em> specifies the output mode. It can be one of:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ascii    ASCII output with dots <span class="keyword">for</span> non-printable characters</span><br><span class="line">ebcdic   EBCDIC output with dots <span class="keyword">for</span> non-printable characters</span><br><span class="line">hex      Hexadecimal and ASCII data with offsets</span><br><span class="line">raw      Hexadecimal data</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<p>  <em>filter</em> specifies the stream to be displayed. UDP/TCP streams are selected with either the stream index or IP address plus port pairs. TLS streams are selected with the stream index. For example:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip-addr0:port0,ip-addr1:port1</span><br><span class="line">stream-index</span><br></pre></td></tr></table></figure>
+
+<p>  <em>range</em> optionally specifies which “chunks” of the stream should be displayed.</p>
+<p>  Example: <strong>-z “follow,tcp,hex,1”</strong> will display the contents of the second TCP stream (the first is stream 0) in “hex” format.</p>
+<p>  例如： <strong>-z “follow,tcp,hex,1”</strong>将会使用“hex”格式展示第二个TCP流的内容（第一个是stream 0）</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; ===================================================================</span><br><span class="line">&gt; Follow: tcp,hex</span><br><span class="line">&gt; Filter: tcp.stream eq 1</span><br><span class="line">&gt; Node 0: 200.57.7.197:32891</span><br><span class="line">&gt; Node 1: 200.57.7.198:2906</span><br><span class="line">&gt; 00000000  00 00 00 22 00 00 00 07  00 0a 85 02 07 e9 00 02  ...&quot;.... ........</span><br><span class="line">&gt; 00000010  07 e9 06 0f 00 0d 00 04  00 00 00 01 00 03 00 06  ........ ........</span><br><span class="line">&gt; 00000020  1f 00 06 04 00 00                                 ......</span><br><span class="line">&gt; 00000000  00 01 00 00                                       ....</span><br><span class="line">&gt; 00000026  00 02 00 00</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+  <img src="/2019/04/26/tshark使用方法/1553425530931.png" title="This is an test image">
+
+
+
+<p>  Example: <strong>-z “follow,tcp,ascii,200.57.7.197:32891,200.57.7.198:2906”</strong> will display the contents of a TCP stream between 200.57.7.197 port 32891 and 200.57.7.98 port 2906.</p>
+<p>  例如：<strong>-z “follow,tcp,ascii,200.57.7.197:32891,200.57.7.198:2906”</strong>将会展示200.57.7.197的32891端口与200.57.7.98的2906端口的TCP流的内容</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; ===================================================================</span><br><span class="line">&gt; Follow: tcp,ascii</span><br><span class="line">&gt; Filter: (omitted for readability)</span><br><span class="line">&gt; Node 0: 200.57.7.197:32891</span><br><span class="line">&gt; Node 1: 200.57.7.198:2906</span><br><span class="line">&gt; 38</span><br><span class="line">&gt; ...&quot;.....</span><br><span class="line">&gt; ................</span><br><span class="line">&gt; 4</span><br><span class="line">&gt; ....</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><p><strong>-z hosts [,ipv4][,ipv6]</strong></p>
+<p>Dump any collected IPv4 and/or IPv6 addresses in “hosts” format. Both IPv4 and IPv6 addresses are dumped by default.Addresses are collected from a number of sources, including standard “hosts” files and captured traffic.</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>-z http,stat,</strong></p>
+<p>Calculate the HTTP statistics distribution. Displayed values are the HTTP status codes and the HTTP request methods.</p>
+<img src="/2019/04/26/tshark使用方法/1553418861258.png" title="This is an test image">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>-z</strong> http,tree</p>
+<p>Calculate the HTTP packet distribution. Displayed values are the HTTP request modes and the HTTP status codes.</p>
+<img src="/2019/04/26/tshark使用方法/1553418910684.png" title="This is an test image">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>-z http_srv,tree</strong></p>
+<p>Calculate the HTTP requests and responses by server. For the HTTP requests, displayed values are the server IP address and server hostname. For the HTTP responses, displayed values are the server IP address and status.</p>
+<img src="/2019/04/26/tshark使用方法/1553419156361.png" title="This is an test image">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>-z</strong> icmp,srt[,<em>filter</em>]</p>
+<p>Compute total ICMP echo requests, replies, loss, and percent loss, as well as minimum, maximum, mean, median and sample standard deviation SRT statistics typical of what ping provides.</p>
+<p>Example: <strong>-z icmp,srt,ip.src==1.2.3.4</strong> will collect ICMP SRT statistics for ICMP echo request packets originating from a specific host.This option can be used multiple times on the command line.</p>
+<p>计算总的ICMP回应请求，回复，丢失和百分比损失，以及ping提供的典型的最小值，最大值，平均值，中值和样本标准差SRT统计量。</p>
+<p>例如：<strong>-z icmp,srt,ip.src==1.2.3.4</strong>将收集源自特定主机的ICMP回送请求数据包的ICMP SRT统计信息。可以在命令行上多次使用此选项。</p>
+<img src="/2019/04/26/tshark使用方法/1553420285309.png" title="This is an test image">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>-z io,phs[,<em>filter</em>]</strong></p>
+<p>Create Protocol Hierarchy Statistics listing both number of packets and bytes. If no <em>filter</em> is specified the statistics will be calculated for all packets. If a <em>filter</em> is specified statistics will only be calculated for those packets that match the filter.This option can be used multiple times on the command line.</p>
+<p>创建一个包含所有数据包和字节数的协议分层信息列表。</p>
+<img src="/2019/04/26/tshark使用方法/1553420404357.png" title="This is an test image">
+
+
+
+</li>
+</ul>
+<ul>
+<li><p><strong>-z io,stat,<em>interval</em>[,<em>filter</em>][,<em>filter</em>][,<em>filter</em>]…</strong></p>
+<p>Collect packet/bytes statistics for the capture in intervals of <em>interval</em> seconds. <em>Interval</em> can be specified either as a whole or fractional second and can be specified with microsecond (us) resolution. If <em>interval</em> is 0, the statistics will be calculated over all packets.</p>
+<p>按时间间隔秒数收集捕获的数据包/字节数统计信息。时间间隔可以指定为整数或小数秒，并且可以使用微秒（us）。如果<em>interval</em>为0，则将计算所有数据包的统计信息。</p>
+</li>
+</ul>
+<p>  If no <em>filter</em> is specified the statistics will be calculated for all packets.If one or more <em>filters</em> are specified statistics will be calculated for all filters and presented with one column of statistics for each filter.</p>
+<p>  This option can be used multiple times on the command line.</p>
+<p>  如果没有指定过滤条件，则计算所有数据包的统计信息。如果一个或多个过滤条件被指定，那么会为所有的过滤条件来计算统计信息，并为每个过滤条件显示一列统计信息。可以在命令行上多次使用此选项。</p>
+<p>  Example: <strong>-z io,stat,1,ip.addr==1.2.3.4</strong> will generate 1 second statistics for all traffic to/from host 1.2.3.4.</p>
+<p>  例如： <strong>-z io,stat,1,ip.addr==1.2.3.4</strong> 将为所有进出主机1.2.3.4的流量生成1秒的统计信息</p>
+<p>  Example: <strong>-z “io,stat,0.001,smb&amp;&amp;ip.addr==1.2.3.4”</strong> will generate 1ms statistics for all SMB packets to/from host 1.2.3.4.</p>
+<p>  例如： <strong>-z io,stat,1,smb&amp;&amp;ip.addr==1.2.3.4</strong> 将为所有进出主机1.2.3.4的SMB流量生成1毫秒的统计信息</p>
+<p>  The examples above all use the standard syntax for generating statistics which only calculates the number of packets and bytes in each interval.</p>
+<p>  上面的示例都使用标准语法来生成统计信息，该统计信息仅计算每个间隔中的数据包和字节数。</p>
+  <img src="/2019/04/26/tshark使用方法/1553422202759.png" title="This is an test image">
+
+
+
+  <img src="/2019/04/26/tshark使用方法/1553422247214.png" title="This is an test image">
+
+
+
+
+
+<ul>
+<li><p><strong>-z io,stat,<em>interval</em>,”[COUNT|SUM|MIN|MAX|AVG|LOAD](<em>field</em>)<em>filter</em>“</strong></p>
+<p><strong>io,stat</strong> can also do much more statistics and calculate COUNT(), SUM(), MIN(), MAX(), AVG() and LOAD() using a slightly different filter syntax:</p>
+<p><strong>io,stat</strong>还能做更多的统计和计算。如COUNT(), SUM(), MIN(), MAX(), AVG() and LOAD()，这些使用稍微不同的过滤器语法。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.xilearn.top/2019/04/26/tshark使用方法/" data-id="clmc13goc000z0otf5l7fdkyf"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/04/27/设置分类列表页/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            设置分类列表页
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/04/25/使用github-hexo创建一个博客/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">使用github+hexo创建一个博客</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

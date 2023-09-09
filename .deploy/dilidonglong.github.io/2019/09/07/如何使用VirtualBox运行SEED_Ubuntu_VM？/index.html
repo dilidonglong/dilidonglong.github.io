@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    如何使用VirtualBox运行SEED_Ubuntu_VM？ |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-如何使用VirtualBox运行SEED_Ubuntu_VM？" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何使用VirtualBox运行SEED_Ubuntu_VM？
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/" class="article-date">
+  <time datetime="2019-09-07T15:49:44.000Z" itemprop="datePublished">2019-09-07</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SEED-Labs/">SEED Labs</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <p><a href="https://seedsecuritylabs.org/Labs_16.04/Documents/SEEDVM_VirtualBoxManual.pdf" target="_blank" rel="noopener">官方原文档</a></p>
+<p>Install the free VirtualBox software first. We recommend <strong>Version 6.0.4</strong> (please stay away from the newer versions, as they still have some issues with our VM).</p>
+<p>首先安装免费的VirtualBox软件。 我们建议使用版本6.0.4（请远离新版本，因为它们仍然存在我们的VM的一些问题）。</p>
+<a id="more"></a>
+
+<br>
+
+<h2 id="Step-1-Create-a-New-VM-in-VirtualBox"><a href="#Step-1-Create-a-New-VM-in-VirtualBox" class="headerlink" title="Step 1: Create a New VM in VirtualBox"></a>Step 1: Create a New VM in VirtualBox</h2><p>步骤1：在VirtualBox中创建一个新的VM</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/1.jpg" title="This is an test image">
+
+<br>
+
+<h2 id="Step-2-Provide-a-Name-and-Select-the-OS-Type-and-Version"><a href="#Step-2-Provide-a-Name-and-Select-the-OS-Type-and-Version" class="headerlink" title="Step 2: Provide a Name and Select the OS Type and Version"></a>Step 2: Provide a Name and Select the OS Type and Version</h2><p>步骤2：进行命名，同时选择操作系统的类型与版本</p>
+<p>Do NOT pick Ubuntu (64-bit), even though your machine is 64 bit. Our prebuilt VM is 32-bit Ubuntu.</p>
+<p>不要选择Ubuntu (64-bit)，尽管你的机器是64位的。我们预建的VM是32位的Ubuntu。</p>
+
+
+<br>
+
+<h2 id="Step-3-Set-the-Memory-Size"><a href="#Step-3-Set-the-Memory-Size" class="headerlink" title="Step 3: Set the Memory Size"></a>Step 3: Set the Memory Size</h2><p>步骤3：设置内存容量</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/3.jpg" title="This is an test image">
+
+<br>
+
+<h2 id="Step-4-Select-the-Pre-built-VM-File-Provided-by-Us"><a href="#Step-4-Select-the-Pre-built-VM-File-Provided-by-Us" class="headerlink" title="Step 4: Select the Pre-built VM File Provided by Us"></a>Step 4: Select the Pre-built VM File Provided by Us</h2><p>步骤4： 选择使用我们提供的预建的VM文件</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/4.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/5.jpg" title="This is an test image">
+
+<br>
+
+<h2 id="In-the-above-step-you-may-encounter-遭遇-the-following-error-otherwise-directly-go-to-Step-5"><a href="#In-the-above-step-you-may-encounter-遭遇-the-following-error-otherwise-directly-go-to-Step-5" class="headerlink" title="In the above step, you may encounter(遭遇) the following error; otherwise, directly go to Step 5."></a>In the above step, you may encounter(遭遇) the following error; otherwise, directly go to Step 5.</h2><p>在上面的步骤中，你可能会遇到以下错误; 如果没有，则直接转到步骤5。</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/6.jpg" title="This is an test image">
+
+<p><strong>Reason and Solution:</strong> This is because you copied the VM files from another VM, which is already loaded into VirtualBox. These two VMs have the same UUID, which is not allowed by Virtualbox. Here are several solutions depending on your situations:</p>
+<p><strong>原因和解决方法：</strong>这是因为你从其他VM复制VM文件，而这个VM已经被加载过VirtualBox中了。这两个VM有着同样的UUID，而在VirtualBox中是不允许这样的。取决于你的状况，有以下几个解决方案：</p>
+<ul>
+<li>If you plan to create multiple VMs using the same image, please use the clone<br>mechanism (See Appendix A for details).</li>
+<li>如果你使用相同的镜像创建多个VM，请使用克隆机制（更多细节请参考附录A）</li>
+<li>If the older VM with the same UUID is no longer needed, remove it from VirtualBox will solve the problem.</li>
+<li>如果不再需要具有相同UUID的旧的VM，则从VirtualBox中删除它可以解决问题。</li>
+<li>If you do want to keep the older VM, you can change the UUID of the new VM. The fastest way is to directly modify SEEDUbuntu16.04.vmdk, which is a text file. Search for the ddb.uuid.image entry, and change its value (e.g., change the last byte from ‘d’ to ‘e’)</li>
+<li>如果你确实想要保留旧的VM，你可以为新的VM修改UUID。 最快的方法是直接修改SEEDUbuntu16.04.vmdk，这是一个文本文件。 搜索ddb.uuid.image条目，并更改其值（例如，将最后一个字节从“d”更改为“e”）</li>
+</ul>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/7.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/8.jpg" title="This is an test image">
+
+<p>If there is no error (or after you fix the error), your VM will be created successfully.</p>
+<p>如果没有出现错误（或是你已经修复了错误），你的VM将成功创建。</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/9.jpg" title="This is an test image">
+
+<br>
+
+<h2 id="Step-5-Configure-the-VM"><a href="#Step-5-Configure-the-VM" class="headerlink" title="Step 5: Configure the VM"></a>Step 5: Configure the VM</h2><p>步骤5：配置VM</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/10.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/11.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/12.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/13.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/14.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/15.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/16.jpg" title="This is an test image">
+
+<br>
+
+<h2 id="Step-6-Start-the-VM"><a href="#Step-6-Start-the-VM" class="headerlink" title="Step 6: Start the VM"></a>Step 6: Start the VM</h2><p>步骤6：启动VM</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/17.jpg" title="This is an test image">
+
+<br>
+
+<h2 id="Step-7-Stop-the-VM-or-Save-the-VM’s-State"><a href="#Step-7-Stop-the-VM-or-Save-the-VM’s-State" class="headerlink" title="Step 7: Stop the VM or Save the VM’s State"></a>Step 7: Stop the VM or Save the VM’s State</h2><p>步骤7：停止VM或是保存VM的状态</p>
+<p>When you are done with your VM, you can always shut it down (from inside Ubuntu). A better alternative is to “freeze” the computer, so everything is saved. When you need it again, you can “unfreeze” it, and resume from where you left off. This is much faster and convenient than shutting down and rebooting the VM. To achieve this, you can use the “Save State” option.</p>
+<p>用完VM后，你可以随时关闭它（从Ubuntu内部）。 更好的选择是“freeze冻结”计算机，以便保存所有内容。 当你再次需要它时，你可以“unfreeze解冻”它，并从你离开的地方恢复。 这比关闭和重新启动VM快得多，方便快捷。 为此，你可以使用“Save State保存状态”选项。</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/18.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/19.jpg" title="This is an test image">
+
+<br>
+
+<h1 id="Appendix-A-Use-“Clone”-to-create-Multiple-VMs"><a href="#Appendix-A-Use-“Clone”-to-create-Multiple-VMs" class="headerlink" title="Appendix A: Use “Clone” to create Multiple VMs"></a>Appendix A: Use “Clone” to create Multiple VMs</h1><p>附录A：使用“克隆”以创建多个VM</p>
+<p>Some SEED labs require multiple VMs. The easiest way to create multiple VMs is to create one first, and then use the “Clone” mechanism to clone it. Before doing the cloning, please ensure the following:</p>
+<p>一些SEED实验需要多个VM。 创建多个VM的最简单方法是首先创建一个，然后使用“克隆”机制来克隆它。 在进行克隆之前，请确保以下内容：</p>
+<ul>
+<li><p><strong>IMPORTANT:</strong> make sure that the VM is <strong>fully shutdown</strong> (not in a “Saved” state), or there will be all sorts of problems.</p>
+<p><strong>重要：</strong>确保你的VM已经<strong>完全关闭</strong>（而不是处于“保存状态”），不然可能会有各种各样的问题。</p>
+</li>
+<li><p>Configure network (see Appendix B); otherwise you have to do it for each VM.</p>
+<p>配置网络（参考附录B）；不然你就得为每个VM配置它了。</p>
+</li>
+<li><p>Configure folder sharing (see Appendix D); otherwiseyou have to do it for each VM.</p>
+<p>配置文件夹共享（参考附录B）；不然你就得为每个VM配置它了。</p>
+</li>
+</ul>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/20.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/21.jpg" title="This is an test image">
+
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/22.jpg" title="This is an test image">
+
+<p>The clone will take a few minutes, depending on the speed of your computer.</p>
+<p>克隆将会持续几分钟，这取决于你的电脑。</p>
+<br>
+
+<h1 id="Appendix-B-Network-Configuration-in-VirtualBox-for-SEED-Labs"><a href="#Appendix-B-Network-Configuration-in-VirtualBox-for-SEED-Labs" class="headerlink" title="Appendix B: Network Configuration in VirtualBox for SEED Labs"></a>Appendix B: Network Configuration in VirtualBox for SEED Labs</h1><p>附录B：为SEED实验在VirtualBox上配置网络</p>
+<p>In many of the SEED labs, we need to run multiple guest VMs, and these VMs should be able to (1) reach out to the Internet, (2) communicate with each other. In Virtualbox, if we use the “NAT” setting (default setting) for each VM, we can achieve 1, but not 2, because each VM will be placed in its own private network, not on a common one; they even have the same IP address, which is not a problem because each VM is the only computer on its own private network. On the other hand, if we use the “Host-only” setting for each VM, we can achieve 2, but not 1. Using this setting, all the VMs and the host will be put on a common network, so they can communicate with each other; however, due to the lack of NAT, the VMs cannot reach out to the outside.</p>
+<p>在许多SEED实验中，我们需要运行多个客户虚拟机，这些虚拟机应该能够（1）接入互联网，（2）相互通信。在Virtualbox中，如果我们为每个VM使用“NAT”设置（默认设置），我们可以实现1而不是2，因为每个VM将放置在自己的专用网络中，而不是普通的网络中;它们甚至具有相同的IP地址，这不是问题，因为每个VM是其自己的专用网络上唯一的计算机。另一方面，如果我们为每个VM使用“仅主机”的设置，我们可以实现2但不能达到1.使用此设置，所有VM和主机将被放在一个公共网络上，因此它们可以进行通信彼此;但是，由于缺少NAT，虚拟机无法与外界联系。</p>
+<p>Therefore, in order to achieve all these 2 goals, we have to use a network adapter called “NAT Network”. The adapter works in a similar way to “local area network” or LAN. It enable VMs communication within same local network as well as the communication to the internet. All the communication goes through this single adapter. As show in Figure 1, gateway router transfers the packets among the VMs and transfers the packets from local network to Internet.</p>
+<p>因此，为了同时实现这两个目标，我们必须使用称为“NAT网络”的网络适配器。适配器的工作方式与“局域网”或LAN类似。它支持在同一本地网络内进行VM通信以及与Internet的通信。所有通信都通过这个单一适配器。如图1所示，网关路由器在VM之间传输数据包，并将数据包从本地网络传输到Internet。</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/23.jpg" title="This is an test image">
+
+<br>
+
+<h2 id="Configuration-Instruction"><a href="#Configuration-Instruction" class="headerlink" title="Configuration Instruction"></a>Configuration Instruction</h2><p>配置介绍</p>
+<p><strong>Step 1</strong>: Make sure you are using the most up-to-date VirtualBox. As show in the following figure, click the “File” on the top left of the VirtualBox main UI. Then choose “Preferences…” option.</p>
+<p><strong>步骤1：</strong>确保您使用的是最新的VirtualBox。 如下图所示，单击VirtualBox主UI左上角的“文件”。 然后选择“首选项…”选项。</p>
+
+
+
+
+<p><strong>Step 2</strong>: Click the “Network” tab on left panel. click the “+” button to create a new NAT Networks (NatNetwork) adaptor (if one does not exist). Double click on the NatNetwork, and look at its specifications. Set the specifications as the same as what is shown below.</p>
+<p><strong>步骤2：</strong>点击左侧栏中的“网络”键。点击“+”号按钮以创建一个新的NAT网络适配器（如果一个都没有的话）。双击这个NatNetwork，并且查看它的格式规范，照下图的配置来进行设置。</p>
+
+
+<p><strong>Step 4</strong>: Go to VM setting, you need to power off the VM before making the following changes. Enable Adapter 1(at the same time, disable the other adapters), and choose “NAT Network”.</p>
+<p><strong>步骤4</strong>：回到VM的设置，你需要确保在做以下操作的前已经对VM完全关机。开启适配器1（与此同时关闭其他适配器），并且选择“NAT网络”。</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/26.jpg" title="This is an test image">
+
+<p><strong>Step 5</strong>: Now power on the VM, and check the IP address.</p>
+<p><strong>步骤5：</strong>现在开启VM，并且检查IP地址</p>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/27.jpg" title="This is an test image">
+
+<p><strong>Troubleshooting</strong>:</p>
+<p>If VMs can not ping each other, refresh the MAC Address can resolve the issue. The way to resolve the issue is shown in figure 4, troubleshoot 1.</p>
+<p>如果VM之间无法互相ping通，重新获取MAC地址能解决该问题。解决问题的方法在上面步骤4，点击那个</p>
+<p>troubleshoot 1。</p>
+<br>
+
+<h1 id="Appendix-C-Take-Snapshots-and-Recover-from-Snapshots"><a href="#Appendix-C-Take-Snapshots-and-Recover-from-Snapshots" class="headerlink" title="Appendix C: Take Snapshots and Recover from Snapshots"></a>Appendix C: Take Snapshots and Recover from Snapshots</h1><p>附录C：创建快照与从快照中恢复</p>
+<p>For some labs, you may need to make changes to the operating system. If you make a severe mistake, your VM may not be able to boot up again, and you will lost everything inside the failed VM. have done. To avoid such trouble, before doing anything dangerous to the OS, it is better to take a snapshot of your current VM. You can take as many snapshots as you want.</p>
+<p>对于一些实验，你可能需要对操作系统做出改变。如果你的操作导致服务器出现问题，你的VM可能无法再次启动了，并且你将丢失在这个故障VM中的所有内容。在对操作系统做任何危险操作前，为了避免上述问题出现，最好就是对当前的VM创建快照。只要你想，你能创建任意个数量的快照。</p>
+
+
+<p>To restore from a snapshot that you have taken before, you can click the followings (you need to shut-down the VM first):</p>
+<p>要从之前拍摄的快照还原，可以单击以下内容（你需要先关闭VM）：</p>
+
+
+<br>
+
+<h1 id="Appendix-D-Folder-Sharing"><a href="#Appendix-D-Folder-Sharing" class="headerlink" title="Appendix D: Folder Sharing"></a>Appendix D: Folder Sharing</h1><p>附录D：文件夹分享</p>
+<p>Files can be shared between the host computer and the guest operating system in VirtualBox. The following steps show how to do so.</p>
+<p>在主机电脑和VirtualBox中的客户操作系统间，文件是可以共享的。以下步骤将告诉你如何去做。</p>
+<ol>
+<li><p>Create the folder to be shared on the host computer. In this tutorial we name the folder share.</p>
+<p>在主机电脑上创建一个用于共享的文件夹。在本教程中，我们给文件夹取名叫share。</p>
+</li>
+<li><p>Boot the Guest operating system in VirtualBox.</p>
+<p>在VirtualBox中启动用户操作系统。</p>
+</li>
+<li><p>Go to the Settings popup window, and select “Shared Folders”</p>
+<p>回到设置弹出窗口，并选择“分享文件夹”。</p>
+</li>
+</ol>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/30.jpg" title="This is an test image">
+
+<ol start="4">
+<li><p>Choose the ‘Add’ button.</p>
+<p>选择“添加”按钮。</p>
+</li>
+</ol>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/31.jpg" title="This is an test image">
+
+<ol start="5">
+<li><p>Choose “Other …”, and select a folder from the popup window.</p>
+<p>选择“其他……”，并从弹出窗口中选择文件夹。</p>
+</li>
+</ol>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/32.jpg" title="This is an test image">
+
+<ol start="6">
+<li><p>Select <strong>Auto Mount</strong> and <strong>Make Permanent</strong> option. Click OK. Click OK again to close the Settings Dialog.</p>
+<p>选择<strong>动态挂载</strong>和<strong>Make Permanent（常设，永久）</strong> 选项。点击完成。再次点击完成以关闭设置对话框。</p>
+</li>
+</ol>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/33.jpg" title="This is an test image">
+
+<ol start="7">
+<li><p>Open a terminal in the VM. Make a directory and name it host (you can choose any name you like). Use command “mkdir /home/seed/host”</p>
+<p>打开VM中的终端，创建一个目录并将其命名为host（你可以选择任何您喜欢的名称）。使用命令“mkdir /home/seed/host”（因为上面那张图的挂载目录写的就是这个文件夹地址，所以你也得确保在VM中创建了这个文件夹）</p>
+</li>
+<li><p>We want files in our mount point (~/host) to be owned by the current user. Also we want the mounted shared folder to persist after reboot. Hence, we will edit the /etc/rc.local file (using “sudo gedit /etc/rc.local”) and add the command below (1000 is the User ID and group ID of the user seed):</p>
+<p>我们希望挂载点（〜/ host）中的文件归当前用户所有。 此外，我们希望挂载的共享文件夹在重新启动后保持不变。 因此，我们将编辑 /etc/rc.local文件（使用“sudo gedit /etc/rc.local”）并添加以下命令（1000是用户ID和用户种子的组ID）：</p>
+<p><strong>sudo mount -t vboxsf -o rw,uid=1000,gid=1000 share /home/seed/host</strong></p>
+</li>
+</ol>
+<img src="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/34.jpg" title="This is an test image">
+
+<ol start="9">
+<li><p>Save the changes and reboot VM. Now anything placed in /home/seed/host inside the VM should be visible from the share folder on the host machine, and vice versa.</p>
+<p>保存更改并重启VM。 现在，从主机上的共享文件夹中可以看到放在VM中/home/seed/host中的任何内容，反之亦然。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.xilearn.top/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/" data-id="clmc13gog00160otfexto9sop"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/09/17/数据包的嗅探与欺骗实验/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            数据包的嗅探与欺骗实验
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/08/11/markdown语法/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">markdown语法</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
