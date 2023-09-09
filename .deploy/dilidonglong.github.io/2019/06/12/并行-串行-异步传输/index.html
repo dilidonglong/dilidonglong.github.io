@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    并行/串行/异步传输 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-并行-串行-异步传输" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      并行/串行/异步传输
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/06/12/并行-串行-异步传输/" class="article-date">
+  <time datetime="2019-06-12T14:45:28.000Z" itemprop="datePublished">2019-06-12</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/收录文章/">收录文章</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="【转载】什么是并行传输、串行传输、异步传输？"><a href="#【转载】什么是并行传输、串行传输、异步传输？" class="headerlink" title="【转载】什么是并行传输、串行传输、异步传输？"></a>【转载】什么是并行传输、串行传输、异步传输？</h1><blockquote>
+<p>文章收录自互联网，著作权归原作者所有，若有冒犯请联系我删除。</p>
+<p>商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>本人转载只作个人学习及后续查阅使用</p>
+<p>该篇文档作者：航空航天迷</p>
+<p>原文链接：<a href="https://www.zhihu.com/question/29033993" target="_blank" rel="noopener">什么是并行传输、串行传输、异步传输？</a></p>
+<p>来源：知乎</p>
+</blockquote>
+<hr>
+<img src="/2019/06/12/并行-串行-异步传输/1.jpg" title="This is an test image">
+
+
+
+<p>传输可以分为<strong>串行传输</strong>和<strong>并行传输。</strong></p>
+<p><strong>串行传输</strong>可分为<strong>异步传输、同步传输</strong>和<strong>等时传输</strong>。</p>
+<a id="more"></a>
+
+<p>下图2是<strong>并行传输</strong>的示意图：</p>
+<img src="/2019/06/12/并行-串行-异步传输/2.jpg" title="This is an test image">
+
+
+
+<p>在<strong>并行传输</strong>中，使用多根并行的数据线一次同时传输多个比特。</p>
+<p>例如在图2中，共有8根数据线，一次同时传输8个比特，每个比特占用一根数据线。</p>
+<p>下图3是<strong>串行传输</strong>的示意图：</p>
+<img src="/2019/06/12/并行-串行-异步传输/3.jpg" title="This is an test image">
+
+
+
+<p>在<strong>串行传输</strong>中，使用一根数据线传输数据，一次传输1个比特，多个比特需要一个接一个依次传输。</p>
+<p>下面简单介绍一下<strong>串行传输</strong>与<strong>并行传输</strong>的发展历史，从而了解他们俩各自的优缺点，以及发展趋势。</p>
+<p>最早的计算机（电子管计算机和晶体管计算机），其各个接口，例如输入接口、输出接口和存储器接口等，一般采用串行接口，以<strong>串行传输</strong>的方式传输数据。</p>
+<p>下图4为电子管计算机ENIAC</p>
+<img src="/2019/06/12/并行-串行-异步传输/4.jpg" title="This is an test image">
+
+
+
+<p>电子管计算机ENIAC诞生于美国宾夕法尼亚大学。重30多吨，占地约170平方米，装有约18000只电子管。</p>
+<p>下图5为电子管计算机中使用的电子管</p>
+<img src="/2019/06/12/并行-串行-异步传输/5.jpg" title="This is an test image">
+
+
+
+<p>图5中小玻璃瓶状的东西就是电子管，电子管的体积比较大  下图6为晶体管计算机TRADIC</p>
+<img src="/2019/06/12/并行-串行-异步传输/6.jpg" title="This is an test image">
+
+
+
+<p>1954年，贝尔实验室使用800只晶体管组装了世界上第一台晶体管计算机TRADIC。相比电子管，晶体管体积小、重量轻、寿命长、发热少、功耗低，大大改进了计算机中的电子线路的结构，大幅度提高了运算速度。  下图7为晶体管计算机TRADIC中使用的晶体管</p>
+<img src="/2019/06/12/并行-串行-异步传输/7.jpg" title="This is an test image">
+
+
+
+<p>电子管计算机和晶体管计算机以<strong>串行传输</strong>的方式传输数据，其原因是当时各个部件都是分立的部件，而不是像今天这样使用集成电路设计。如果采用并行线路的话，元件的数量和占用的空间将成倍增长。比如，一个8比特并行线路的元件数量是串行线路的元件数量的8倍（因为需要为每根线路配置一套接收元件）。另外，元件的数量成倍增长的话，耗电量也会大幅增加。  集成电路技术出现后，大量元件可以集成到一个小小的芯片上，<strong>并行传输</strong>变得方便而便宜。不论是8比特、16比特还是更高比特位数的并行线路，只需要一个并行接口芯片就可以处理，而且并行接口芯片只比串行接口芯片贵一点。</p>
+<p>除了方便便宜外，在相同的工作频率下<strong>并行传输</strong>的传输速度是<strong>串行传输</strong>的数倍，迎合了人们对速度的追求，所以硬盘、打印机等设备开始使用<strong>并行传输</strong>以提高传输速度。PATA（Parallel Advanced Technology Attachment，并行高级技术附件）接口、并口（Parallel Port）和PCI（Peripheral Component Interconnect，外设部件互连）接口成为流行的并行接口。</p>
+<p>下图8为电脑主板上的PATA接口（<strong>并行传输</strong>），用于连接硬盘和光驱</p>
+<img src="/2019/06/12/并行-串行-异步传输/8.jpg" title="This is an test image">
+
+
+
+<p>下图9为用于PATA接口的连接线缆</p>
+<img src="/2019/06/12/并行-串行-异步传输/9.jpg" title="This is an test image">
+
+
+
+<p>下图10中的编号2为电脑上的并口（<strong>并行传输</strong>），用于连接打印机、扫描仪等</p>
+<img src="/2019/06/12/并行-串行-异步传输/10.jpg" title="This is an test image">
+
+
+
+<p>下图11为电脑主板上的PCI接口（<strong>并行传输</strong>），用于插接外置网卡、声卡、显卡和调制解调器卡等）</p>
+<img src="/2019/06/12/并行-串行-异步传输/11.jpg" title="This is an test image">
+
+
+
+<p>下图12为采用PCI接口的显卡</p>
+<img src="/2019/06/12/并行-串行-异步传输/12.jpg" title="This is an test image">
+
+
+
+<p>图12中的显卡使用时是插入图11中的PCI接口（插槽）中。</p>
+<p>在相同的工作频率下<strong>并行传输</strong>的传输速度是<strong>串行传输</strong>的数倍，但并行线路有一些难以克服的缺点，导致依靠并行线路的<strong>并行传输</strong>无法用于长距离通信。计算机与外界的长距离通信，例如与网络中的另外一台计算机进行通信时，只能使用<strong>串行传输</strong>。</p>
+<p>在计算机内部，如今<strong>串行传输</strong>也显示出了它的优势，有取代<strong>并行传输</strong>的趋势。</p>
+<p>例如，</p>
+<p>SATA接口取代PATA接口；</p>
+<p>USB接口取代并口；</p>
+<p>PCI Express接口取代PCI接口。</p>
+<p>为什么<strong>串行传输</strong>有取代<strong>并行传输</strong>的趋势呢？</p>
+<p>与<strong>串行传输</strong>相比，<strong>并行传输</strong>的缺点是：</p>
+<p>一、线路的成本高</p>
+<p><strong>并行传输</strong>如果每个时钟节拍发送16个比特，则需要16根数据线（另外还需要多根控制线）。</p>
+<img src="/2019/06/12/并行-串行-异步传输/13.jpg" title="This is an test image">
+
+
+
+<p>PATA（<strong>并行传输</strong>）连接线缆包含40根导线（16根数据线，24根用于接地和进行控制）；</p>
+<p>SATA（<strong>串行传输</strong>）连接线缆包含7根导线（4数据线+3接地线）。</p>
+<p>如果是长距离通信，<strong>并行传输</strong>的线路成本是<strong>串行传输</strong>的若干倍。</p>
+<p>另外，只有一对传输线时，<strong>串行传输</strong>也可以实现双向通信，所以可以直接利用现有的电话线路进行数据传输；而<strong>并行传输</strong>要多根并行的传输线，没有现有的线路可以利用，要另外专门铺设线路，成本高。</p>
+<p>二、体积大</p>
+<p>并行接口占用空间大，对应线缆占用空间也大。</p>
+<img src="/2019/06/12/并行-串行-异步传输/14.jpg" title="This is an test image">
+
+
+
+<p>如图14所示，PATA的接口与连接线缆的尺寸大大于SATA的接口与连接线缆的尺寸</p>
+<p>如果是长距离通信，要求使用比较粗的信号线，以便降低信号的衰减，<strong>并行传输</strong>需要使用多根较粗的信号线捆扎在一起组成通信线缆，占很大空间。</p>
+<p>即使是计算机内部通信，<strong>并行传输</strong>的线缆所占用的空间也比<strong>串行传输</strong>的线缆所占用的空间大很多。</p>
+<p>并行接口的尺寸比串行接口的尺寸大很多，则不利于设备的小型化。例如，在手机和穿戴式设备等领域，希望零件的尺寸越小越好。</p>
+<p>三、信号线之间的干扰大，不能用于长距离传输</p>
+<p>并排的信号线在进行高速传输时，会在每条信号线的周围产生微弱的电磁场，出现串音干扰，进而影响到其它信号线中的数据传输。传输距离越长，串音干扰越严重。</p>
+<img src="/2019/06/12/并行-串行-异步传输/15.jpg" title="This is an test image">
+
+
+
+<p>所以，PATA线缆的长度不能超过0.4米，而SATA线缆可以达到1米。</p>
+<p>四、<strong>并行传输</strong>具有同步问题</p>
+<img src="/2019/06/12/并行-串行-异步传输/16.jpg" title="This is an test image">
+
+
+
+<p><strong>并行传输</strong>中，如果并行的线路之间的物理性质不一致，例如长度上有细微差别，会导致并行线路中传输的比特不是同时到达接收方，接收器接收数据时容易出错。</p>
+<p>五、传输频率低</p>
+<p>在<strong>并行传输</strong>中，如果传输频率高的话，数据线之间会产生很大的干扰，造成数据出错，即使为数据线添加屏蔽层，也不能保证屏蔽掉高频率产生的干扰。所以，<strong>并行传输</strong>的最高传输频率有一定限制。</p>
+<p>PATA接口的最高传输频率为33MHz，这个几乎已经达到了并行接口的极限。</p>
+<p><strong>串行传输</strong>每次只传输一个比特，但是它的传输频率可以非常高，达到10GHz，是33MHz的300倍。相当于<strong>并行传输</strong>每发送1次，<strong>串行传输</strong>可以发送300次。<strong>并行传输</strong>每次发送300比特，才能赶上<strong>串行传输</strong>的速度，但是每次发送300比特，就需要300根并行的数据线，这是不现实的。</p>
+<p>因为<strong>并行传输</strong>和<strong>串行传输</strong>各自的这些优缺点，导致<strong>并行传输</strong>仅仅用于短距离传输，而长距离传输则采用<strong>串行传输</strong>；同时，在短距离传输中，<strong>串行传输</strong>也在逐步取代<strong>并行传输</strong>。</p>
+<p>什么是<strong>异步传输</strong>呢？</p>
+<img src="/2019/06/12/并行-串行-异步传输/17.jpg" title="This is an test image">
+
+
+
+<p>计算机的键盘与主机之间的数据传输就是<strong>异步传输</strong>。</p>
+<p>在键盘上按下一个字母键、数字键或特殊字符键，键盘就需要向主机发送一个对应的长度为8比特的ASCII字符，这个8比特的ASCII字符就是需要发送的数据，大小为1个字节。</p>
+<img src="/2019/06/12/并行-串行-异步传输/18.jpg" title="This is an test image">
+
+
+
+<p>如上图所示：例如，当用户按下小写字母键“k”，键盘需要向主机发送字符“01101011”</p>
+<p>用户可能在任意时刻按键盘，所以键盘向主机发送数据的时间不是固定的，也不会事先约好，任何时刻都有可能发送。</p>
+<p>主机事先并不知道键盘什么时候会给自己发送数据，只能静静地等待，一旦发现键盘向自己发送数据，则马上接收。</p>
+<p>主机如何发现键盘开始向自己发送数据了呢？</p>
+<img src="/2019/06/12/并行-串行-异步传输/19.jpg" title="This is an test image">
+
+
+
+<p>当键盘不需要向主机发送有效数据时，也就是键盘处于空闲（idle）时，键盘会连续不断地向主机发送比特“1”，告诉主机自己处于空闲状态。比特“1”用正电平表示，也就是键盘一直向主机发送正电平，表示当前没有有效数据发送给主机。</p>
+<p>当键盘被按下，键盘需要向主机发送数据时，键盘会先在数据前添加比特“0”，组成新字符，再发送。</p>
+<img src="/2019/06/12/并行-串行-异步传输/20.jpg" title="This is an test image">
+
+
+
+<p>例如，如上图所示，发送数据“01101011”之前，先在“01101011”的前面添加“0”，组成新字符“011010110”</p>
+<p>比特“0”可以用零电平表示。 </p>
+<img src="/2019/06/12/并行-串行-异步传输/21.jpg" title="This is an test image">
+
+
+
+<p>如上图所示，键盘处于空闲时，主机接收的一直是比特“1”（正电平），当主机突然接收到比特“0”（零电平）时，马上反应过来，键盘在向自己发送有效数据，则主机开始接收“0”后面的有效数据，这个“0”相当于这个新字符的起始位（start bit）。</p>
+<p>主机开始接收有效数据后，怎么才能知道有效数据接收完了要停下来呢？</p>
+<p>为了解决这个问题，键盘和主机事先约定好：</p>
+<ol>
+<li>每次发送的有效数据为1个字节，即8个比特</li>
+</ol>
+<img src="/2019/06/12/并行-串行-异步传输/22.jpg" title="This is an test image">
+
+
+
+<ol start="2">
+<li><p>数据的传输速率（例如1000比特/秒）</p>
+</li>
+<li><p>键盘在有效数据前面添加起始位（比特0），以通知主机，数据开始发送</p>
+</li>
+</ol>
+<img src="/2019/06/12/并行-串行-异步传输/23.jpg" title="This is an test image">
+
+
+
+<ol start="4">
+<li>键盘在有效数据后面添加停止位（比特1），以通知主机，数据发送结束</li>
+</ol>
+<img src="/2019/06/12/并行-串行-异步传输/24.jpg" title="This is an test image">
+
+
+
+<p>下图显示的是：键盘根据和主机的约定，发送给主机的数据和对应的信号。 </p>
+<img src="/2019/06/12/并行-串行-异步传输/25.jpg" title="This is an test image">
+
+
+
+<p>当按键“k”被按下时，键盘实际上发送的是“起始位”+k对应的ASCII码+“停止位”。</p>
+<p>键盘发送信号的过程：</p>
+<p>键盘在空闲时，连续地发送正电平给主机，表示当前没有有效数据发送给主机。</p>
+<p>当按键“k”被按下时，键盘发送“起始位”+k对应的ASCII码+“停止位”这3者所对应的信号。然后紧跟着继续发送正电平，表示又处于空闲状态。</p>
+<p>主机接收信号的过程：</p>
+<p>主机开始接收到的一直是正电平，表示当前没有有效数据发送给主机。</p>
+<p>主机接收到起始位比特“0”（零电平）后，开始接收比特“0”后面的有效数据。</p>
+<p>根据约定，有效数据为1个字节，共8个比特；数据的传输速率例如为1000比特/秒，也就是每毫秒传输1个比特，则8个比特的传输时间为8毫秒。</p>
+<p>所以主机根据自己的时钟，在起始位比特“0”后面的8毫秒内接收有效数据。</p>
+<p>具体的接收方式（举例说明）是：</p>
+<img src="/2019/06/12/并行-串行-异步传输/26.jpg" title="This is an test image">
+
+
+
+<p>主机在起始位后面的0.5毫秒、1.5毫秒、2.5毫秒、3.5毫秒、4.5毫秒、5.5毫秒、6.5毫秒、7.5毫秒分别对信号进行采样，也就是在每个比特的正中间进行采样，以获得这8比特的有效数据。</p>
+<p>根据约定，8比特的有效数据后面跟着的是停止位。</p>
+<p>如果主机在第8.5毫秒接收到比特“1”（停止位），则主机可以确定数据的发送确实结束了，则结束有效数据的接收，并接受所接收的数据。</p>
+<p>如果主机在第8.5毫秒接收到的不是比特“1”（停止位），则主机判断传输过程中发生错误，就放弃所接收到的数据。</p>
+<p>无论接受还是放弃所接收到的数据，主机都不会向键盘进行反馈。</p>
+<p>键盘向主机发送数据后，就撒手不管了，不会等待主机的确认或其他任何反馈。</p>
+<p>在停止位之后，主机接收到的是表示空闲的正电平，继续等待键盘发送数据。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.xilearn.top/2019/06/12/并行-串行-异步传输/" data-id="clmc13gq6001k0otfzeu76sp0"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/06/13/视频会议卡顿/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            视频会议卡顿
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/06/11/访问X友软件卡顿/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">访问X友软件卡顿</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

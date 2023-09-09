@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    视频会议卡顿 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-视频会议卡顿" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      视频会议卡顿
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/06/13/视频会议卡顿/" class="article-date">
+  <time datetime="2019-06-13T14:29:26.000Z" itemprop="datePublished">2019-06-13</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/实战/">实战</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="视频会议卡顿——用wireshark定位问题"><a href="#视频会议卡顿——用wireshark定位问题" class="headerlink" title="视频会议卡顿——用wireshark定位问题"></a>视频会议卡顿——用wireshark定位问题</h1><p><strong>基础知识</strong>（TCP和UDP的比较）</p>
+<p>TCP报文和UDP报文如下</p>
+<img src="/2019/06/13/视频会议卡顿/1.png" title="This is an test image">
+
+<a id="more"></a>
+
+<p>在报文头部中，我们可以知道，TCP除了源目端口，还会有seq号，ack号，6个标志位以及一个接受窗口字段。而UDP报文头部只有源目端口，长度和校验和字段。UDP报文头部8字节，TCP的最短报文头部20字节，UDP报文头部连TCP头部长度的一半都不到，想复杂也复杂不起来。</p>
+<p>我们知道TCP是需要建立连接后才会开始传输数据的，而UDP不用。TCP就像打电话，必须先拨通对方手机，然后才互相交流，如果对方没有听清，那自己就可以把话语重复一遍，确保对方接收无误。UDP就像发短信，我给一个人发送短信后，第一不会知道对方是否有收到；即便对方收到后，我也不知道信息发给对方有没有出错。</p>
+<p>在TCP中，假设有很长一段数据要发送，假设有4380（1460*3）字节的数据。我们知道在以太网中，以太网帧的数据部分最大长度是1500字节，假设TCP和IP头部各占20字节，那么一个TCP段的数据就是1460字节，超过这个字节就要分段。所以这4380个字节就要分成3个包去发送。这3个包就类似于下表，假设第一个包的seq号是0，那么下一个包的seq号就是1460（上一个包的seq号+长度）。</p>
+<table>
+<thead>
+<tr>
+<th>包号</th>
+<th>seq号</th>
+<th>lenth长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>0</td>
+<td>1460</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1460</td>
+<td>1460</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2920</td>
+<td>1460</td>
+</tr>
+</tbody></table>
+<p>正常情况下，接收方要收到这3个包。假设第二个包在传输过程中丢失了，接收方只能收到seq号是0（长度是1460字节）和seq号是2920（1460字节）的包，那他就清楚1460的这个包在路上丢失了，就可以要发送方重传第二个包。</p>
+<p>对于UDP而言，它没有建立连接的机制，同时也没有流控和差错控制机制。那它要发送数据出去，如果数据部分超过了最大的数据长度1472字节（以太网帧的数据部分最大长度是1500字节，IP头部20字节，UDP头部8字节），就要靠下层的IP来分片。分片要如何组装起来，在之前的文章中提到过，涉及的就是ip.id和片偏移。</p>
+<p>如果数据部分没有超过UDP中的最大数据长度，就不会被分片，那么每个报文的ip.id也就是不一样的。</p>
+<p>也就是说在UDP中，发送方发送一个小数据出去，接收方收到就收到了，没收到那我也不知道，也不会重传。</p>
+<p>而发送方要是发送一个大数据（超过UDP最大数据长度，会有多个分片），如果有一个分片丢失，那么接收方按ip.id和片偏移无法组装起来，那么就会向发送方发送消息，让发送方重传。此时的重传不会像TCP一样，只发送丢弃的那个包，而是要把之前这个包的所有分片全部重传。</p>
+<hr>
+<p><strong>客户问题</strong></p>
+<p>左边是分支，右边是总部。分支的视频服务器上看总部端的画面很流程，但是在总部的视频服务器上看分支端的画面则特别卡。</p>
+<p><strong>客户拓扑</strong></p>
+<img src="/2019/06/13/视频会议卡顿/2.png" title="This is an test image">
+
+<p><strong>问题分析</strong></p>
+<ol>
+<li><p>视频会议和语音通话基本都是使用UDP协议。同时数据字节不会很大，一般不会超过最大UDP数据报文长度，那么每个数据包ip.id的值是不一样的。不会出现设备收到分片组装不起来的情况。</p>
+</li>
+<li><p>分支的视频服务器看总部的画面正常，说明总部给分支传的UDP数据流是没有丢包的。</p>
+</li>
+<li><p>总部的视频服务器看分支画面有卡顿，说明分支给总部传的UDP数据流可能存在丢包。</p>
+</li>
+<li><p>总部和分支之间互传数据是互不干扰的。因为不是TCP下，建立连接后的两端数据互传。</p>
+</li>
+<li><p>两台设备上都做了策略路由，视频服务器的流量都走了联通线路。（其实最开始的情况是，分支到总部的数据往电信线路传了，总部往分支的数据就走了联通，存在总部看分支画面丢包的情况。怀疑是线路问题，就调整了策略，让数据都走了联通，但是问题还是存在。）</p>
+</li>
+<li><p>查看两端的控制台配置，策略都是正常的。出现丢包的时候，经过设备的流量都不大，cpu利用率也不高。</p>
+</li>
+<li><p>于是在客户两端都开启视频服务器的情况下，抓包分析。</p>
+</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/3.png" title="This is an test image">
+
+<ol start="8">
+<li>先看分支的内网口（eth0）的抓包情况。</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/4.png" title="This is an test image">
+
+<ol start="9">
+<li>由于是总部看分支，画面存在卡顿。那我们主要关注的就是分支视频服务器172.17.160.8给总部视频服务器10.16.121.250这个方向的流量</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/5.png" title="This is an test image">
+
+<p>选择B到A这个方向。选择完后，主界面就会自动给你过滤出分支视频服务器给总部视频服务器这个方向的流量</p>
+<img src="/2019/06/13/视频会议卡顿/6.png" title="This is an test image">
+
+<img src="/2019/06/13/视频会议卡顿/7.png" title="This is an test image">
+
+
+
+<ol start="10">
+<li><p>由于画面存在卡顿，很可能的原因是丢包。UDP不像TCP那样，有所谓的seq号。在TCP中，哪个包丢了，我可以通过seq号把丢的包找到，但UDP不行。那有没有什么办法可以让UDP像TCP一样，能给这些数据包按顺序编个号吗？哪个UDP包丢了，我可以通过这个编号识别到。</p>
+</li>
+<li><p>是可以的。那就是把UDP的数据包编码为RTP的数据包，对RTP协议感兴趣的同学可以看这篇文章<a href="https://www.jianshu.com/p/631273bc9847?utm_campaign=maleskine&utm_content=note&utm_medium=reader_share&utm_source=weibo" target="_blank" rel="noopener">实时传输协议RTP/RTCP</a></p>
+</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/8.png" title="This is an test image">
+
+<p>我们来看下把UDP包编码成RTP包在wireshark中是啥样的。</p>
+<img src="/2019/06/13/视频会议卡顿/9.png" title="This is an test image">
+
+<img src="/2019/06/13/视频会议卡顿/10.png" title="This is an test image">
+
+<p>上图看到，其实所谓的编码，是把UDP包中的数据部分变成了RTP数据报文，RTP数据报文中存在seq号。</p>
+<ol start="12">
+<li>我们在<strong>会话统计</strong>中可以看到分支给总部传数据的时候，建立了6个连接。其中前2个连接的数据量相对大一些。</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/11.png" title="This is an test image">
+
+<p>为什么前2个连接，传输的数据多些呢？</p>
+<img src="/2019/06/13/视频会议卡顿/12.png" title="This is an test image">
+
+<img src="/2019/06/13/视频会议卡顿/13.png" title="This is an test image">
+
+
+
+<ol start="13">
+<li>我们先选择第一个连接，即端口49152到端口2326的。把这个连接使用的UDP协议编码为RTP协议</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/14.png" title="This is an test image">
+
+<img src="/2019/06/13/视频会议卡顿/15.png" title="This is an test image">
+
+
+
+<ol start="14">
+<li>编码之后，此时wireshark界面如图所示</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/16.png" title="This is an test image">
+
+
+
+<ol start="15">
+<li>接下来，我们打开RTP流分析。可以看到面板已经给我们统计出有2个丢包了，你还能分析出是丢了哪两个包。</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/17.png" title="This is an test image">
+
+<img src="/2019/06/13/视频会议卡顿/18.png" title="This is an test image">
+
+<img src="/2019/06/13/视频会议卡顿/19.png" title="This is an test image">
+
+<p> <strong>16.由于是打开的分支eth0接口的抓包，所以此时就可以说明，丢包是丢在了内网</strong></p>
+<ol start="17">
+<li>按照同样的方法，我们还要查看下在公网链路上是否存在丢包，以及在总部内网是否存在丢包。</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/2.png" title="This is an test image">
+
+<ol start="18">
+<li><p>因为分支内网存在丢包，所以在查看公网链路上的数据包时（即fzeth3和zbeth2），如果公网数据包中，丢包的序列号和在fzeth0数据包内的一致，说明公网是没有丢包的。如果除去内网中丢包的序列号，还有其他序列号丢失，说明公网链路也有问题。</p>
+</li>
+<li><p>从fzeth3的数据包中，可以看到丢了2个，也是seq=34591和seq=34637丢包了。和内网抓包fzeth0丢包情况一致。而在总部设备的2个口抓包情况也是一样的，就不赘述了。查看方法和上述一致。</p>
+</li>
+</ol>
+<img src="/2019/06/13/视频会议卡顿/20.png" title="This is an test image">
+
+
+
+<ol start="20">
+<li><p>定位了问题后，可以判断分支内网存在丢包。那么有条件的话就可以在分支视频服务器及交换机上抓包对比查看。</p>
+</li>
+<li><p>最后定位出的问题是交换机网口有问题，换一个交换机问题就解决了。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://www.xilearn.top/2019/06/13/视频会议卡顿/" data-id="clmc13gqd00290otfq8dzlfe6"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/07/07/远程桌面访问不了/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            远程桌面访问不了
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/06/12/并行-串行-异步传输/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">并行/串行/异步传输</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
