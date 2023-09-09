@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    访问X友软件卡顿 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-访问X友软件卡顿" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      访问X友软件卡顿
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/06/11/访问X友软件卡顿/" class="article-date">
+  <time datetime="2019-06-11T14:23:27.000Z" itemprop="datePublished">2019-06-11</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/实战/">实战</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="2017年应用访问卡慢分析"><a href="#2017年应用访问卡慢分析" class="headerlink" title="2017年应用访问卡慢分析"></a>2017年应用访问卡慢分析</h1><h2 id="1-基本情况："><a href="#1-基本情况：" class="headerlink" title="1.基本情况："></a>1.基本情况：</h2><p>客户环境现象：</p>
+<p>总部和分支使用sangfor vpn对接，分支内网电脑ping总部内网服务器，没有丢包，没有延时。但是在分支使用X友客户端访问总部的X友服务器会出现卡顿（即打开客户端后，有些内容显示出来的等待时间较长）</p>
+<p>为了排错，客户那边基本没有其他流量在跑。</p>
+<hr>
+<p>客户内网拓扑：</p>
+<p>总部和分部通过woc做vpn对接（没开加速），其中eth0口是内网口，pppoe和wan（eth2）口是外网口。分支woc的wan口（pppoe）地址是100.64.7.184，eth0（lan口）地址是10.37.11.254，lan口下连一台测试电脑10.37.11.180。总部单臂部署，X友服务器是10.37.1.77。分支pc通过X友软件和总部的X友服务器做数据交互。</p>
+<img src="/2019/06/11/访问X友软件卡顿/1.png" title="This is an test image">
+
+<a id="more"></a>
+
+<h2 id="2-排错操作："><a href="#2-排错操作：" class="headerlink" title="2.排错操作："></a>2.排错操作：</h2><ol>
+<li><p>在分支客户端电脑开始访问X友前，在分支woc和总部woc的eth0口，vpntun口，wan口写下抓包命令。写完之后执行命令，之后再用电脑正式访问X友。看到现象后，等待几秒再停止所有接口的抓包。</p>
+<img src="/2019/06/11/访问X友软件卡顿/2.png" title="This is an test image">
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>其实在抓到上述6份比较漂亮的包之前，我还重复上述操作过几次。虽然时间比较久了，但是我看到自己有导出csv的后缀文件，估计是我那时候想通过比较几个文件中的ip.id来判断访问应用的时候是否存在丢包。估计那时候我没看出啥东西来，就纯浪费时间去了。</p>
+<img src="/2019/06/11/访问X友软件卡顿/3.png" title="This is an test image">
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>后来听说X友这种应用访问卡慢，是因为小包交互过多导致的。就试着打开了一个包fenzhieth0.pcap，然后输入过滤条件，来看下200字节以下的包有多少。emmmm一看占比57.6%呢，小包很多了很多了</p>
+<img src="/2019/06/11/访问X友软件卡顿/4.png" title="This is an test image">
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>于是脑补出理由，打电话给渠道。举个例子，访问X友打开软件要传输15000字节的数据，公网延时是20-30ms，比如小包只传100字节，那这15000字节的数据就要传输150次，时间上就是20ms*150，这样访问就会出现卡顿的情况。如果是用ftp等测试，每次传输是1000字节的话，就是传输15次，所以访问ftp服务器的时候你就不会觉得卡。所以这是X友那边发包机制的问题，和我们设备没有关系</p>
+</li>
+<li><p>渠道觉得好有道理，然后就信了，之后他去和客户解释就再也没找我了。工单关闭</p>
+</li>
+</ol>
+<hr>
+<h2 id="3-上述排错错在哪"><a href="#3-上述排错错在哪" class="headerlink" title="3.上述排错错在哪"></a>3.上述排错错在哪</h2><ol>
+<li><p>自己想当然的瞎JB乱讲，同时基础概念不清晰，或者说是完全没有概念</p>
+</li>
+<li><p>在TCP中，发送方和接收方都会存在一个发送窗口和接受窗口。发送窗口表示我发送方一口气能发送多少数据，接收窗口表示我接收方还能接收多少数据放在缓存区中。发送方要尽量保证多发数据，同时也得保证接收方能接收的过来，不至于数据发生溢出。MSS是一个数据段的数据最大长度，那么发送窗口和MSS存在啥关系呢。刚刚说道，发送窗口表示我发送方一口气能发送多少数据，那么MSS的值就确定了，我要一口气发这么多数据要发出多少个包。举个例子来说，我发送方一口气能发送1000个字节，但是一个数据段的MSS是100字节，那么我一口气就能发10个包出去。</p>
+</li>
+<li><p>给渠道说的理由，看上去好像没问题。其实概念就没弄清。给渠道的说法表明，我的数据包是一个一个发出的，但是实际上TCP中不是这么传输数据的</p>
+</li>
+</ol>
+<hr>
+<h2 id="4-重新整理排错思路"><a href="#4-重新整理排错思路" class="headerlink" title="4.重新整理排错思路"></a>4.重新整理排错思路</h2><ol>
+<li><p>访问一个应用卡慢，分两种情况。一个是网络问题，一个是设备性能问题。</p>
+</li>
+<li><p>ping测试是在网络层的测试。客户环境中ping测试不丢包不延时，基本上可以判断网络是没啥问题的</p>
+</li>
+<li><p>之前做了这么一个操作，把pcap文件导出成csv文件，想通过比较各个csv文件中是否存在丢包。但是没有看是什么东西来，而且上述操作比较耗时间。要知道的是，如果数据包丢失，就会导致重传或是有重复ACK。那我们是不是可以通过wireshark工具来自动分析下</p>
+</li>
+<li><p>先通过过滤条件，把测试电脑与服务器的互访流量给过滤处理</p>
+<img src="/2019/06/11/访问X友软件卡顿/5.png" title="This is an test image">
+</li>
+<li><p>然后在把文件重新保存一份</p>
+<img src="/2019/06/11/访问X友软件卡顿/6.png" title="This is an test image">
+</li>
+<li><p>先打开fenzhieth0这个包。过滤出客户端和服务器双向交互的流量</p>
+</li>
+<li><p>随机选择一个包，然后右键点击<strong>Follow</strong>—&gt;<strong>tcp stream</strong>，过滤出一个tcp连接的互访流量</p>
+<img src="/2019/06/11/访问X友软件卡顿/7.png" title="This is an test image">
+</li>
+<li><p>然后点击<strong>统计</strong> <strong>statistics</strong>—&gt;<strong>TCP Stream Graphs</strong>—&gt;<strong>time sequence</strong> <strong>（stevens）</strong>，可以看到该连接，一个方向上的seq号增长情况</p>
+<img src="/2019/06/11/访问X友软件卡顿/8.png" title="This is an test image">
+</li>
+<li><p>可以看到弹出下框，也就意味着。在该连接中，服务器到用户客户端方向的数据流增长过程中，有5s左右是卡住了。那我们通过Stevens图，可以找到卡住的2个点，包号分别是467号包与819号包</p>
+<img src="/2019/06/11/访问X友软件卡顿/9.png" title="This is an test image">
+</li>
+<li><p>可以看到下图，服务器在等待客户端发送816号包。而816号包的发出，是在468号包发出之后耗时近6s。</p>
+<img src="/2019/06/11/访问X友软件卡顿/10.png" title="This is an test image">
+</li>
+<li><p>后续又按上述操作，观察了其他的几个tcp连接，以及zongbueth0口的抓包情况。都是一模一样的，总会有几秒卡住</p>
+</li>
+<li><p>也就意味着，这是180这台客户端的问题</p>
+</li>
+<li><p>为什么会出现这种情况，这就是X友厂商应该去分析的了。因为这个是X友应用层层面的问题</p>
+</li>
+</ol>
+<hr>
+<h2 id="5-联想"><a href="#5-联想" class="headerlink" title="5.联想"></a>5.联想</h2><ul>
+<li>为什么和我们设备无关了？ </li>
+</ul>
+<p>​       ——因为在woc的eth0口抓包，发现上图中468号包发出之后，隔了近6s才收到了816号包。我们设备都没做封装啥的操作呢，只是单纯接收包而已</p>
+<ul>
+<li>用woc开启加速后，会有效果吗？</li>
+</ul>
+<p>​        ——个人认为不会，因为woc开启后，是分支的woc设备和分支内网电脑做交互。把woc设备当做是总部的服务器，那内网客户端和woc交互数据的时候，依旧会出现上面这种情况，因为这种情况是在客户端电脑上发生的。要想解决，就得从客户端上看是什么原因导致了这6s的延时发包。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/06/11/访问X友软件卡顿/" data-id="cl2rp5yfl002afcvdyhc5ugai"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/06/12/并行-串行-异步传输/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            并行/串行/异步传输
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/05/06/英语名词/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">英语名词</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    CPU性能排查笔记 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-CPU性能排查" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CPU性能排查笔记
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2021/03/22/CPU性能排查/" class="article-date">
+  <time datetime="2021-03-22T13:24:23.000Z" itemprop="datePublished">2021-03-22</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="1-平均负载"><a href="#1-平均负载" class="headerlink" title="1.平均负载"></a>1.平均负载</h2><p>平均负载load average：是单位时间内的平均活跃进程数，它和 CPU 使用率并没有直接关系</p>
+<p>活跃进程数：系统处于<strong>可运行状态</strong>和<strong>不可中断状态</strong>的进程数</p>
+<p>可运行状态进程：<em>正在使用 CPU</em> 或者<em>正在等待 CPU</em>的进程</p>
+<p>不可中断状态的进程：正处于内核态关键流程中的进程，并且这些流程是不可打断的，比如最常见的是等待硬件设备的 I/O 响应</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-M79hl ~]<span class="comment"># uptime</span></span><br><span class="line"> 21:39:02 up 30 days,  9:30,  1 user,  load average: 0.05, 0.09, 0.04</span><br><span class="line">或</span><br><span class="line">[root@ecs-M79hl ~]<span class="comment"># watch -d uptime</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<br>
+
+<h3 id="1-1-平均负载与CPU使用率的区别"><a href="#1-1-平均负载与CPU使用率的区别" class="headerlink" title="1.1 平均负载与CPU使用率的区别"></a>1.1 平均负载与CPU使用率的区别</h3><p>CPU使用率高，平均负载就会高；平均负载高不一定就表示CPU使用率高。因为影响平均负载的除了可运行状态进程，还有不可中断状态的进程。</p>
+<br>
+
+<h3 id="1-2-命令"><a href="#1-2-命令" class="headerlink" title="1.2 命令"></a>1.2 命令</h3><h4 id="1-2-1-查看CPU核数"><a href="#1-2-1-查看CPU核数" class="headerlink" title="1.2.1 查看CPU核数"></a>1.2.1 查看CPU核数</h4><p>平均负载最理想的情况是等于 CPU 个数，当平均负载比 CPU 个数还大的时候，系统已经出现了过载。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">'model name'</span> /proc/cpuinfo | wc -l2</span><br></pre></td></tr></table></figure>
+
+<p>当平均负载高于 CPU 数量 70% 的时候，就应该分析排查负载高的问题了。一旦负载过高，就可能导致进程响应变慢，进而影响服务的正常功能。</p>
+<br>
+
+<h4 id="1-2-2-mpstat查看整体CPU使用率变化情况"><a href="#1-2-2-mpstat查看整体CPU使用率变化情况" class="headerlink" title="1.2.2 mpstat查看整体CPU使用率变化情况"></a>1.2.2 mpstat查看整体CPU使用率变化情况</h4><p>mpstat可以查看CPU使用率情况，其中-P ALL 表示监控所有CPU，后面数字5表示间隔5秒后输出一组数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-u4x ~]<span class="comment"># mpstat -P ALL 5</span></span><br><span class="line">Linux 5.4.11-1.el7.elrepo.x86_64 (ecs-u4x) 	03/22/2021 	_x86_64_	(1 CPU)</span><br><span class="line"></span><br><span class="line">09:48:23 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">09:48:28 PM  all    0.00    0.00    0.00    0.00    0.00    0.00    0.20    0.00    0.00   99.80</span><br><span class="line">09:48:28 PM    0    0.00    0.00    0.00    0.00    0.00    0.00    0.20    0.00    0.00   99.80</span><br><span class="line"></span><br><span class="line">09:48:28 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle</span><br><span class="line">09:48:33 PM  all    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</span><br><span class="line">09:48:33 PM    0    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00</span><br></pre></td></tr></table></figure>
+
+<p>user（通常缩写为 us），代表用户态 CPU 时间。注意，它不包括下面的 nice 时间，但包括了 guest 时间。</p>
+<p>nice（通常缩写为 ni），代表低优先级用户态 CPU 时间，也就是进程的 nice 值被调整为 1-19 之间时的 CPU 时间。这里注意，nice 可取值范围是 -20 到 19，数值越大，优先级反而越低。</p>
+<p>system（通常缩写为 sys），代表内核态 CPU 时间。</p>
+<p>idle（通常缩写为 id），代表空闲时间。注意，它不包括等待 I/O 的时间（iowait）。</p>
+<p>iowait（通常缩写为 wa），代表等待 I/O 的 CPU 时间。</p>
+<p>irq（通常缩写为 hi），代表处理硬中断的 CPU 时间。</p>
+<p>softirq（通常缩写为 si），代表处理软中断的 CPU 时间。</p>
+<p>steal（通常缩写为 st），代表当系统运行在虚拟机中的时候，被其他虚拟机占用的 CPU 时间。</p>
+<p>guest（通常缩写为 guest），代表通过虚拟化运行其他操作系统的时间，也就是运行虚拟机的 CPU 时间。</p>
+<p>guest_nice（通常缩写为 gnice），代表以低优先级运行虚拟机的时间。</p>
+<br>
+
+<h4 id="1-2-3-pidstat查看具体进程的CPU使用率情况"><a href="#1-2-3-pidstat查看具体进程的CPU使用率情况" class="headerlink" title="1.2.3 pidstat查看具体进程的CPU使用率情况"></a>1.2.3 pidstat查看具体进程的CPU使用率情况</h4><p>pidstat -u 5 1表示间隔5秒后输出一组数据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-u4x ~]<span class="comment"># pidstat -u 5 1</span></span><br><span class="line">Linux 5.4.11-1.el7.elrepo.x86_64 (ecs-u4x) 	03/22/2021 	_x86_64_	(1 CPU)</span><br><span class="line"></span><br><span class="line">09:51:48 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command</span><br><span class="line">09:51:53 PM     0      3498    0.20    0.00    0.00    0.20     0  tuned</span><br><span class="line">09:51:53 PM     0     28812    0.00    0.20    0.00    0.20     0  kworker/0:2-events_power_efficient</span><br><span class="line">09:51:53 PM     0     30799    0.00    0.20    0.00    0.20     0  pidstat</span><br><span class="line"></span><br><span class="line">Average:      UID       PID    %usr %system  %guest    %CPU   CPU  Command</span><br><span class="line">Average:        0      3498    0.20    0.00    0.00    0.20     -  tuned</span><br><span class="line">Average:        0     28812    0.00    0.20    0.00    0.20     -  kworker/0:2-events_power_efficient</span><br><span class="line">Average:        0     30799    0.00    0.20    0.00    0.20     -  pidstat</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="2-CPU上下文切换"><a href="#2-CPU上下文切换" class="headerlink" title="2.CPU上下文切换"></a>2.CPU上下文切换</h2><p>根据任务的不同，CPU 的上下文切换就可以分为<strong>进程上下文切换</strong>、<strong>线程上下文切换</strong>以及<strong>中断上下文切换</strong>。</p>
+<p>如果系统的上下文切换次数比较稳定，那么从数百到一万以内，都应该算是正常的。但当上下文切换次数超过一万次，或者切换次数出现数量级的增长时，就很可能已经出现了性能问题。</p>
+<h3 id="2-1-命令"><a href="#2-1-命令" class="headerlink" title="2.1 命令"></a>2.1 命令</h3><h4 id="2-1-1-vmstat查看整体CPU的上下文切换情况"><a href="#2-1-1-vmstat查看整体CPU的上下文切换情况" class="headerlink" title="2.1.1 vmstat查看整体CPU的上下文切换情况"></a>2.1.1 vmstat查看整体CPU的上下文切换情况</h4><p>vmstat 是一个常用的系统性能分析工具，主要用来分析系统的内存使用情况，也常用来分析 CPU 上下文切换和中断的次数。vmstat 只给出了系统总体的上下文切换情况，要想查看每个进程的详细情况，就需要使用我们前面提到过的 pidstat 。</p>
+<p>vmstat 5表示每5秒输出一组数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-u4x ~]# vmstat 5</span><br><span class="line">procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----</span><br><span class="line"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st</span><br><span class="line"> 2  0      0  17808     24 330528    0    0     0     4   12   17  1  1 97  0  1</span><br><span class="line"> 0  0      0  16816     24 330552    0    0     0     0  113  284  3  4 89  0  4</span><br></pre></td></tr></table></figure>
+
+<p>cs（context switch）是每秒上下文切换的次数。</p>
+<p>in（interrupt）则是每秒中断的次数。</p>
+<p>r（Running or Runnable）是就绪队列的长度，也就是正在运行和等待 CPU 的进程数。</p>
+<p>b（Blocked）则是处于不可中断睡眠状态的进程数。</p>
+<br>
+
+<h4 id="2-1-2-pidstat查看每个进程上下文切换"><a href="#2-1-2-pidstat查看每个进程上下文切换" class="headerlink" title="2.1.2 pidstat查看每个进程上下文切换"></a>2.1.2 pidstat查看每个进程上下文切换</h4><p>pidstat -w -u 1表示每隔1秒输出1组数据，-w参数表示输出进程切换指标，而-u参数则表示输出CPU使用指标</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-u4x ~]<span class="comment"># pidstat -w -u 1</span></span><br><span class="line">Linux 5.4.11-1.el7.elrepo.x86_64 (ecs-u4x) 	03/22/2021 	_x86_64_	(1 CPU)</span><br><span class="line">10:22:57 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command</span><br><span class="line">10:22:58 PM     0      5016    0.00    1.00    0.00    1.00     0  pidstat</span><br><span class="line"></span><br><span class="line">10:22:57 PM   UID       PID   cswch/s nvcswch/s  Command</span><br><span class="line">10:22:58 PM     0         9      2.00      0.00  ksoftirqd/0</span><br><span class="line">10:22:58 PM     0        10      4.00      0.00  rcu_sched</span><br><span class="line">10:22:58 PM     0      1544     20.00      0.00  xfsaild/dm-0</span><br><span class="line">10:22:58 PM     0      1702     13.00      0.00  kworker/0:0-events_power_efficient</span><br><span class="line">10:22:58 PM     0      4988      1.00      0.00  sshd</span><br><span class="line">10:22:58 PM     0      5016      1.00      0.00  pidstat</span><br><span class="line">10:22:58 PM     0     20461      1.00      0.00  kworker/u2:0-events_unbound</span><br></pre></td></tr></table></figure>
+
+<p>cswch ：表示每秒自愿上下文切换（voluntary context switches）的次数，自愿上下文切换是指进程无法获取所需资源，导致的上下文切换。如 I/O、内存等系统资源不足时，就会发生自愿上下文切换。</p>
+<p>nvcswch：表示每秒非自愿上下文切换（non voluntary context switches）的次数。非自愿上下文切换，则是指进程由于时间片已到等原因，被系统强制调度，进而发生的上下文切换。如大量进程都在争抢 CPU 时，就容易发生非自愿上下文切换。</p>
+<p>自愿上下文切换变多了，说明进程都在等待资源，有可能发生了 I/O 等其他问题；非自愿上下文切换变多了，说明进程都在被强制调度，也就是都在争抢 CPU，说明 CPU 的确成了瓶颈</p>
+<br>
+
+<h4 id="2-1-3-pidstat查看线程上下文切换"><a href="#2-1-3-pidstat查看线程上下文切换" class="headerlink" title="2.1.3 pidstat查看线程上下文切换"></a>2.1.3 pidstat查看线程上下文切换</h4><p> pidstat -wt 1表示每隔1秒输出一组数据，-wt 参数表示输出线程的上下文切换指标</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-u4x ~]<span class="comment"># pidstat -wt 1</span></span><br><span class="line">Linux 5.4.11-1.el7.elrepo.x86_64 (ecs-u4x) 	03/22/2021 	_x86_64_	(1 CPU)</span><br><span class="line"></span><br><span class="line">10:26:58 PM   UID      TGID       TID   cswch/s nvcswch/s  Command</span><br><span class="line">10:26:59 PM     0         9         -      4.95      0.00  ksoftirqd/0</span><br><span class="line">10:26:59 PM     0         -         9      4.95      0.00  |__ksoftirqd/0</span><br><span class="line">10:26:59 PM     0        10         -     10.89      0.00  rcu_sched</span><br><span class="line">10:26:59 PM     0         -        10     10.89      0.00  |__rcu_sched</span><br><span class="line">10:26:59 PM     0        16         -      0.99      0.00  kauditd</span><br><span class="line">10:26:59 PM     0         -        16      0.99      0.00  |__kauditd</span><br><span class="line">10:26:59 PM     0      1544         -     19.80      0.00  xfsaild/dm-0</span><br><span class="line">10:26:59 PM     0         -      1544     19.80      0.00  |__xfsaild/dm-0</span><br><span class="line">10:26:59 PM     0      1613         -      0.99      0.00  systemd-journal</span><br><span class="line">10:26:59 PM     0         -      1613      0.99      0.00  |__systemd-journal</span><br><span class="line">10:26:59 PM     0      2621         -      0.99      0.00  auditd</span><br><span class="line">10:26:59 PM     0         -      2621      0.99      0.00  |__auditd</span><br><span class="line">10:26:59 PM     0         -      3718      0.99      0.00  |__tuned</span><br><span class="line">10:26:59 PM     0         -      3511      1.98      0.00  |__in:imjournal</span><br><span class="line">10:26:59 PM     0         -      3512      0.99      0.00  |__rs:main Q:Reg</span><br><span class="line">10:26:59 PM     0      5624         -     10.89      0.00  kworker/0:2-events</span><br><span class="line">10:26:59 PM     0         -      5624     10.89      0.00  |__kworker/0:2-events</span><br><span class="line">10:26:59 PM     0      5672         -      1.98      2.97  sshd</span><br><span class="line">10:26:59 PM     0         -      5672      1.98      2.97  |__sshd</span><br><span class="line">10:26:59 PM    74      5673         -      4.95      0.00  sshd</span><br><span class="line">10:26:59 PM    74         -      5673      4.95      0.00  |__sshd</span><br><span class="line">10:26:59 PM     0      5691         -      0.99      0.99  pidstat</span><br><span class="line">10:26:59 PM     0         -      5691      0.99      0.99  |__pidstat</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h4 id="2-1-4-查看中断次数"><a href="#2-1-4-查看中断次数" class="headerlink" title="2.1.4 查看中断次数"></a>2.1.4 查看中断次数</h4><p>/proc/interrupts 提供了一个只读的中断使用情况。中断次数变多了，说明 CPU 被中断处理程序占用，还需要通过查看 /proc/interrupts 文件来分析具体的中断类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[root@ecs-u4x ~]# watch -d cat /proc/interrupts</span><br><span class="line">           CPU0       </span><br><span class="line">  1:          9   IO-APIC   1-edge      i8042</span><br><span class="line">  6:          3   IO-APIC   6-edge      floppy</span><br><span class="line">  8:          0   IO-APIC   8-edge      rtc0</span><br><span class="line">  9:          0   IO-APIC   9-fasteoi   acpi</span><br><span class="line"> 10:     233149   IO-APIC  10-fasteoi   virtio6</span><br><span class="line"> 11:         35   IO-APIC  11-fasteoi   uhci_hcd:usb1</span><br><span class="line"> 12:         15   IO-APIC  12-edge      i8042</span><br><span class="line"> 14:          0   IO-APIC  14-edge      ata_piix</span><br><span class="line"> 15:          0   IO-APIC  15-edge      ata_piix</span><br><span class="line"> 24:          0   PCI-MSI 49152-edge      virtio0-config</span><br><span class="line"> 25:   10886181   PCI-MSI 49153-edge      virtio0-input.0</span><br><span class="line"> 26:   12166434   PCI-MSI 49154-edge      virtio0-output.0</span><br><span class="line"> 27:          0   PCI-MSI 65536-edge      virtio1-config</span><br><span class="line"> 28:          0   PCI-MSI 65537-edge      virtio1-input.0</span><br><span class="line"> 29:        123   PCI-MSI 65538-edge      virtio1-output.0</span><br><span class="line"> 30:          0   PCI-MSI 98304-edge      virtio3-config</span><br><span class="line"> 31:         26   PCI-MSI 98305-edge      virtio3-virtqueues</span><br><span class="line"> 32:          0   PCI-MSI 114688-edge      virtio4-config</span><br><span class="line"> 33:    1067884   PCI-MSI 114689-edge      virtio4-req.0</span><br><span class="line"> 34:          0   PCI-MSI 131072-edge      virtio5-config</span><br><span class="line"> 35:         67   PCI-MSI 131073-edge      virtio5-req.0</span><br><span class="line"> 36:          0   PCI-MSI 81920-edge      virtio2-config</span><br><span class="line"> 37:          0   PCI-MSI 81921-edge      virtio2-control</span><br><span class="line"> 38:          0   PCI-MSI 81922-edge      virtio2-event</span><br><span class="line"> 39:        256   PCI-MSI 81923-edge      virtio2-request</span><br><span class="line"> </span><br><span class="line">NMI:          0   Non-maskable interrupts</span><br><span class="line">LOC:  132529595   Local timer interrupts</span><br><span class="line">SPU:          0   Spurious interrupts</span><br><span class="line">PMI:          0   Performance monitoring interrupts</span><br><span class="line">IWI:          0   IRQ work interrupts</span><br><span class="line">RTR:          0   APIC ICR read retries</span><br><span class="line">RES:          0   Rescheduling interrupts</span><br><span class="line">CAL:          0   Function call interrupts</span><br><span class="line">TLB:          0   TLB shootdowns</span><br><span class="line">TRM:          0   Thermal event interrupts</span><br><span class="line">THR:          0   Threshold APIC interrupts</span><br><span class="line">DFR:          0   Deferred Error APIC interrupts</span><br><span class="line">MCE:          0   Machine check exceptions</span><br><span class="line">MCP:       7117   Machine check polls</span><br><span class="line">HYP:          0   Hypervisor callback interrupts</span><br><span class="line">HRE:          0   Hyper-V reenlightenment interrupts</span><br><span class="line">HVS:          0   Hyper-V stimer0 interrupts</span><br><span class="line">ERR:          0</span><br><span class="line">MIS:          0</span><br><span class="line">PIN:          0   Posted-interrupt notification event</span><br><span class="line">NPI:          0   Nested posted-interrupt event</span><br><span class="line">PIW:          0   Posted-interrupt wakeup event</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="3-短时应用排查"><a href="#3-短时应用排查" class="headerlink" title="3.短时应用排查"></a>3.短时应用排查</h2><h3 id="3-1命令"><a href="#3-1命令" class="headerlink" title="3.1命令"></a>3.1命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 记录性能事件，等待大约15秒后按 Ctrl+C 退出</span></span><br><span class="line">$ perf record -g</span><br><span class="line"><span class="comment"># 查看报告</span></span><br><span class="line">$ perf report</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2021/03/22/CPU性能排查/" data-id="cl2rp5yck0005fcvdybg61eoi"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2021/09/14/iperf测速使用与说明/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            iperf测速使用与说明
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/01/08/将word试题卷转换成ppt课件方法/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">将word试题卷转换成ppt课件方法</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

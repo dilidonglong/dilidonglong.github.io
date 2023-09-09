@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="兰芝生于幽谷，不以无人而不芳">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    文章测试 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-应用访问卡慢——用wireshark定位问题" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      文章测试
+    </h1>
+  
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/04/25/应用访问卡慢——用wireshark定位问题/" class="article-date">
+  <time datetime="2019-04-25T02:56:16.856Z" itemprop="datePublished">2019-04-25</time>
+</a>
+        
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <h1 id="应用访问卡慢——用wireshark定位问题"><a href="#应用访问卡慢——用wireshark定位问题" class="headerlink" title="应用访问卡慢——用wireshark定位问题"></a>应用访问卡慢——用wireshark定位问题</h1><p>之前写了一篇文档投稿，名称是<a href="http://bbs.sangfor.com.cn/forum.php?mod=viewthread&amp;tid=64147" target="_blank" rel="noopener">远程桌面无法访问——用wireshark定位问题</a>,有朋友说比较实用，这鼓励我再写一篇。</p>
+<p>之前的那个案例比较简单，就是远程桌面访问不了的问题，定位起来比较快。今天的这篇投稿涉及到性能问题，性能问题是比较难的，因为没有特别的报错给你做参考。</p>
+<hr>
+<p><strong>客户问题</strong>：</p>
+<p>总部部署了一台ERP服务器，分支电脑的ERP客户端要通过深信服搭建的VPN来进行访问总部服务器。系统上线后，发现在分支用客户端打开后，有些数据内容要等很久才能显示出来。而在总部内网使用客户端访问ERP服务器则没有问题。同时在分支内网电脑去ping总部的服务器没有任何的丢包延时。</p>
+<p>即，ping测试没有丢包延时，应用也能访问，没有报错，只是访问的时候显示内容要等很长时间。</p>
+<p><strong>拓扑环境</strong>如图（因为和公网ip没有关系，所以拓扑图中隐去不写）：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550565057373.png" alt="1550565057373"></p>
+<hr>
+<p>排查思路：</p>
+<p>1.分别在分支和总部设备的lan口，wan口，vpn口共6个接口上抓包。开启抓包后，再在分支电脑上打开ERP客户端访问，出现现象后，结束操作停止抓包。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550565885315.png" alt="1550565885315"></p>
+<p>2.我们要知道，TCP/IP体系模型是分层的。各层关注于自身的事物，同时下层又为上层提供服务。就比如寄信，写信双方只需要关注信件内容，快递员只需要关注如何把信件送达。但是快递员的工作又是为写信双方提供服务的。</p>
+<p>所以做ping测试的时候，如果存在丢包延时，那肯定会影响数据的传输访问，因为ping测试是基于ICMP协议的，ICMP协议是网络层的协议。网络层出现问题，会影响上层。</p>
+<p>是不是ping测试不丢包不延时，那访问就一定没问题呢。也不是，因为网络层上面还有传输层及应用层，也可能是传输层或应用层的问题。所以有时候客户说，“你看没有丢包延时啊，咋访问卡呢，这是咋回事啊小老弟？”，你现在应该能够解释了</p>
+<p>3.我们先来打开第一个抓包文件看看。即fenzhieth0，通过过滤条件，先过滤出我们先要的内容</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550566626007.png" alt="1550566626007"></p>
+<p>4.过滤完之后，可以查看丢包与重传。因为我们可以看到，使用ERP软件，传输层是用的TCP协议。如果传输层存在一定比例的丢包与重传就会影响性能。我们在主界面看到，过滤条件搜索之后的数据包展示了4157个，再点开专家信息。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550566873238.png" alt="1550566873238"></p>
+<p>5.在专家信息中，勾选只展示过滤条件搜索后的信息。可以看到重传的数据包个数。重传将近千分之五，可能会影响性能，毕竟是在公网上传输了数据。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550567003324.png" alt="1550567003324"></p>
+<p>6.我们再打开会话信息。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550567738298.png" alt="1550567738298"></p>
+<p>7.从会话信息中，我们可以看到传输数据的过程中建立了49个连接。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550567785203.png" alt="1550567785203"></p>
+<p>8.我们挑选其中一个数据传输比较多的连接。比如上图中的第三个连接，发送了815KB的数据，然后右键过滤出来。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550567863656.png" alt="1550567863656"></p>
+<p>9.此时的过滤条件会自动给你填写好显示出来</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550567924786.png" alt="1550567924786"></p>
+<p>10.再次查看该连接下，按上述方法看专家信息，其实该连接下是一个重传都没有的。接下来，我们点击一个从服务器发往客户端的包，再来看TCP流图中的Stevens时序流图，<strong>统计statistics</strong>—&gt;<strong>TCP Stream Graphs</strong>—&gt;<strong>time sequence （stevens）</strong></p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550568024776.png" alt="1550568024776"></p>
+<p>11.展示了如下界面，可以看到，服务器发往客户端的数据，seq号在一段时间内突然就卡住了。一直没有变化增长。我们要知道的是，tcp中的seq号用来表示一个tcp段，len表示他的长度。比如一个tcp段，他的seq号是0，长度len是2，那么下一个tcp段的seq号就是（0+2）2。这张图中，seq号连续增长就说明服务器就在一直发送数据。如果seq号在一段时间内一直保持一致，说明就没有发送数据了。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550568216811.png" alt="1550568216811"></p>
+<p>12.也就说明问题很可能就出在这块了。这段时间为什么服务器突然就停住了</p>
+<p>13.点击Stevens图中的卡住的点，你就能找到对应的数据包，分别是467号包和819号包</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1550568716084.png" alt="1550568716084"></p>
+<p>14.此时一看上图，467号包到819号包之间的内容，就可以发现问题了。819号包在等816号包发出，而816号包发出的时候，距离468号包发出足足等了近6s。也就是说服务器再等客户端发送一个数据包，但是这个数据包不知道为何突然等了近6s才发出，才导致服务器给客户端传输的时候，seq号在一段时间内上不去。</p>
+<p>15.而后续又看了几个连接的情况都是一模一样的。也就说明，访问卡慢是由客户端引起的，不知为何客户端会突然停止发包</p>
+<p>16.因为看的是分支设备eth0口抓的包，所以数据包是从内网传到设备eth0口的，可以确定的是和我们的vpn设备没有任何关系了，剩下的问题可以让ERP的工程师去排查。</p>
+<p>同时猜想用woc开启加速后，会有效果吗？</p>
+<p>——个人认为不会，因为woc开启后，是分支的woc设备和分支内网电脑做交互。把woc设备当做是总部的服务器，那内网客户端和woc交互数据的时候，依旧会出现上面这种情况，因为这种情况是在客户端电脑上发生的。要想解决，就得从客户端上看是什么原因导致了这6s的延时发包。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.github.io/2019/04/25/应用访问卡慢——用wireshark定位问题/" data-id="cjuw2k2yf00021wquw2h84shs" class="article-share-link">Share</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+    
+      <a href="/2019/04/25/磁盘分区/" class="article-nav-link">
+        <strong class="article-nav-caption">Olde posts</strong>
+        <div class="article-nav-title">磁盘分区</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+
+  
+  <div id="gitalk-container"></div>  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '15c18d9b0a015598eb07',  // 这里一定要注意主题 config.yml 中 clientID 的大小写，否则参数传不过来，对应下边的 "问题一"
+        clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+        repo: 'gitalk',
+        owner: 'dilidonglong',
+        admin: ['dilidonglong'],
+        id: location.pathname,      // 保持默认，官方注释（Ensure uniqueness and length less than 50），文章 URL 不能太长 "问题二"
+        distractionFreeMode: false  // 不喜欢评论时候的遮盖层所以选择 false ，而且我觉得这个也没有必要放在 config.yml 中配置
+      })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+
+
+  
+
+
+
+  <footer class="footer">
+  
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

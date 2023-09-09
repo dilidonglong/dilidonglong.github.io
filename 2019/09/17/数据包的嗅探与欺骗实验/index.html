@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    数据包的嗅探与欺骗实验 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-数据包的嗅探与欺骗实验" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据包的嗅探与欺骗实验
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/09/17/数据包的嗅探与欺骗实验/" class="article-date">
+  <time datetime="2019-09-16T16:32:41.000Z" itemprop="datePublished">2019-09-17</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/SEED-Labs/">SEED Labs</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <blockquote>
+<p>参考文档：</p>
+<p><a href="https://seedsecuritylabs.org/Labs_16.04/PDF/Sniffing_Spoofing.pdf" target="_blank" rel="noopener">官方原文档</a></p>
+<p><a href="https://wizardforcel.gitbooks.io/scapy-docs/content/" target="_blank" rel="noopener">Scapy中文文档</a></p>
+<p><a href="http://sinhub.cn/2018/06/what-can-we-do-with-scapy/" target="_blank" rel="noopener">我们可以拿Scapy做什么</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/51002301" target="_blank" rel="noopener">网络工程师的Python之路—Scapy基础篇</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/53264096" target="_blank" rel="noopener">网络工程师的Python之路—Scapy应用篇</a></p>
+</blockquote>
+<br>
+
+<h1 id="1-Overview"><a href="#1-Overview" class="headerlink" title="1.Overview"></a>1.Overview</h1><p><strong>1.概要</strong></p>
+<p>Packet sniffing and spoofing are two important concepts in network security; they are two major threats（威胁）  in network communication. Being able to understand these two threats is essential（必要） for understanding security measures in networking. There are many packet sniffing and spoofing tools, such as Wireshark, Tcpdump, Netwox, Scapy, etc. Some of these tools are widely used by security experts, as well as by attackers. Being able to use these tools is important for students, but what is more important for students in a network security course is to understand how these tools work, i.e., how packet sniffing and spoofing are implemented in software.</p>
+<p>数据包嗅探和欺骗是在网络安全中两个比较重要的概念。它们是在网络通信中两个主要的威胁。能够理解这两种威胁对于理解网络中的安全措施至关重要。有许多数据包监听和嗅探工具，例如Wireshark, Tcpdump, Netwox, Scapy等等。其中的一些工具被安全专家广泛使用，当然也有攻击者。对于学生而言，尽力去使用这些工具很重要，但是对于网络安全课程的学生而言，更重要的是理解这些工具是如何工作的。例如，在软件中数据包的嗅探和欺骗是如何实现的。</p>
+<a id="more"></a>
+
+<p>The objective of this lab is two-fold: learning to use the tools and understanding the technologies underlying these tools. For the second object, students will write simple sniffer and spoofing programs, and gain an in-depth understanding of the technical aspects（方面） of these programs. This lab covers the following topics:</p>
+<p>在这次实验室中目标有两个：学习使用这些工具并且理解这些工具下的技术。对于第二个目标，学生将写一个简单的嗅探和欺骗程序，并且获得对于这些程序在技术方面更为深入的理解。这个实验室覆盖以下主题：</p>
+<ul>
+<li><p>Scapy</p>
+</li>
+<li><p>Sniffing using the pcap library</p>
+</li>
+<li><p>Raw socket（原始套接字）</p>
+</li>
+</ul>
+<p><strong>Readings and related topics.</strong> Detailed coverage of TCP attacks can be found in Chapter 12 of the SEED book, <em>Computer Security: A Hands-on Approach</em>, by Wenliang Du.</p>
+<p><strong>阅读材料和相关主题。</strong>TCP攻击的相关细节可以在SEED书籍<em>《计算机安全：实践方法，作者杜文亮》</em>的第12章找到。</p>
+<p><strong>Lab environment.</strong> This lab has been tested on our pre-built Ubuntu 16.04 VM, which can be downloaded from the SEED website.</p>
+<p> <strong>实验环境。</strong>这个实验室已经在我们预先建立好的Ubuntu 16.04 VM中被测试过了，可以在SEED网站下载。</p>
+<p><strong>Note for Instructors（讲师）.</strong> There are two sets of tasks in this lab. The first set focuses on using tools to conduct（进行，举办） packet sniffing and spoofing. It only requires a little bit of Python programming (usually a few lines of code); students do not need to have a prior（预先） Python programming background. The set of tasks can be used by students with a much broader background.</p>
+<p><strong>讲师注意事项。</strong>在这个实验中有两个任务。第一个关注于使用工具来进行数据包的嗅探和欺骗。它只需要一点点Python编程（通常就是几行代码）；学生不需要有预先的Python程序背景。这组任务可供具有更广泛背景的学生使用。</p>
+<p>The second set of tasks is designed primarily for Computer Science/Engineering students. Students need to write their own C programs <em>from the scratch（从头开始）</em> to do sniffing and spoofing. This way, they can gain a deeper understanding on how sniffing and spoofing tools actually work. Students need to have a solid（固体，扎实） programming background for these tasks. The two sets of tasks are independent; instructors can choose to assign one set or both sets to their students, depending on their students’ programming background.</p>
+<p>第二组任务主要是为计算机科学/工程专业的学生设计的。学生需要从头开始写下他们自己的C程序以实现嗅探和欺骗。在这一步，他们可以获得对于嗅探和欺骗工具是如何进行工作更为深入的理解。在这组任务中学生需要有扎实的编程背景。这两组实验是独立的；讲师可以选择分配一组或是两组给学生，这取决于学生的编程背景。</p>
+<p>（碎碎念，我太难了。。。。。我选第一组）</p>
+<br>
+
+<p>该实验拓扑图如下：</p>
+<img src="/2019/09/17/数据包的嗅探与欺骗实验/seedlab拓扑图.png" title="This is an test image">
+
+<br>
+
+<h1 id="2-Lab-Task-Set-1-Using-Tools-to-Sniff-and-Spoof-Packets"><a href="#2-Lab-Task-Set-1-Using-Tools-to-Sniff-and-Spoof-Packets" class="headerlink" title="2.Lab Task Set 1: Using Tools to Sniff and Spoof Packets"></a>2.Lab Task Set 1: Using Tools to Sniff and Spoof Packets</h1><p><strong>2.实验任务组1：使用工具嗅探和欺骗数据包</strong></p>
+<p>（注：spoof有欺骗和冒充的意思，有的地方翻译成冒充感觉更合适）</p>
+<p>Many tools can be used to do sniffing and spoofing, but most of them only provide fixed functionalities. Scapy is different: it can be used not only as a tool, but also as <em>a building block（一块积木）</em> to construct other sniffing and spoofing tools, i.e., we can integrate（合并） the Scapy functionalities into our own program. In this set of tasks, we will use Scapy for each task. </p>
+<p>许多工具能够被用来嗅探和欺骗，但是其中大部分只能提供固定功能。Scapy则不同：它不仅可以被用作一个工具，还可以作为一个构建其他嗅探和欺骗工具的基石。例如，我们能把Scapy的功能加到我们的程序中。在这组任务中，我们将使用Scapy完成每一个任务。</p>
+<p>To use Scapy, we can write a Python program, and then execute this program using Python. See the following example. We should run Python using the root privilege because the privilege is required for spoofing packets. At the beginning of the program (Line º), we should import all Scapy’s modules.</p>
+<p>为了使用Scapy，我们将写一个Python程序，然后使用Python执行这个程序。参考以下例子。我们应该使用root用户权限运行Python，因为对于嗅探数据包需要该权限。在程序开始处1，我们将导入所有的Scapy模块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ view mycode.py </span><br><span class="line"><span class="comment">#!/bin/bin/python</span></span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *				//<span class="number">1</span></span><br><span class="line"></span><br><span class="line">a = IP()</span><br><span class="line">a.show()</span><br><span class="line"></span><br><span class="line">$ sudo python mycode.py </span><br><span class="line"><span class="comment">###[ IP ]###</span></span><br><span class="line">version	= <span class="number">4</span></span><br><span class="line">ihl	= <span class="literal">None</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>We can also get into the interactive mode of Python and then run our program one line at a time at the Python prompt. This is more convenient if we need to change our code frequently in an experiment.</p>
+<p>我们还可以进入python的交互模式，然后在python提示符上，一次只运行一行程序。如果我们需要在实验中频繁地更改代码，这就更方便了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = IP()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.show() </span><br><span class="line"><span class="comment">###[ IP ]###</span></span><br><span class="line">version	= <span class="number">4</span></span><br><span class="line">ihl	= <span class="literal">None</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h2 id="2-1-Task-1-1-Sniffing-Packets"><a href="#2-1-Task-1-1-Sniffing-Packets" class="headerlink" title="2.1 Task 1.1: Sniffing Packets"></a>2.1 Task 1.1: Sniffing Packets</h2><p><strong>任务1.1嗅探数据包</strong></p>
+<p>Wireshark is the most popular sniffing tool, and it is easy to use. We will use it throughout the entire lab. However, it is difficult to use Wireshark as a building block to construct other tools. We will use Scapy  for that purpose. The objective of this task is to learn how to use Scapy to do packet sniffing in Python programs. A sample code is provided in the following:</p>
+<p>Wireshark是最受欢迎的嗅探工具，并且它易于使用。我们将使用它贯穿整个实验。然而，我们却很难使用Wireshark去作为一个基础工具来构建其他工具。我们将使用Scapy来达到这一目的。这个任务的目标是学习如何在Python程序中使用Scapy来实现数据包嗅探。以下提供了一个简单的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_pkt</span><span class="params">(pkt)</span>:</span></span><br><span class="line">    pkt.show()</span><br><span class="line"></span><br><span class="line">pkt = sniff(filter=’icmp’,prn=print_pkt)</span><br></pre></td></tr></table></figure>
+
+<br>
+
+<h3 id="Task-1-1A"><a href="#Task-1-1A" class="headerlink" title="Task 1.1A."></a>Task 1.1A.</h3><p>The above program sniffs packets. For each captured packet, the callback function print pkt() will be invoked（被引用）; this function will print out some of the information about the packet. Run the program with the root privilege and demonstrate（证明） that you can indeed（语气词，强调） capture packets.  After that, run the program again,  but without using the root privilege; describe and explain your observations.</p>
+<p>以上程序嗅探数据包。对于每个被捕获的包，将调用<em>回调函数打印（callback function print）</em>PKT()；此函数将打印出关于数据包的一些信息。使用root权限运行程序，并证明你确实可以捕获数据包。在此之后，再次运行程序，但不使用root权限；描述和解释你的观察结果。</p>
+<blockquote>
+<p>1.我在拓扑图中的第一台虚拟机下的当前用户目录下，创建了一个zhangshuaiyang的目录</p>
+<p>2.然后把上述程序内容，复制到了zhangshuaiyang目录下的task1.1.py文本中</p>
+<p>3.修改文件权限为764</p>
+<p>4.使用seed用户运行该程序，可以看到如下报错PermissionError: [Errno 1] Operation not permitted。该报错的解决方案是：This means that you need to start your script with sudo/admin rights.也即执行第5步。</p>
+<img src="/2019/09/17/数据包的嗅探与欺骗实验/1.png" title="This is an test image">
+
+<p>5.此时使用root权限再执行该脚本，能正常执行。同时我在第二台虚拟机上ping第一台虚拟机的ip，发现有数据包经过。抓包内容如表中所示，其实很容易看出来，抓的包有2个，分别是icmp的请求包和回应包。</p>
+<img src="/2019/09/17/数据包的嗅探与欺骗实验/2.png" title="This is an test image">
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&gt; [<span class="number">09</span>/<span class="number">23</span>/<span class="number">19</span>]seed@VM:~/zhangshuaiyang$ sudo ./task1<span class="number">.1</span>.py</span><br><span class="line">&gt; <span class="comment">###[ Ethernet ]### </span></span><br><span class="line">&gt;   dst       = <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">04</span>:d9:<span class="number">58</span></span><br><span class="line">&gt;   src       = <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">0</span>f:<span class="number">63</span>:a6</span><br><span class="line">&gt;   type      = <span class="number">0x800</span></span><br><span class="line">&gt; <span class="comment">###[ IP ]### </span></span><br><span class="line">&gt;      version   = <span class="number">4</span></span><br><span class="line">&gt;      ihl       = <span class="number">5</span></span><br><span class="line">&gt;      tos       = <span class="number">0x0</span></span><br><span class="line">&gt;      len       = <span class="number">84</span></span><br><span class="line">&gt;      id        = <span class="number">63331</span></span><br><span class="line">&gt;      flags     = DF</span><br><span class="line">&gt;      frag      = <span class="number">0</span></span><br><span class="line">&gt;      ttl       = <span class="number">64</span></span><br><span class="line">&gt;      proto     = icmp</span><br><span class="line">&gt;      chksum    = <span class="number">0x2b33</span></span><br><span class="line">&gt;      src       = <span class="number">10.0</span><span class="number">.2</span><span class="number">.4</span></span><br><span class="line">&gt;      dst       = <span class="number">10.0</span><span class="number">.2</span><span class="number">.15</span></span><br><span class="line">&gt;      \options   \</span><br><span class="line">&gt; <span class="comment">###[ ICMP ]### </span></span><br><span class="line">&gt;         type      = echo-request</span><br><span class="line">&gt;         code      = <span class="number">0</span></span><br><span class="line">&gt;         chksum    = <span class="number">0x5609</span></span><br><span class="line">&gt;         id        = <span class="number">0xb71</span></span><br><span class="line">&gt;         seq       = <span class="number">0x1</span></span><br><span class="line">&gt; <span class="comment">###[ Raw ]### </span></span><br><span class="line">&gt;            load      = <span class="string">'\x8c\xe2\x88]\x8dA\t\x00\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&amp;\'()*+,-./01234567'</span></span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment">###[ Ethernet ]### </span></span><br><span class="line">&gt;   dst       = <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">0</span>f:<span class="number">63</span>:a6</span><br><span class="line">&gt;   src       = <span class="number">08</span>:<span class="number">00</span>:<span class="number">27</span>:<span class="number">04</span>:d9:<span class="number">58</span></span><br><span class="line">&gt;   type      = <span class="number">0x800</span></span><br><span class="line">&gt; <span class="comment">###[ IP ]### </span></span><br><span class="line">&gt;      version   = <span class="number">4</span></span><br><span class="line">&gt;      ihl       = <span class="number">5</span></span><br><span class="line">&gt;      tos       = <span class="number">0x0</span></span><br><span class="line">&gt;      len       = <span class="number">84</span></span><br><span class="line">&gt;      id        = <span class="number">42397</span></span><br><span class="line">&gt;      flags     = </span><br><span class="line">&gt;      frag      = <span class="number">0</span></span><br><span class="line">&gt;      ttl       = <span class="number">64</span></span><br><span class="line">&gt;      proto     = icmp</span><br><span class="line">&gt;      chksum    = <span class="number">0xbcf9</span></span><br><span class="line">&gt;      src       = <span class="number">10.0</span><span class="number">.2</span><span class="number">.15</span></span><br><span class="line">&gt;      dst       = <span class="number">10.0</span><span class="number">.2</span><span class="number">.4</span></span><br><span class="line">&gt;      \options   \</span><br><span class="line">&gt; <span class="comment">###[ ICMP ]### </span></span><br><span class="line">&gt;         type      = echo-reply</span><br><span class="line">&gt;         code      = <span class="number">0</span></span><br><span class="line">&gt;         chksum    = <span class="number">0x5e09</span></span><br><span class="line">&gt;         id        = <span class="number">0xb71</span></span><br><span class="line">&gt;         seq       = <span class="number">0x1</span></span><br><span class="line">&gt; <span class="comment">###[ Raw ]### </span></span><br><span class="line">&gt;            load      = <span class="string">'\x8c\xe2\x88]\x8dA\t\x00\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&amp;\'()*+,-./01234567'</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+<h3 id="Task-1-1B"><a href="#Task-1-1B" class="headerlink" title="Task 1.1B."></a>Task 1.1B.</h3><p>Usually, when we sniff packets, we are only interested certain types of packets. We can do  that by setting filters in sniffing. Scapy’s filter use the BPF (Berkeley Packet Filter) syntax; you can find the BPF manual from the Internet. Please set the following filters and demonstrate your sniffer program again (each filter should be set separately（单独地）):</p>
+<p>通常，当我们嗅探数据包时，我们只对某些类型的数据包感兴趣。我们可以通过设置过滤器进行嗅探。Scapy的过滤器使用bpf（伯克利包过滤器）语法；你可以从互联网上找到bpf手册。请设置以下过滤器并再次证明你的嗅探器程序（每个过滤器应分别设置）：</p>
+<ul>
+<li><p>Capture only the ICMP packet </p>
+<p>仅捕获ICMP数据包</p>
+<blockquote>
+<p>1.我先复制一份task1.1.py，然后再把这份复制的文件改名为task1.1B1.py。</p>
+<p>2.然后再对task1.1B1.py中的sniff（）函数做满足题目要求的修改</p>
+<p>3.发现任务1.1A中的监听其实就是这里说的仅捕获ICMP数据包嘛，emmmmm那就不用改了</p>
+<p>4.同时也测试了下，在VM2上telnetVM1。这个脚本是监听不到telnet数据包的</p>
+</blockquote>
+</li>
+<li><p>Capture any TCP packet that comes from a particular IP and with a destination port number 23.</p>
+<p>捕获特定IP的任意TCP数据包，并且要求目的端口是23</p>
+<blockquote>
+<p>1.我先复制一份task1.1.py，然后再把这份复制的文件改名为task1.1B2.py。</p>
+<p>2.然后再对task1.1B2.py中的sniff（）函数做满足题目要求的修改，<a href="https://dilidonglong.site/2019/04/30/wireshark技巧/#1-6-抓取结合端口的数据流" target="_blank" rel="noopener">参考文档</a></p>
+<p>3.我把代码中的过滤条件改成了<code>filter = &#39;tcp dst port 23&#39;</code></p>
+<p>4.然后再次执行测试</p>
+<p>5.可以看到在VM1中的控制台显示出了数据包，同时我再VM2的控制台上也成功登陆到了VM1设备。使用telnet可以明文看到数据，你能从wireshark中看到我输入了账号seed，密码dees和查看ip的命令ifconfig。由于我抓取的内容是只抓目的地址是tcp23号端口的，所以源端口是23号的数据包没有抓取到。这也是为什么在wireshark中，看不到三次握手的完整流程。</p>
+<img src="/2019/09/17/数据包的嗅探与欺骗实验/3.png" title="This is an test image">
+
+<br>
+
+<img src="/2019/09/17/数据包的嗅探与欺骗实验/4.png" title="This is an test image">
+</blockquote>
+</li>
+<li><p>Capture packets comes from or to go to a particular subnet. You can pick any subnet, such as 128.230.0.0/16; you should not pick the subnet that your VM is attached to.</p>
+<p>捕获来自或发往特定子网的数据包。你能选择任意子网，例如123.230.0.0/16；你不应该选择你的VM所连接的子网</p>
+<blockquote>
+<p>由于只是修改过滤条件，此处就不再做重复实验了</p>
+<p>过滤条件可以修改为<code>filter = &#39;net 10.3.0.0/16&#39;</code>，表示抓取网络10.3.0.0上发到/来自所有主机的数据流(16表示长度)</p>
+</blockquote>
+</li>
+</ul>
+<br>
+
+<h2 id="2-2-Task-1-2-Spoofing-ICMP-Packets"><a href="#2-2-Task-1-2-Spoofing-ICMP-Packets" class="headerlink" title="2.2  Task 1.2: Spoofing ICMP Packets"></a>2.2  Task 1.2: Spoofing ICMP Packets</h2><p><strong>任务1.2 冒充ICMP数据包</strong></p>
+<p>As a packet spoofing tool, Scapy allows us to set the fields of IP packets to arbitrary（任意的） values. The objective of this task is to spoof IP packets with an arbitrary source IP address. We will spoof ICMP echo request packets, and send them to another VM on the same network. We will use Wireshark to observe whether our request will be accepted by the receiver. If it is accepted, an echo reply packet will be sent to the spoofed IP address. The following code shows an example of how to spoof an ICMP packets.</p>
+<p>作为一个包欺骗工具，Scapy允许我们去设置IP数据包字段的任意值。这个任务的目的是冒充带有任意源IP地址的IP数据包。我们将冒充ICMP的echo请求数据包，并且把他们发送到处于相同网络的另一台VM上。我们将使用Wireshark来验证我们的请求是否会被另外一台接收者主机所接受。如果接收方接收到了，一个echo应答包将被发送到被冒充的IP地址上。以下代码展示了一个案例，即如何冒充一个ICMP数据包。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = IP()						//<span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a.dst = ‘<span class="number">10.0</span><span class="number">.2</span><span class="number">.3</span>’				//<span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = ICMP()						//<span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>p = a/b							//<span class="number">4</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>send(p)							//<span class="number">5</span></span><br><span class="line">.</span><br><span class="line">Sent <span class="number">1</span> packets.</span><br></pre></td></tr></table></figure>
+
+<p>In the code above, Line1 creates an IP object from the IP class; a class attribute（属性） is defined for each IP header field. We can use ls(a) or ls(IP) to see all the attribute names/values. We can also use a.show() and IP.show() to do the same. Line2 shows how to set the destination IP address field. If a field is not set, a default value will be used.</p>
+<p>在以上代码中，行1从IP类中创建了一个IP对象；为每个IP头部字段定义一个类属性。我们能使用ls(a)或是ls(IP)来查看所有的属性名称/数值。我们也可以使用 a.show()和IP.show()来做同样的事情。行2展示了如何设置字段中的目的IP地址。如果一个字段没有设置，那将会使用默认的数值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>ls(a)</span><br><span class="line">version		: BitField (<span class="number">4</span> bits)					= <span class="number">4</span>				(<span class="number">4</span>)</span><br><span class="line">ihl			: BitField (<span class="number">4</span> bits)					= <span class="literal">None</span>			(<span class="literal">None</span>)</span><br><span class="line">tos			: XByteField						= <span class="number">0</span>				(<span class="number">0</span>)</span><br><span class="line">len			: ShortField						= <span class="literal">None</span>			(<span class="literal">None</span>)</span><br><span class="line">id			: ShortField						= <span class="number">1</span>				(<span class="number">1</span>)</span><br><span class="line">flags		: FlagsField (<span class="number">3</span> bits)				= &lt;Flag <span class="number">0</span> ()&gt;	(&lt;Flag <span class="number">0</span> ()&gt;)</span><br><span class="line">frag		: BitField (<span class="number">13</span> bits)				= <span class="number">0</span>				(<span class="number">0</span>)</span><br><span class="line">ttl			: ByteField							= <span class="number">64</span>			(<span class="number">64</span>)</span><br><span class="line">proto		: ByteEnumField						= <span class="number">0</span>				(<span class="number">0</span>)</span><br><span class="line">chksum		: XShortField						= <span class="literal">None</span>			(<span class="literal">None</span>)</span><br><span class="line">src			: SourceIPField						= <span class="string">'10.0.2.4'</span>	(<span class="literal">None</span>)</span><br><span class="line">dst			: DestIPField						= <span class="string">'10.0.2.3'</span>	(<span class="literal">None</span>)</span><br><span class="line">options		: PacketListField					= []			([])</span><br></pre></td></tr></table></figure>
+
+<p>Line 3 creates an ICMP object. The default type is echo request. In Line 4, we stack a and b together to form a new object. The / operator is overloaded by the IP class, so it no longer represents（代表） division（除法）; instead, it means adding b as the payload field of a and modifying（修改） the fields of a accordingly（从而，于是）. As a result, we get a new object that represent an ICMP packet. We can now send out this packet using send() in Line 5. Please make any necessary change to the sample code, and then demonstrate（证明） that you can spoof an ICMP echo request packet with an arbitrary source IP address.</p>
+<p>行3创建了一个ICMP对象。默认类型是echo请求。在行4，我们把a和b堆叠在了一起以创建一个新的对象。/操作是被IP类重载，因此它将不在表示除法；相反，他意味着添加b作为a的负载字段，并且修改a的字段。（注：在这里的意思就是经常听到的，ICMP被IP封装。）结果就是，我们得到一个新的对象来代表一个ICMP数据包。在行5，我们现在就可以把这个数据包使用send()发送出去了。请对这段简单代码做出任何有必要的改变，然后证明你能欺骗一个带有任意源IP的ICMP请求数据包</p>
+<br>
+
+<blockquote>
+<ol>
+<li><p>我在VM1中的zhangshuaiyang这个目录下，又新建了一个文件，名为task1.2.py</p>
+</li>
+<li><p>文件代码如下。目的是想看下，我是否成功创建了一个冒充的数据包。因为VM1的ip地址是10.0.2.15，我把它设置成了10.0.2.55。如果不写这条语句<code>a.src = &#39;10.0.2.55&#39;</code>，那么默认使用的是设备的出口ip</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">#!/usr/bin/python</span></span><br><span class="line">&gt; <span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line">&gt; a = IP()</span><br><span class="line">&gt; a.src = <span class="string">'10.0.2.55'</span></span><br><span class="line">&gt; a.dst = <span class="string">'10.0.2.4'</span></span><br><span class="line">&gt; b = ICMP()</span><br><span class="line">&gt; p = a/b</span><br><span class="line">&gt; ls(p)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li>然后执行文件，显示如下。说明确实可以随意创建一个数据包，并改变其中内容</li>
+</ol>
+<img src="/2019/09/17/数据包的嗅探与欺骗实验/5.png" title="This is an test image">
+
+<ol start="4">
+<li>再次修改task1.2.py中的代码，修改如下。把显示ls()改成了发送send()</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">#!/usr/bin/python</span></span><br><span class="line">&gt; <span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line">&gt; a = IP()</span><br><span class="line">&gt; a.src = <span class="string">'10.0.2.55'</span></span><br><span class="line">&gt; a.dst = <span class="string">'10.0.2.4'</span></span><br><span class="line">&gt; b = ICMP()</span><br><span class="line">&gt; p = a/b</span><br><span class="line">&gt; send(p)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ol start="5">
+<li>执行代码，展示如下。可以看到，在VM1中执行了该文件代码，然后再在VM2上用wireshark抓包。wireshark告诉我们，首先先是一个目的mac地址是08:00:27:04:d9:58（也就是VM1的mac地址）的主机发送了一个arp广播请求，然后VM2给出了单播回应。当VM1获得了VM2的mac地址，那么就可以封装数据包了。此时你能看到第三个包就是ICMP的包，同时ICMP的源IP是10.0.2.55。VM2收到ICMP请求，那么就要给出回应。需要给10.0.2.55这个IP回应，但是我们的实验环境中根本就没有10.0.2.55，所以VM2是获取不到10.0.2.55的mac地址的，也就无法封装数据包给回应。当VM2发送了三个请求10.0.2.55的mac地址arp数据包后，还没有收到arp回应，此时就停止发送arp广播请求了。</li>
+</ol>
+<img src="/2019/09/17/数据包的嗅探与欺骗实验/6.png" title="This is an test image">
+
+</blockquote>
+<br>
+
+<h2 id="2-3-Task-1-3-Traceroute"><a href="#2-3-Task-1-3-Traceroute" class="headerlink" title="2.3 Task 1.3: Traceroute"></a>2.3 Task 1.3: Traceroute</h2><p><strong>任务1.3 路由追踪</strong></p>
+<p>The objective of this task is to use Scapy to estimate（预估） the distance, in terms of number of routers, between your VM and a selected destination. This is basically what is implemented by the traceroute tool. In this task, we will write our own tool. The idea is quite straightforward: just send an packet (any type) to the destination, with its Time-To-Live (TTL) field set to 1 first. This packet will be dropped by the first router, which will send us an ICMP error message, telling us that the time-to-live has exceeded. That is how we get the IP address of the first router. We then increase our TTL field to 2, send out another packet, and get the IP address of the second router. We will repeat this procedure（程序，步骤） until our packet finally reach the destination. It should be noted that this experiment only gets an estimated result, because in theory（理论）, not all these packets take the same route (but in practice（练习）, they may within a short period of time). The code in the following shows one round in the procedure.</p>
+<p>这个实验的目的是使用Scapy来预估在我们的VM和被选择的目的地之间的路径（以路由器的数量为单位）。这基本是通过路由追踪工具实现的。在这个任务中，我们将写一个我们自己的工具。这个想法相当简单直白：仅发送一个数据包（任意类型）到达目的地，并首先设置它的TTL字段为1。这个包将会被第一个路由器所丢弃，路由器则发送给我们一个ICMP错误信息。我们接下来增加我们的TTL字段为2，发送另一个数据包，则可以获得第二个路由器的IP地址。我们将重复这些步骤，直到我们的数据包最终到达目的地。需要注意的是，这个实验仅能获得一个预估的结果，因为理论上来说，不是所有的数据包都会经过同一个路由器（但是在练习中，他们可能会在很短的时间段内）。以下代码展示了在该过程中的一轮操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = IP()</span><br><span class="line">a.dst = ’<span class="number">1.2</span><span class="number">.3</span><span class="number">.4</span>’</span><br><span class="line">a.ttl = <span class="number">3</span> </span><br><span class="line">b = ICMP()</span><br><span class="line">send(a/b)</span><br></pre></td></tr></table></figure>
+
+<p>If you are an experienced Python programmer, you can write your tool to perform the entire procedure automatically. If you are new to Python programming, you can do it by manually changing the TTL field in each round, and record the IP address based on your observation（意见，注目） from Wireshark. Either way is acceptable, as long as you get the result.</p>
+<p>如果你是一个经验丰富的Python程序员，你能写下你自己的工具来自动执行整个过程。如果你是一个Python新手，则可以通过在每个回合中手动更改TTL字段来实现，并根据Wireshark的观察记录IP地址。两种方式都是可以接受的，只要你获得了结果。</p>
+<blockquote>
+<ol>
+<li><p>选第二个方式。。。。。</p>
+</li>
+<li><p>新建一个文件task1.3.py，代码如下</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">#!/usr/bin/python</span></span><br><span class="line">&gt; <span class="keyword">from</span> scapy.all <span class="keyword">import</span> *</span><br><span class="line">&gt; </span><br><span class="line">&gt; a= IP()</span><br><span class="line">&gt; a.dst = <span class="string">"114.114.114.114"</span></span><br><span class="line">&gt; i = <span class="number">0</span></span><br><span class="line">&gt; <span class="keyword">while</span> i &lt; <span class="number">20</span> :</span><br><span class="line">&gt;         a.ttl = i</span><br><span class="line">&gt;         b = ICMP()</span><br><span class="line">&gt;         send(a/b)</span><br><span class="line">&gt;         i = i+<span class="number">1</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li><p>执行文件后，在wireshark中观察。通过黑色部分知道经过的跳数</p>
+<img src="/2019/09/17/数据包的嗅探与欺骗实验/7.png" title="This is an test image">
+
+</li>
+</ol>
+</blockquote>
+<br>
+
+<h2 id="2-4-Task-1-4-Sniffing-and-then-Spoofing"><a href="#2-4-Task-1-4-Sniffing-and-then-Spoofing" class="headerlink" title="2.4  Task 1.4: Sniffing and-then Spoofing"></a>2.4  Task 1.4: Sniffing and-then Spoofing</h2><p><strong>任务1.4 嗅探然后欺骗</strong></p>
+<p>In this task, you will combine the sniffing and spoofing techniques to implement the following sniff-and- then-spoof program. You need two VMs on the same LAN. From VM A, you ping an IP X. This will generate（产生） an ICMP echo request packet. If X is alive, the ping program will receive an echo reply, and print out the response. Your sniff-and-then-spoof program runs on VM B, which monitors（监控） the LAN through packet sniffing. Whenever it sees an ICMP echo request, regardless（无论） of what the target IP address is, your program should immediately send out an echo reply using the packet spoofing technique. Therefore, regardless of whether machine X is alive or not, the ping program will always receive a reply, indicating that X is alive. You need to use Scapy to do this task. In your report, you need to provide evidence（证据） to demonstrate that your technique works.</p>
+<p>在这个任务中，你将结合嗅探和欺骗技术来实现以下的嗅探然后欺骗程序。你需要在同一个局域网中有2个VM。从VM A，你ping一个IP X。这将产生一个ICMPecho请求数据包。如果X是活跃状态，ping程序将会接收一个echo回应，并且打印出回应结果。你的嗅探然后欺骗程序运行在VM B，它监控这个局域网通过的数据包。每当它看到ICMP echo请求时，无论目标IP地址是什么，你的程序都应立即使用数据包欺骗技术发出回显应答。因此，无论机器X是否处于活动状态，ping程序都将始终收到答复，表明X处于活动状态。你需要使用Scapy来完成该任务。在你的报告中，你需要提供证据以证明你的技术有效。</p>
+<blockquote>
+<ol>
+<li>上述实验应该要在连接设备是集线器的情况下（或是称之为CSMA/CD环境）使用。如果连接终端的设备是交换机，那么局域网中的其他终端很可能不会收到数据包。而在CSMA/CD的环境中，那么终端才会收到这个网络环境里面的数据包</li>
+<li>同时ping测试的时候，VM1不能ping同网段的ip地址，因为ping同网段的地址，那么数据包封装的时候，在数据链路层会需要同网段ip的目的mac，也就会导致发送arp广播请求，而VM2收到广播请求，如果不写代码程序，那么它不会回应这个arp广播请求做欺骗</li>
+<li>如果是ping不同网段ip时，那么数据包会经过网关转发，这样的ping包由于在CSMA/CD的环境中，那么VM2就能收到该数据包</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/09/17/数据包的嗅探与欺骗实验/" data-id="cl2rp5yf9001ofcvdqvmm2vvr"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/09/25/科学上网/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            科学上网
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/09/07/如何使用VirtualBox运行SEED_Ubuntu_VM？/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">如何使用VirtualBox运行SEED_Ubuntu_VM？</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="兰芝生于幽谷，不以无人而不芳">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    grep/正则表达式/awk/sed |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-grep-正则表达式-awk" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      grep/正则表达式/awk/sed
+    </h1>
+  
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/08/11/grep-正则表达式-awk/" class="article-date">
+  <time datetime="2019-08-11T13:30:15.000Z" itemprop="datePublished">2019-08-11</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </div>
+
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <p>Linux三剑客</p>
+<p>grep适合单纯的查找或是匹配文本</p>
+<p>sed适合编辑我们查找到的文本</p>
+<p>awk对于查找到的文本，可以进行格式化处理，即输出成我们想要看到的样子</p>
+<p>正则表达式是公式。我们可以在三剑客中按（正则表达式）条件查找到我们需要的东西</p>
+<h2 id="1-grep"><a href="#1-grep" class="headerlink" title="1.grep"></a>1.<a href="http://www.zsythink.net/archives/1733" target="_blank" rel="noopener">grep</a></h2><p>grep（global search regular expression and print out the line）</p>
+<ul>
+<li>grep  “需要搜索的字符”</li>
+<li>grep  -i  “需要搜索的字符”               不区分大小写</li>
+<li>grep  -n  “需要搜索的字符”              在行首显示字符所在行号</li>
+<li>grep  –color=auto  “需要搜索的字符”           字符用颜色显示</li>
+<li>grep  –color  “需要搜索的字符”           字符用颜色显示</li>
+<li>grep  -c  “需要搜索的字符”            显示字符一共所在多少行</li>
+<li>grep  -o  “需要搜索的字符”           显示字符，在单独的一行输出</li>
+<li>grep  -Bx  “需要搜索的字符”           显示字符所在的行及其前x行</li>
+<li>grep  -Ax  “需要搜索的字符”           显示字符所在的行及其后x行</li>
+<li>grep  -Cx  “需要搜索的字符”           显示字符所在的行及其前后x行</li>
+<li>grep  -w  “需要搜索的字符”          精确显示字符所在的行，比如字符是abc，就不会显示abcd所在行</li>
+<li>grep  -v  “需要搜索的字符”           显示不包含该字符所在的行</li>
+<li>grep  -e  “需要搜索的字符”  -e  “需要搜索的字符2”            显示多个目标字符所在行</li>
+</ul>
+<hr>
+<h2 id="2-正则表达式"><a href="#2-正则表达式" class="headerlink" title="2.正则表达式"></a>2.正则表达式</h2><h3 id="2-1基本正则表达式"><a href="#2-1基本正则表达式" class="headerlink" title="2.1基本正则表达式"></a>2.1基本正则表达式</h3><p>grep  “^hello”             打印出以hello开头的行</p>
+<p>grep  “hello$”             打印出以hello结尾的行</p>
+<p>grep  “^hello$”             打印出只有hello单词的行</p>
+<p>grep  “^$”                    打印出空行，该行中有空格也不能算是一个空行</p>
+<p>grep  “\ &lt; hello”          打印出以hello作为一个单词词首的一行</p>
+<p>grep  “hello\ &gt;”          打印出以hello作为一个单词词尾的一行</p>
+<p>grep  “\ &lt; hello\ &gt;”          打印出以hello作为一个单词的一行</p>
+<p>同时可以使用\ b来表示锚定词首或词尾，即来替代\ &gt;和\ &lt;</p>
+<p>使用\ B可以表示词首或词尾不是某个单词</p>
+<hr>
+<h4 id="连续次数的匹配"><a href="#连续次数的匹配" class="headerlink" title="连续次数的匹配"></a><a href="http://www.zsythink.net/archives/1893" target="_blank" rel="noopener">连续次数的匹配</a></h4><p>grep  “a\ {3\ }”           打印出单词中有3个连续a的一行</p>
+<p>grep  “\ &lt; a\ {3\ } \ &gt;”           打印出单词中<strong>只有</strong>3个连续a的一行（以连续3个a作为一个单词）</p>
+<p>grep  “a\ {2,4\ } “           打印出单词中至少有连续2个a或最多连续4个a的一行</p>
+<p>grep  “a\ { ,4\ } “           打印出单词中最多连续4个a的一行</p>
+<p>grep  “a\ {2,\ } “           打印出单词中至少连续2个a的一行</p>
+<p>grep  “a*”                   打印出单词中有n个a的一行</p>
+<p>grep  “a.*”                   打印出单词中有a且a后面接上任意个数目及字符的行</p>
+<p>grep  “a\ ?”                  打印出单词中能匹配到0个或1个a的行（其实有2个以上的a也能匹配到，因为2个以上的a包含0个或1个a）</p>
+<p>grep  “a\ +”                  打印出单词中能匹配到至少1个a的行</p>
+<hr>
+<h4 id="常用符号"><a href="#常用符号" class="headerlink" title="常用符号"></a><a href="http://www.zsythink.net/archives/1921" target="_blank" rel="noopener">常用符号</a></h4><p>grep  “a…”           打印出单词中能匹配到a后面接上3个任意字符的行</p>
+<p>grep  “a[[:alpha:]]\ { 3\ }”            打印出单词中能匹配到a后面接上了3个任意大小写字母的行</p>
+<p>[[:alpha:]]  表示任意大小写字母<br>[[:lower:]]  表示任意小写字母<br>[[:upper:]]  表示任意大写字母<br>[[:digit:]]  表示0到9之间的任意单个数字（包括0和9）<br>[[:alnum:]]  表示任意数字或字母<br>[[:space:]]  表示任意空白字符，包括”空格”、”tab键”等。<br>[[:punct:]]  表示任意标点符号</p>
+<p>[0-9]与[[:digit:]]等效<br>[a-z]与[[:lower:]]等效<br>[A-Z]与[[:upper:]]等效<br>[a-zA-Z]与[[:alpha:]]等效<br>[a-zA-Z0-9]与[[:alnum:]]等效</p>
+<p>grep  “a[ ^[:alpha:]]\ { 3\ }”       打印出单词中能匹配到a后面接上了3个不是大小写字母的行</p>
+<p>[^ 0-9]与[ ^[:digit:]]等效<br>[ ^ a-z]与[ ^[:lower:]]等效<br>[ ^ A-Z]与[ ^[:upper:]]等效<br>[ ^ a-zA-Z]与[ ^[:alpha:]]等效<br>[ ^ a-zA-Z0-9]与[ ^[:alnum:]]等效</p>
+<p>grep  “a[efg]”       打印出单词中能匹配到a后面接上了e或f或g的行</p>
+<p>grep  “a[ ^efg]”       打印出单词中能匹配到a后面接上不是e或f或g的行</p>
+<p>同时还有简短格式，但是并非所有正则表达式解析器都可以识别。使用的时候可以尝试加上-P参数<br>\d 表示任意单个0到9的数字<br>\D 表示任意单个非数字字符<br>\t 表示匹配单个横向制表符（相当于一个tab键）<br>\s表示匹配单个空白字符，包括”空格”，”tab制表符”等<br>\S表示匹配单个非空白字符</p>
+<hr>
+<h4 id="分组及向后引用"><a href="#分组及向后引用" class="headerlink" title="分组及向后引用"></a><a href="http://www.zsythink.net/archives/1952" target="_blank" rel="noopener">分组及向后引用</a></h4><p>grep  “\ (hello\ ) \ {2\ }”                 以hello为一个组（第一个分组），打印出单词中能匹配到2次hello的行</p>
+<p>grep  “\ (hello\ ) word \1”             以hello为一个组，打印出有hello word hello的行。其中\1表示第一个分组</p>
+<hr>
+<h4 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a><a href="http://www.zsythink.net/archives/1977" target="_blank" rel="noopener">转义符</a></h4><p>grep  “a\ .\ .”                     打印出单词中能匹配到a..的行</p>
+<p>grep  “a\ <em>\ </em>“                     打印出单词中能匹配到a**的行</p>
+<p>grep  ‘a\ \ \ \ ‘                     打印出单词中能匹配到a\ \的行，注意此时使用单引号</p>
+<hr>
+<h3 id="2-2扩展正则表达式"><a href="#2-2扩展正则表达式" class="headerlink" title="2.2扩展正则表达式"></a>2.2<a href="http://www.zsythink.net/archives/1999" target="_blank" rel="noopener">扩展正则表达式</a></h3><p>使用扩展正则表达式时，要加上-E参数</p>
+<p>在扩展正则表达式中，有|这个符号，按住“shift键”和“\键”就可以打出</p>
+<p>grep  -E  “(com|net)$”     打印出以com或net结尾的行</p>
+<p>在基本正则表达式中需要加\，但是扩展中不需要的如下：</p>
+<p>?  表示匹配其前面的字符0或1次</p>
+<p>+  表示匹配其前面的字符至少1次，或者连续多次，连续次数上不封顶。</p>
+<p>{n} 表示前面的字符连续出现n次，将会被匹配到。</p>
+<p>{x,y} 表示之前的字符至少连续出现x次，最多连续出现y次，都能被匹配到，换句话说，只要之前的字符连续出现的次数在x与y之间，即可被匹配到。</p>
+<p>{,n} 表示之前的字符连续出现至多n次，最少0次，都会被匹配到。</p>
+<p>{n,}表示之前的字符连续出现至少n次，才会被匹配到。</p>
+<p>分组与后向引用<br>( ) 表示分组，我们可以将其中的内容当做一个整体，分组可以嵌套。<br>(ab) 表示将ab当做一个整体去处理。<br>\1 表示引用整个表达式中第1个分组中的正则匹配到的结果。<br>\2 表示引用整个表达式中第2个分组中的正则匹配到的结果。</p>
+<hr>
+<h2 id="3-awk"><a href="#3-awk" class="headerlink" title="3.awk"></a>3.awk</h2><blockquote>
+<p>awk的基本语法结构</p>
+<p>awk  [options]  ‘Pattern  {Action}’  file1,file2 </p>
+<p>如果是对命令执行awk操作而不是文件，那么可以使用命令+管道符（|）+awk</p>
+</blockquote>
+<h3 id="3-1基础入门"><a href="#3-1基础入门" class="headerlink" title="3.1基础入门"></a><a href="http://www.zsythink.net/archives/1336" target="_blank" rel="noopener">3.1基础入门</a></h3><p>df  |awk  ‘{print  $5}’     表示输出df信息的第五列</p>
+<p>df  |awk  ‘{print  $4,$5}’     表示输出df信息的第四和第五列</p>
+<ul>
+<li><p>除了输出文本或命令输出信息中的列，我们也可以自己添加信息，只需在””中添加即可</p>
+<p>awk  ‘{print  “anychar:”$4,”anychar2”$5}’  file1</p>
+</li>
+<li><p>如果写成如下格式，那么输出的就不是第五列，而是输出$5</p>
+<p>df  |awk  ‘{print  “$5”}’ </p>
+</li>
+</ul>
+<p>Pattern中文含义是模式，特殊的2种模式BEGIN和END</p>
+<ul>
+<li><p>在执行文件1（file1）前，先执行BEGIN的内容，即先把aaa输出，然后再对文件1做处理，处理方式就是后面写的动作</p>
+<p>awk  ‘BEGIN{print  “aaa”}  {print  “anychar:”$4,”anychar2”$5}’  file1</p>
+</li>
+<li><p>在执行完对文件1（file1）的操作后，再在结尾执行END的内容，即输出aaa</p>
+<p>awk  ‘{print  “anychar:”$4,”anychar2”$5}  END{print  “aaa”}’  file1</p>
+</li>
+</ul>
+<h3 id="3-2分隔符"><a href="#3-2分隔符" class="headerlink" title="3.2分隔符"></a><a href="http://www.zsythink.net/archives/1357" target="_blank" rel="noopener">3.2分隔符</a></h3><h4 id="3-2-1输入分割符"><a href="#3-2-1输入分割符" class="headerlink" title="3.2.1输入分割符"></a>3.2.1输入分割符</h4><p>文本输入的时候，默认是以空格作为分割符号的，但是我们可以手工指定在文本中的一行，该以什么符号作为区分一列的分割符</p>
+<p> awk  -F#  ‘{print  $4,$5}’  file1            通过-F参数，来指定#作为输入分割符</p>
+<p> awk  -v  FS=’#’  ‘{print  $4,$5}’  file1    通过-v参数，来修改系统内置的输入分割符变量，效果同上</p>
+<h4 id="3-2-2输出分割符"><a href="#3-2-2输出分割符" class="headerlink" title="3.2.2输出分割符"></a>3.2.2输出分割符</h4><p>文本输出的时候，默认也是以空格作为分割符号的，但是我们可以指定其他的符号来连接不同的列</p>
+<p>awk  -v  OFS=’++++’  ‘{print  $4,$5}’  file1    通过-v参数，来修改系统内置的输出分割符变量</p>
+<p>注：输出分割时，用“，”来区分。如果是想把两列连在一起，可以写成以下形式</p>
+<p>awk   ‘{print  $4$5}’  file1</p>
+<h3 id="3-3awk变量"><a href="#3-3awk变量" class="headerlink" title="3.3awk变量"></a>3.3awk变量</h3><h4 id="3-3-1内置变量"><a href="#3-3-1内置变量" class="headerlink" title="3.3.1内置变量"></a>3.3.1内置变量</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">代码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">输入分割符</td>
+<td style="text-align:center">FS</td>
+</tr>
+<tr>
+<td style="text-align:center">输出分隔符</td>
+<td style="text-align:center">OFS</td>
+</tr>
+<tr>
+<td style="text-align:center">输入记录分隔符</td>
+<td style="text-align:center">RS</td>
+</tr>
+<tr>
+<td style="text-align:center">输出记录分割符</td>
+<td style="text-align:center">ORS</td>
+</tr>
+<tr>
+<td style="text-align:center">当前行被分割成了几列</td>
+<td style="text-align:center">NF</td>
+</tr>
+<tr>
+<td style="text-align:center">行号</td>
+<td style="text-align:center">NR</td>
+</tr>
+<tr>
+<td style="text-align:center">各文件分别记录行号</td>
+<td style="text-align:center">FNR</td>
+</tr>
+<tr>
+<td style="text-align:center">当前文件名</td>
+<td style="text-align:center">FILENAME</td>
+</tr>
+<tr>
+<td style="text-align:center">命令行参数的个数</td>
+<td style="text-align:center">ARGC</td>
+</tr>
+<tr>
+<td style="text-align:center">保存的是命令行所给的各参数</td>
+<td style="text-align:center">ARGV</td>
+</tr>
+</tbody>
+</table>
+<p>awk   ‘{print  NR,NF}’  file1         表示输出文件1中的行号及该行的列数</p>
+<p>FS和OFS都是以每行各个字符间隔为单位</p>
+<p>RS和ORS是来判断以什么条件来作为换行，默认情况下，系统认为是回车即换行</p>
+<h4 id="3-3-2自定义变量"><a href="#3-3-2自定义变量" class="headerlink" title="3.3.2自定义变量"></a>3.3.2自定义变量</h4><p>awk  -v  变量名称=”变量值”</p>
+<p>eg： awk  -v  mychar=”hahaha”   ‘BEGIN｛print  mychar｝’</p>
+<p>or： awk  -v   ‘BEGIN｛mychar=”hahaha” ; print  mychar｝’</p>
+<h3 id="3-4格式化"><a href="#3-4格式化" class="headerlink" title="3.4格式化"></a><a href="http://www.zsythink.net/archives/1421" target="_blank" rel="noopener">3.4格式化</a></h3><p><img src="/2019/08/11/grep-正则表达式-awk/1.png" alt="1551853553486"></p>
+<h3 id="3-5模式"><a href="#3-5模式" class="headerlink" title="3.5模式"></a><a href="http://www.zsythink.net/archives/1426" target="_blank" rel="noopener">3.5模式</a></h3><p><img src="/2019/08/11/grep-正则表达式-awk/2.png" alt="1551853672703"></p>
+<p>使用正则表达式</p>
+<p>awk  ‘/正则表达式/ {print $0}’  file1</p>
+<p><img src="/2019/08/11/grep-正则表达式-awk/3.png" alt="1551853884184"></p>
+<p><img src="/2019/08/11/grep-正则表达式-awk/4.png" alt="1551854001928"></p>
+<h3 id="3-6动作"><a href="#3-6动作" class="headerlink" title="3.6动作"></a><a href="http://www.zsythink.net/archives/2046" target="_blank" rel="noopener">3.6动作</a></h3><p><img src="/2019/08/11/grep-正则表达式-awk/5.png" alt="1551854206133"></p>
+<p><img src="/2019/08/11/grep-正则表达式-awk/6.png" alt="1551854262131"></p>
+<hr>
+<h2 id="4-sed"><a href="#4-sed" class="headerlink" title="4.sed"></a>4.sed</h2><blockquote>
+<p>awk的基本语法结构</p>
+<p>awk  [options]  ‘动作’</p>
+</blockquote>
+<h3 id="4-1新增与删除"><a href="#4-1新增与删除" class="headerlink" title="4.1新增与删除"></a>4.1新增与删除</h3><p>sed  ‘sed  2,5d’             其中d表示删除，意味删除2到第5行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd</span></span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">     2	bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">     3	daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">     4	adm:x:3:4:adm:/var/adm:/sbin/nologin</span><br><span class="line">     5	lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</span><br><span class="line">     6	sync:x:5:0:sync:/sbin:/bin/sync</span><br><span class="line">     7	shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</span><br><span class="line">     8	halt:x:7:0:halt:/sbin:/sbin/halt</span><br><span class="line">     9	mail:x:8:12:mail:/var/spool/mail:/sbin/nologin</span><br><span class="line">    10	operator:x:11:0:operator:/root:/sbin/nologin</span><br><span class="line">    11	games:x:12:100:games:/usr/games:/sbin/nologin</span><br><span class="line">    12	ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin</span><br><span class="line">    13	nobody:x:99:99:Nobody:/:/sbin/nologin</span><br><span class="line">    14	systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin</span><br><span class="line">    15	dbus:x:81:81:System message bus:/:/sbin/nologin</span><br><span class="line">    16	polkitd:x:999:998:User <span class="keyword">for</span> polkitd:/:/sbin/nologin</span><br><span class="line">    17	ntp:x:38:38::/etc/ntp:/sbin/nologin</span><br><span class="line">    18	sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin</span><br><span class="line">    19	postfix:x:89:89::/var/spool/postfix:/sbin/nologin</span><br><span class="line">    20	chrony:x:998:996::/var/lib/chrony:/sbin/nologin</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,20d'</span></span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>sed  ‘2a  字符串’，在第2行后面插入一字符串，i表示在第n行前插入字符串</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,20d' |sed '1a nihaoa'</span></span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">nihaoa</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,20d' |sed '1i nihaoa'</span></span><br><span class="line">nihaoa</span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,20d' |sed '2i nihaoa'</span></span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">nihaoa</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,20d' |sed '20i nihaoa'</span></span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br><span class="line">[root@vultr ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>想要增加多行，可以先输入\，然后回车，就会跳转到下一行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,19d' |sed '2a nihaoa \&gt;zaijian'</span></span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">    20	chrony:x:998:996::/var/lib/chrony:/sbin/nologin</span><br><span class="line">nihaoa &gt;zaijian</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,19d' |sed '2a nihaoa \</span></span><br><span class="line">&gt; zaijian<span class="string">'</span></span><br><span class="line"><span class="string">     1	root:x:0:0:root:/root:/bin/bash</span></span><br><span class="line"><span class="string">    20	chrony:x:998:996::/var/lib/chrony:/sbin/nologin</span></span><br><span class="line"><span class="string">nihaoa </span></span><br><span class="line"><span class="string">zaijian</span></span><br><span class="line"><span class="string">    21	tcpdump:x:72:72::/:/sbin/nologin</span></span><br><span class="line"><span class="string">[root@vultr ~]#</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-2替代"><a href="#4-2替代" class="headerlink" title="4.2替代"></a>4.2替代</h3><p>sed  ‘2,19c  字符串’，c表示从2到19行被该字符串替代掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,19c 2 to 19 no show'</span></span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">2 to 19 no show</span><br><span class="line">    20	chrony:x:998:996::/var/lib/chrony:/sbin/nologin</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br><span class="line">[root@vultr ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<p>sed  -n  ‘2,4p’，表示显示第2到第4行，-n参数需要加上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed '2,4p'</span></span><br><span class="line">     1	root:x:0:0:root:/root:/bin/bash</span><br><span class="line">     2	bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">     2	bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">     3	daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">     3	daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">     4	adm:x:3:4:adm:/var/adm:/sbin/nologin</span><br><span class="line">     4	adm:x:3:4:adm:/var/adm:/sbin/nologin</span><br><span class="line">     5	lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</span><br><span class="line">     6	sync:x:5:0:sync:/sbin:/bin/sync</span><br><span class="line">     7	shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown</span><br><span class="line">     8	halt:x:7:0:halt:/sbin:/sbin/halt</span><br><span class="line">     9	mail:x:8:12:mail:/var/spool/mail:/sbin/nologin</span><br><span class="line">    10	operator:x:11:0:operator:/root:/sbin/nologin</span><br><span class="line">    11	games:x:12:100:games:/usr/games:/sbin/nologin</span><br><span class="line">    12	ftp:x:14:50:FTP User:/var/ftp:/sbin/nologin</span><br><span class="line">    13	nobody:x:99:99:Nobody:/:/sbin/nologin</span><br><span class="line">    14	systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin</span><br><span class="line">    15	dbus:x:81:81:System message bus:/:/sbin/nologin</span><br><span class="line">    16	polkitd:x:999:998:User <span class="keyword">for</span> polkitd:/:/sbin/nologin</span><br><span class="line">    17	ntp:x:38:38::/etc/ntp:/sbin/nologin</span><br><span class="line">    18	sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin</span><br><span class="line">    19	postfix:x:89:89::/var/spool/postfix:/sbin/nologin</span><br><span class="line">    20	chrony:x:998:996::/var/lib/chrony:/sbin/nologin</span><br><span class="line">    21	tcpdump:x:72:72::/:/sbin/nologin</span><br><span class="line">[root@vultr ~]<span class="comment"># </span></span><br><span class="line">[root@vultr ~]<span class="comment"># nl /etc/passwd | sed -n '2,4p'</span></span><br><span class="line">     2	bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">     3	daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line">     4	adm:x:3:4:adm:/var/adm:/sbin/nologin</span><br></pre></td></tr></table></figure>
+<p>sed  ‘s/需要被替代的字符串/替换后的字符串/g’</p>
+<p><img src="/2019/08/11/grep-正则表达式-awk/7.png" alt="1552289061967"></p>
+<h3 id="4-3直接在文本中做修改操作"><a href="#4-3直接在文本中做修改操作" class="headerlink" title="4.3直接在文本中做修改操作"></a>4.3直接在文本中做修改操作</h3><p><img src="/2019/08/11/grep-正则表达式-awk/8.png" alt="1552289476341"></p>
+
+      
+
+      
+
+          
+        
+          
+        </div>
+
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.github.io/2019/08/11/grep-正则表达式-awk/" data-id="cjz70lit5001auoquh90onlhd" class="article-share-link">分享</a>
+      
+    </footer>
+
+  
+
+  
+    
+  <nav class="article-nav">
+    
+    
+      <a href="/2019/08/11/grep-正则表达式-awk-sed/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">grep/正则表达式/awk/sed</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+
+  
+  <div id="gitalk-container"></div>  
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '15c18d9b0a015598eb07',  // 这里一定要注意主题 config.yml 中 clientID 的大小写，否则参数传不过来，对应下边的 "问题一"
+        clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+        repo: 'gitalk',
+        owner: 'dilidonglong',
+        admin: ['dilidonglong'],
+        id: md5(location.pathname),      // 保持默认，官方注释（Ensure uniqueness and length less than 50），文章 URL 不能太长 "问题二"
+        distractionFreeMode: false  // 不喜欢评论时候的遮盖层所以选择 false ，而且我觉得这个也没有必要放在 config.yml 中配置
+      })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+
+
+  
+
+
+  <footer class="footer">
+  
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+      <li class="nav-item">
+          <div class="totop" id="totop">
+    <i class="fe fe-rocket"></i>
+</div>
+      </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

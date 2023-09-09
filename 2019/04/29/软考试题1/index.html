@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    软考试题1 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-软考试题1" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      软考试题1
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/04/29/软考试题1/" class="article-date">
+  <time datetime="2019-04-29T14:54:48.000Z" itemprop="datePublished">2019-04-29</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/软考/">软考</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>若主机hostA的MAC地址为aa-aa-aa-aa-aa-aa，主机hostB的MAC地址为bb-bb-bb-bb-bb-bb。由hostA发出的查询hostB的MAC地址的帧格式如下图所示，则此帧中的目标MAC地址为（ D ），ARP报文中的目标MAC地址为（ C ）。</p>
+<img src="/2019/04/29/软考试题1/1.png" title="This is an test image">
+
+
+
+<p>问题1选项</p>
+<p>A aa-aa-aa-aa-aa-aa</p>
+<p>B bb-bb-bb-bb-bb-bb</p>
+<p>C 00-00-00-00-00-00</p>
+<p>D ff-ff-ff-ff-ff-ff</p>
+<p>问题2选项</p>
+<p>A aa-aa-aa-aa-aa-aa</p>
+<p>B bb-bb-bb-bb-bb-bb</p>
+<p>C 00-00-00-00-00-00</p>
+<p>D ff-ff-ff-ff-ff-ff</p>
+<a id="more"></a>
+
+<br>
+
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><ol>
+<li>数据包从上往下层层封装。在wireshark里面是可以看到其封装情况的。</li>
+</ol>
+<img src="/2019/04/29/软考试题1/2.png" title="This is an test image">
+
+
+
+<p>上图就是一个arp的数据包。在中间的框中，可以知道arp报文被Ethernet（以太网）头部封装。第一个包指的是arp广播请求包，意思是“谁知道192.168.0.1的mac地址，请告诉192.168.0.114“</p>
+<ol start="2">
+<li>wireshark数据包中以太网帧头部（Ethernet）包含了destination（目标mac地址），source（源mac地址），type（类型）</li>
+</ol>
+<img src="/2019/04/29/软考试题1/3.png" title="This is an test image">
+
+
+
+<p>问题一里面的目的mac指的就是以太网头部里面的mac地址。</p>
+<p>即下图中写的目标mac地址，你能看到正好就是对应wireshark数据包中的destination这段。</p>
+<img src="/2019/04/29/软考试题1/4.png" title="This is an test image">
+
+
+
+<ol start="3">
+<li><p>问题二里面，ARP报文中的目标MAC地址，指的就是wireshark数据包中，红框的target mac address。arp报文是被mac头部封装的。</p>
+</li>
+<li><p><strong>sender mac address</strong>表示发送方自己的mac地址；</p>
+<p><strong>sender ip address</strong>表示发送方自己的ip地址；</p>
+<p><strong>target mac address</strong>表示想要知道的对方的mac地址是多少，由于是广播请求，此时并不知道对方mac，所以暂时以全0替代；</p>
+<p><strong>target ip address</strong>表示请求对方的ip地址。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/04/29/软考试题1/" data-id="cl2rp5yfq002kfcvdtwl3hpps"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/04/30/磁盘分区/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            磁盘分区
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/04/27/设置分类列表页/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">设置分类列表页</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

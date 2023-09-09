@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    设置分类列表页 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-设置分类列表页" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      设置分类列表页
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/04/27/设置分类列表页/" class="article-date">
+  <time datetime="2019-04-27T02:46:42.000Z" itemprop="datePublished">2019-04-27</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="设置分类列表页"><a href="#设置分类列表页" class="headerlink" title="设置分类列表页"></a>设置分类列表页</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>最近通过github+hexo(ocean主题)搭建了博客。期间遇到了各种问题，主要还是因为自己不是程序员，有些代码看不懂。</p>
+<p>比如我想，以后如果文章多起来，只有一个归档可不行，最好要有个分类的界面。把文章都整理好，以后也方便自己查东西。</p>
+<p>照着网上的操作：</p>
+<blockquote>
+<ol>
+<li>先生成一个分类的网页，输入命令<code>hexo new page categories</code></li>
+<li>找到对应网页的md文件，在其头部内添加上<code>type: &quot;categories&quot;</code></li>
+<li>最后测试，新建一篇文章，在文章md文件头部上添加<code>categories: 分类的名称</code></li>
+<li>保存</li>
+<li>最后需要在主页上把分类页展现出来。</li>
+<li>找到主题配置文件<code>_config.yml</code>。在<code>meun</code>中加入<code>分类: /categories</code></li>
+<li>保存</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<p>上述操作做完之后，查看效果。发现文章里面是有分类的显示</p>
+<img src="/2019/04/27/设置分类列表页/1.png" title="This is an test image">
+
+<p>但是，在主页里面点击分类的连接，进入分类网页，没有任何显示。如下图红框处，最开始是没有任何显示的.</p>
+<img src="/2019/04/27/设置分类列表页/2.png" title="This is an test image">
+
+<br>
+
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>网上查了大量文章，很多都只是说了配置问题，我是按配置正确操作的，但是就是解决不了。</p>
+<p>后来看到一篇文章，猜测出应该是这个ocean主题缺少对应的代码。</p>
+<p>参考链接：<a href="http://chensd.com/2016-06/hexo-theme-guide.html#分类列表页与分类文章列表页" target="_blank" rel="noopener">hexo主题开发指南-分类列表页与分类文章列表页</a></p>
+<blockquote>
+<p>分类列表页显示博客里的所有分类，分类文章列表页显示某个分类中的文章列表。</p>
+<p>Hexo 并没有专门分类列表页的模板，那该如何处理呢？一般是写在页面模板中，即 <code>layout/page.swig</code> 里，然后判断页面类型变量 <code>page.type</code>，如果是 <code>categories</code>，则显示分类列表页。再在博客里创建一个页面，指定其 <code>type</code> 为 <code>categories</code> </p>
+</blockquote>
+<p>ocean主题是用ejs写出来的。而这个链接里面给的是swig的代码。所以估计不能直接用</p>
+<p>定位了问题，接下来就好处理了。由于我暂时还不会写代码，所以只好找答案复制粘贴。</p>
+<p>参考链接：<a href="http://orzcss.com/posts/5a207d64/" target="_blank" rel="noopener">Hexo-创建分类（categories）和标签（tags）首页</a>，给出如下代码</p>
+<blockquote>
+<p>找到 <code>layout/_partial/article.ejs</code> </p>
+<p>然后找到 <code>&lt;div class=&quot;article-entry&quot; itemprop=&quot;articleBody&quot;&gt;</code> 这一行</p>
+<p>这个 div 里面的内容全部替换为：(注：再此处，我没有全部替换，而是补充接在原始文档内容后了)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="xml"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">page.type</span> === <span class="string">"tags"</span>) &#123; %&gt;</span></span></span><br><span class="line">&gt; &lt;div class="tag-cloud"&gt;</span><br><span class="line">&gt; 	&lt;div class="tag-cloud-title"&gt;</span><br><span class="line">&gt; 	&lt;%- _p('counter.tag_cloud', site.tags.length) %&gt;</span><br><span class="line">&gt; 	&lt;/div&gt;</span><br><span class="line">&gt; </span><br><span class="line">&gt; 	&lt;div class="tag-cloud-tags"&gt;</span><br><span class="line">&gt; 	&lt;%- tagcloud(&#123;</span><br><span class="line">&gt; 		min_font: 12,</span><br><span class="line">&gt; 		max_font: 30,</span><br><span class="line">&gt; 		amount: 200,</span><br><span class="line">&gt; 		color: true,</span><br><span class="line">&gt; 		start_color: '#ccc',</span><br><span class="line">&gt; 		end_color: '#111'</span><br><span class="line">&gt; 		&#125;) %&gt;</span><br><span class="line">&gt; 	&lt;/div&gt;</span><br><span class="line"><span class="xml">&gt; <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">&gt; </span></span><br><span class="line"><span class="xml">&gt; <span class="tag">&lt;<span class="name">%</span> &#125; <span class="attr">else</span> <span class="attr">if</span> (<span class="attr">page.type</span> === <span class="string">'categories'</span>) &#123; %&gt;</span></span></span><br><span class="line"><span class="xml">&gt; </span></span><br><span class="line">&gt; &lt;div class="category-all-page"&gt;</span><br><span class="line">&gt; 	&lt;div class="category-all-title"&gt;</span><br><span class="line">&gt; 	&lt;%- _p('counter.categories', site.categories.length) %&gt;</span><br><span class="line">&gt; 	&lt;/div&gt;</span><br><span class="line">&gt; 	</span><br><span class="line">&gt; 	&lt;div class="category-all"&gt;</span><br><span class="line">&gt; 	&lt;%- list_categories() %&gt;</span><br><span class="line">&gt; 	&lt;/div&gt;</span><br><span class="line">&gt; 	</span><br><span class="line"><span class="xml">&gt; <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">&gt; </span></span><br><span class="line"><span class="xml">&gt; <span class="tag">&lt;<span class="name">%</span> &#125; <span class="attr">else</span> &#123; %&gt;</span></span></span><br><span class="line"><span class="xml">&gt; </span></span><br><span class="line"><span class="xml">&gt; 	<span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">post.excerpt</span> &amp;&amp; <span class="attr">index</span>)&#123; %&gt;</span>		<span class="tag">&lt;<span class="name">%-</span> <span class="attr">post.excerpt</span> %&gt;</span></span></span><br><span class="line"><span class="xml">&gt; 	<span class="tag">&lt;<span class="name">%</span> &#125; <span class="attr">else</span> &#123; %&gt;</span></span></span><br><span class="line"><span class="xml">&gt; 		<span class="tag">&lt;<span class="name">%-</span> <span class="attr">post.content</span> %&gt;</span></span></span><br><span class="line"><span class="xml">&gt; 	<span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span></span><br><span class="line"><span class="xml">&gt; <span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span></span><br><span class="line"><span class="xml">&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>修改样式，如果觉得不好看，自己改喜欢的样式</p>
+<p>找到 <code>yilia/source/css/_partial/article.styl</code> 在最后面添加下面的 css 代码</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="comment">/*tag-cloud*/</span></span><br><span class="line">&gt; <span class="selector-class">.tag-cloud</span> &#123;</span><br><span class="line">&gt;   text-align: center;</span><br><span class="line">&gt;   <span class="selector-tag">margin-top</span>: 50<span class="selector-tag">px</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; <span class="selector-class">.tag-cloud</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">&gt;   display: inline-block;</span><br><span class="line">&gt;   <span class="selector-tag">margin</span>: 10<span class="selector-tag">px</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; <span class="selector-class">.tag-cloud-title</span> &#123;</span><br><span class="line">&gt;   font-weight: 700;</span><br><span class="line">&gt;   <span class="selector-tag">font-size</span>: 24<span class="selector-tag">px</span>;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; <span class="selector-class">.tag-cloud-tags</span> &#123;</span><br><span class="line">&gt;   margin-top: 15px;</span><br><span class="line">&gt;   <span class="selector-tag">a</span> &#123;</span><br><span class="line">&gt;     display: inline-block;</span><br><span class="line">&gt;     <span class="selector-tag">text-decoration</span>: <span class="selector-tag">none</span>;</span><br><span class="line">&gt;     <span class="selector-tag">font-weight</span>: <span class="selector-tag">normal</span>;</span><br><span class="line">&gt;     <span class="selector-tag">font-size</span>: 10<span class="selector-tag">px</span>;</span><br><span class="line">&gt;     <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;</span><br><span class="line">&gt;     <span class="selector-tag">line-height</span>: <span class="selector-tag">normal</span>;</span><br><span class="line">&gt;     <span class="selector-tag">padding</span>: 5<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> 10<span class="selector-tag">px</span>;</span><br><span class="line">&gt;     <span class="selector-tag">position</span>: <span class="selector-tag">relative</span>;</span><br><span class="line">&gt;     <span class="selector-tag">border-radius</span>: 0 5<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> 0;</span><br><span class="line">&gt;     <span class="selector-tag">font-family</span>: <span class="selector-tag">Menlo</span>, <span class="selector-tag">Monaco</span>, "<span class="selector-tag">Andale</span> <span class="selector-tag">Mono</span>", "<span class="selector-tag">lucida</span> <span class="selector-tag">console</span>", "<span class="selector-tag">Courier</span> <span class="selector-tag">New</span>", <span class="selector-tag">monospace</span>;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">&gt;       opacity: 0.8;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       content: " ";</span><br><span class="line">&gt;       <span class="selector-tag">width</span>: 0;</span><br><span class="line">&gt;       <span class="selector-tag">height</span>: 0;</span><br><span class="line">&gt;       <span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line">&gt;       <span class="selector-tag">top</span>: 0;</span><br><span class="line">&gt;       <span class="selector-tag">left</span>: <span class="selector-tag">-18px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">border</span>: 9<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-tag">transparent</span>;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">&gt;       content: " ";</span><br><span class="line">&gt;       <span class="selector-tag">width</span>: 4<span class="selector-tag">px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">height</span>: 4<span class="selector-tag">px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">background-color</span>: <span class="selector-id">#fff</span>;</span><br><span class="line">&gt;       <span class="selector-tag">border-radius</span>: 4<span class="selector-tag">px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">box-shadow</span>: 0 0 0 1<span class="selector-tag">px</span> <span class="selector-tag">rgba</span>(0, 0, 0, <span class="selector-class">.3</span>);</span><br><span class="line">&gt;       <span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br><span class="line">&gt;       <span class="selector-tag">top</span>: 7<span class="selector-tag">px</span>;</span><br><span class="line">&gt;       <span class="selector-tag">left</span>: 2<span class="selector-tag">px</span>;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color1</span> &#123;</span><br><span class="line">&gt;     background: #FF945C;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #FF945C;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color2</span> &#123;</span><br><span class="line">&gt;     background: #F5C7B7;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #F5C7B7;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color3</span> &#123;</span><br><span class="line">&gt;     background: #BA8F6C;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #BA8F6C;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color4</span> &#123;</span><br><span class="line">&gt;     background: #CFB7C4;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #CFB7C4;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-tag">a</span><span class="selector-class">.color5</span> &#123;</span><br><span class="line">&gt;     background: #7B5D5F;</span><br><span class="line">&gt;     &amp;<span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;       border-right-color: #7B5D5F;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; </span><br><span class="line">&gt; <span class="comment">/*category-all-page*/</span></span><br><span class="line">&gt; <span class="selector-class">.category-all-page</span> &#123;</span><br><span class="line">&gt;   margin-top: 50px;</span><br><span class="line">&gt;   <span class="selector-class">.category-all-title</span> &#123;</span><br><span class="line">&gt;     font-weight: 700;</span><br><span class="line">&gt;     <span class="selector-tag">font-size</span>: 24<span class="selector-tag">px</span>;</span><br><span class="line">&gt;     <span class="selector-tag">text-align</span>: <span class="selector-tag">center</span>;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-class">.category-list-item</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">&gt;     content: '';</span><br><span class="line">&gt;     <span class="selector-tag">clear</span>: <span class="selector-tag">both</span>;</span><br><span class="line">&gt;     <span class="selector-tag">display</span>: <span class="selector-tag">table</span>;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-class">.category-list-count</span> &#123;</span><br><span class="line">&gt;     float: right;</span><br><span class="line">&gt;     <span class="selector-tag">margin-left</span>: 5<span class="selector-tag">px</span>;</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-class">.category-list-count</span><span class="selector-pseudo">:before</span> &#123;</span><br><span class="line">&gt;     content: '一共 ';</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt;   <span class="selector-class">.category-list-count</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">&gt;     content: ' 篇文章';</span><br><span class="line">&gt;   &#125;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>通过上述操作，问题解决。不过显示出来的样式不是自己喜欢的那种。等以后自己学会编程，再回头过来修改吧～</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/04/27/设置分类列表页/" data-id="cl2rp5yfk0027fcvddugcglea"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/04/29/软考试题1/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            软考试题1
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/04/26/tshark使用方法/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">tshark使用方法</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

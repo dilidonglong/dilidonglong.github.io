@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    基于ipv4隧道传输ipv6流量 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-基于ipv4隧道传输ipv6流量" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于ipv4隧道传输ipv6流量
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2022/04/21/基于ipv4隧道传输ipv6流量/" class="article-date">
+  <time datetime="2022-04-21T12:15:18.000Z" itemprop="datePublished">2022-04-21</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h2 id="1-获取IPv6"><a href="#1-获取IPv6" class="headerlink" title="1.获取IPv6"></a>1.获取IPv6</h2><p>首先前往下面这个网站注册一个账户：</p>
+<p><a href="https://www.tunnelbroker.net/" target="_blank" rel="noopener">https://www.tunnelbroker.net</a></p>
+<p>注册完账户之后，点击左侧的 Create Regular Tunnel，如下所示</p>
+<img src="/2022/04/21/基于ipv4隧道传输ipv6流量/1.jpg" title="This is an test image">
+
+<br>
+
+<p>在下面的页面中，在对应的地方输入VPS的IP地址。然后选择一个服务器，注意选离vps所在机房最近的服务器。选好之后，在页面最下方点击 Create，进入下一个页面。</p>
+<img src="/2022/04/21/基于ipv4隧道传输ipv6流量/2.jpg" title="This is an test image">
+
+<br>
+
+<p>下一个页面如下所示。我们切换到 Example Configurations，然后选择 Linux-net-tools（如果是 Ubuntu 系统，选择 Debian/Ubuntu）。会出现几行代码。我们<strong>先不要关闭这个页面</strong>。</p>
+<img src="/2022/04/21/基于ipv4隧道传输ipv6流量/3.jpg" title="This is an test image">
+
+<br>
+
+<a id="more"></a>
+
+<h2 id="2-VPS配置IPv6"><a href="#2-VPS配置IPv6" class="headerlink" title="2.VPS配置IPv6"></a>2.VPS配置IPv6</h2><p>通过SSH登录VPS之后，复制上面的代码，全部运行。至此应该已经成功了，我们可以顺便测试一下。可以运行 <code>ping6 google.com</code>，测试是否能 ping 通，如果能 ping 通，说明一切正常了，我们已经可以使用 IPv6 了。</p>
+<p><strong>需要注意的是，这个是将ipv6的数据封装在了ipv4报头中，通过ipv4隧道传输数据到目的节点。目的节点再解封ipv4报文转发ipv6数据。同时ipv4隧道中可能会有其他流量来消耗你的带宽。</strong></p>
+<h2 id="3-设置开机自启"><a href="#3-设置开机自启" class="headerlink" title="3.设置开机自启"></a>3.设置开机自启</h2><p>下面我们设置 IPv6 开机启动。新建文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /root/ipv6.sh</span><br></pre></td></tr></table></figure>
+
+<p>按一下 i 进行插入，输入如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">ifconfig sit0 up</span><br><span class="line">ifconfig sit0 inet6 tunnel ::YOUR-IPV4</span><br><span class="line">ifconfig sit1 up</span><br><span class="line">ifconfig sit1 inet6 add YOUR-IPV6</span><br><span class="line">route -A inet6 add ::/0 dev sit1</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码记得替换成你自己的 IPv4 和 IPv6 地址，<strong>其实就是把之前页面显示的代码抄过来，前面加上一行 #!/bin/bash 即可</strong>。</p>
+<p>按一下 Esc 键，然后输入 :wq 保存并退出。</p>
+<p>给文件增加可执行权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /root/ipv6.sh</span><br></pre></td></tr></table></figure>
+
+<p>然后编辑下面的文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+
+<p>在最下方加入下面一行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh /root/ipv6.sh</span><br></pre></td></tr></table></figure>
+
+<p>保存并退出，这样重启后也有 IPv6。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2022/04/21/基于ipv4隧道传输ipv6流量/" data-id="cl2rp5yey0010fcvdrgiigom8"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2022/05/04/Windowsws-TCP性能的描述/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            Windowsws_TCP性能的描述
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/09/14/iperf测速使用与说明/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">iperf测速使用与说明</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    编码 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-编码" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      编码
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2020/08/12/编码/" class="article-date">
+  <time datetime="2020-08-11T16:35:02.000Z" itemprop="datePublished">2020-08-12</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/软考/">软考</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <p>通信线路的编码就像商品的包装，商品包装的目的是使商品更适合运输，在运输过程中不受损，同样，线路编码的目的就是使编码后的二进制数据更适合线路传输。</p>
+<p>物理层的编码可以分为两类。<br>一类是和物理介质相关，常用的光接口码型有NRZ、NRZI；电接口码型有HDB3、BnZS、CMI、Manchester、MLT-3。<br>另一类和物理介质无关，比如百兆以太网用的4B/5B编码，千兆以太网用的8B/10B编码，万兆以太网用的64B/66B编码。</p>
+<a id="more"></a>
+
+<h3 id="物理介质相关编码"><a href="#物理介质相关编码" class="headerlink" title="物理介质相关编码"></a>物理介质相关编码</h3><h4 id="NRZ码："><a href="#NRZ码：" class="headerlink" title="NRZ码："></a>NRZ码：</h4><p>NRZ即Non-Return to Zero Code, 非归零码，光接口STM-NO、1000Base-SX、1000Base-LX采用此码型。NRZ是一种很简单的编码方式，用0电位和1电位分别二进制的“0”和“1”，编码后速率不变，有很明显的直流成份，不适合电接口传输。</p>
+<p>NRZ的问题是，几个连续的1表示在一段时间内信号在链路上保持为高电平，类似地，几个连续0表示信号在一段时间内保持为低电平。一长串0和1导致两个基本问题。第一个问题是，它会导致基线漂移（baseline wander）状态。尤其是接收方保持一个它所看到的信号平均值，然后用这个平均值区分高、低电平。当收到的信号远低于这个平均值时，接收方就断定看到了0，同样，远高于这个平均值的信号被认为是1。当然，问题是太多连续的1或0会使这个平均值发生改变，使得检测信号中很难出现明显的变化。</p>
+<p>第二个问题是，由高到低和由低到高的频繁转换必须使用时钟恢复（clock recovery）。直观地讲，时钟恢复问题就是：编码和解码过程都由一个时钟来驱动，每个时钟周期发送方发送1比特，接收方恢复1比特。为了使接收方能恢复发送方发送的比特，发送方和接收方的时钟必须精确同步。如果接收方时钟比发送方时钟稍快或稍慢，那么，接收方就不能正确地解码信号。可以采用在另一条线上发送时钟给接收方的方法，但这种方案不太可行，因为这使布线费用增加一倍，所以接收方改由收到的信号得到时钟，这就是时钟恢复过程。无论何时，只要信号有从1到0或从0到1的跳变，接收方就知道这是在时钟周期的边界上，它能够自己进行重新同步。然而，若长时间没有这样的跳变就会导致时钟漂移。所以，无论传送什么数据，时钟恢复都依赖于信号内有许多跳变。</p>
+<p>下图以图解方式描述了一个特定的比特序列（图的上部）及其对应的NRZ编码信号（图的下部）。</p>
+<img src="/2020/08/12/编码/1.png" title="This is an image">
+
+<br>
+
+<h4 id="NRZI码："><a href="#NRZI码：" class="headerlink" title="NRZI码："></a>NRZI码：</h4><p>有一种方法可以解决上述问题，称为不归零反转（NonReturn to Zero Inverted，NRZI）。光接口100Base-FX使用此码型。编码不改变信号速率。发送方将当前信号的跳变编码为1，将当前信号的保持编码为0。这样就解决了连续1的问题，但是显然未解决连续0的问题。NRZI如下图所示。还有一种方法称为曼彻斯特编码（Manchester encoding），这种颇具独创性的方法通过传输NRZ编码数据与时钟的异或值使时钟与信号结合在一起。（把本地时钟看作一个从低到高变化的内部信号，一对低/高变化的电平看作一个时钟周期。）下图也给出了曼彻斯特编码。注意，曼彻斯特编码将0作为由低到高的跳变，1作为由高到低的跳变（定义也可以相反）。因为0和1都导致信号的跳变，所以接收方能有效地恢复时钟。（还有一种曼彻斯特编码的变种，称为差分曼彻斯特（differential Manchester）编码。其方法是若信号的前一半与前一比特信号的后一半信号相等则编码为1，若信号的前一半与前一比特信号的后一半信号相反则编码为0。）</p>
+<img src="/2020/08/12/编码/2.png" title="This is an image">
+
+<p>曼彻斯特编码方案存在的问题是使链路上信号跳变的速率加倍，这意味着接收方有一半的时间在检测信号的每一个脉冲。信号变化的速率称为链路的波特率（baud rate）。在曼彻斯特编码中，比特率是波特率的一半，所以认为编码的效率仅为50%。记住，如果接收方保持比上图中的曼彻斯特编码要求的更快的波特率，那么在相同的时间段中，NRZ和NRZI能传输2倍的比特数。</p>
+<p>NRZI编码规则：<br>1).如果下一个输入二进制位是“1”，则下一个编码后的电平是当前电平跳变后的电平；<br>2).如果下一个输入二进制位是“0”，则编码后的电平与当前保持一致。</p>
+<p>NRZ和NRZI都是单极性码，即都只有正电平和零电平，没有负电平，所以NRZ和NRZI码中有很多直流成份，不适合电路传输，并且NRZ和NRZI编码本身不能保证信号中不包含长连“0”或长连“1”出现，不利于时钟恢复。</p>
+<br>
+
+<h4 id="MLT-3码："><a href="#MLT-3码：" class="headerlink" title="MLT-3码："></a>MLT-3码：</h4><p>MLT-3即Multi-Level Transmit -3，多电平传输码，MLT-3码跟NRZI码有点类型，其特点都是逢“1”跳变，逢“0”保持不变，并且编码后不改变信号速率。如NRZI码不同的是，MLT-3是双极性码，有”-1”、“0”、“1”三种电平，编码后直流成份大大减少，可以进行电路传输，100Base-TX采用此码型。<br>MLT-3编码规则：<br>1).如果下一输入为“0”，则电平保持不变；<br>2).如果下一输入为“1”，则产生跳变，此时又分两种情况。<br> (a).如果前一输出是“＋1”或“－1”，则下一输出为“0”；<br> (b).如果前一输出是“0”，其信号极性和最近一个非“0”相反。</p>
+<img src="/2020/08/12/编码/3.png" title="This is an image">
+
+<br>
+
+<h3 id="物理介质无关编码"><a href="#物理介质无关编码" class="headerlink" title="物理介质无关编码"></a>物理介质无关编码</h3><p>什么是4B/5B编码？</p>
+<p>4B/5B编码是<strong>百兆以太网（即快速以太网）</strong>中线路层编码类型之一，就是用<strong>5bit的二进制数来表示4bit二进制数</strong>，映射方式如下表所示：</p>
+<img src="/2020/08/12/编码/4.png" title="This is an image">
+
+<p><strong>为什么要进行4B/5B编码？</strong></p>
+<p>在通信网络中，接收端需要从接收数据中恢复时钟信息来保证同步，这就需要线路中所传输的二进制码流<strong>有足够多的跳变</strong>，即不能有过多连续的高电平或低电平，否则<strong>无法提取时钟信息</strong>。<br>Manchester（曼切斯特）编码可以保证线路中码流有充分的跳变，因为它是用电平从<strong>“-1”到“+1”的跳变来表示“1”</strong>，用电平从<strong>“+1”到“-1”的跳变来表示“0”</strong>，但是这种编码方式的效率太低，<strong>只有50%</strong>，相当于用线路的有效带宽来换取信号的跳变，十兆以太网就是使用Manchester编码，虽然线路的有效带宽只有10Mbps，但实际带宽却是20Mbps。<br>百兆以太网用的4B/5B编码与MLT-3编码组合方式，发送码流先进行4B/5B编码，再进行MLT-3编码，最后再上线路传输；千兆以太网用的是8B/10B编码与NRZ编码组合方式；万兆以太网用的是64B/66B编码；PCIE 3.0用的是128B/130B编码。</p>
+<p><strong>4B/5B编码规则有哪些？</strong><br>4B/5B编码其实就是用5bit的二进制码来代表4bit二进制码。此编码的效率是80%，比Manchester码高。4B/5B编码的目的在前面已经说过了，就是让码流产生足够多的跳变。4位二进制共有16种组合，5位二进制共有32种组合，如何从32种组合种选取16种来使用呢？这里需要满足两个规则：<br>1). 每个5比特码组中不含多于3个“0”；<br>2). 或者5比特码组中包含不少于2个“1”；</p>
+<p>此规则是怎么来的？这就要从MLT-3码的特点来解释了。MLT-3码的特点简单的说就是：逢“1”跳变，逢“0”不跳变。为了让4B/5B编码后的码流中有足够多的跳变就需要编码后的码流中有尽量多的“1”和尽量少的“0”。<br>这种编码的特点是将欲发送的数据流每4bit作为一个组，然后按照4B/5B编码规则将其转换成相应5bit码。5bit码共有32种组合，但只采用其中的16种对应4bit码的16种，其他的16种或者未用或者用作控制码，以表示帧的开始和结束、光纤线路的状态（静止、空闲、暂停）等。<br>三种应用实例是FDDI、100BASE－TX和100BASE－FX.<br>8B/10B编码与4B/5B的概念类似，例如在千兆以太网中就采用了8B/10B的编码方式。</p>
+<p>在通信系统中，通信速度与线路传输中的调制速率，所谓调制速率是指单位时间内线路状态变化的数目，以波特(baud)为单位。如果采用曼彻斯特编码，在每个调制时间间隔内跳动两次，则数据传送速率是波特率的二分之一。在快速以太网中，数据传输速率为100Mbps，如果采用曼彻斯特编码，波特率将达200M波特，对传输介质和设备的技术要求都将提高，增大了传输成本。如果使用4B/5B编码，在传输速率为100Mbps的情况下，其调制速率为：100M÷(4/5)＝125M(baud)。即波特率为125M baud，大大低于曼彻斯特编码时的200M baud，这样就在<strong>快速以太网中使用非屏蔽双绞线成为可能</strong>。</p>
+<br>
+
+<blockquote>
+<p>参考连接：</p>
+<p><a href="https://www.cnblogs.com/laojie4321/archive/2012/04/09/2439475.html" target="_blank" rel="noopener">1.通讯线路编码类型总结</a></p>
+<p><a href="https://www.cnblogs.com/laojie4321/archive/2012/04/09/2439470.html" target="_blank" rel="noopener">2.4B/5B编码原理</a></p>
+<p><a href="https://www.twblogs.net/a/5c80db6abd9eee35cd694f35" target="_blank" rel="noopener">3.编码（NRZ、NRZI、曼彻斯特、4B/5B）</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2020/08/12/编码/" data-id="cl2rp5yff001xfcvd4stsr50a"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2020/08/19/网站收集/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            网站收集
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/06/03/Nginx无法启动问题解决/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">Nginx无法启动问题解决</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

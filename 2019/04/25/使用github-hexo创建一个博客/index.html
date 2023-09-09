@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="network,linux">
+  
+  
+    <meta name="description" content="精卫衔微木，将以填沧海">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    使用github+hexo创建一个博客 |
+    
+    望伊如西の博客</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  
+
+<article id="post-使用github-hexo创建一个博客" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用github+hexo创建一个博客
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/04/25/使用github-hexo创建一个博客/" class="article-date">
+  <time datetime="2019-04-25T07:01:58.000Z" itemprop="datePublished">2019-04-25</time>
+</a>
+        
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/小技巧/">小技巧</a>
+  </div>
+
+      </div>
+    
+
+    
+      
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+        <h1 id="使用github-hexo创建一个博客"><a href="#使用github-hexo创建一个博客" class="headerlink" title="使用github+hexo创建一个博客"></a>使用github+hexo创建一个博客</h1><p>github建库过程略</p>
+<p>在Windows系统下，要使用hexo需要先安装Nodejs以及Git</p>
+<h2 id="1-安装Nodejs"><a href="#1-安装Nodejs" class="headerlink" title="1.安装Nodejs"></a>1.安装Nodejs</h2><p><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Nodejs下载地址</a>，下载之后，一路默认安装</p>
+<a id="more"></a>
+
+<img src="/2019/04/25/使用github-hexo创建一个博客/Nodejs.png" title="This is an test image">
+
+
+
+<h2 id="2-安装Git"><a href="#2-安装Git" class="headerlink" title="2.安装Git"></a>2.安装Git</h2><p><a href="https://gitforwindows.org/" target="_blank" rel="noopener">Git下载地址</a>，下载之后又是一路安装</p>
+<img src="/2019/04/25/使用github-hexo创建一个博客/Git.png" title="This is an test image">
+
+
+
+<h2 id="3-安装Hexo"><a href="#3-安装Hexo" class="headerlink" title="3.安装Hexo"></a>3.安装Hexo</h2><h3 id="3-1创建一个文件夹"><a href="#3-1创建一个文件夹" class="headerlink" title="3.1创建一个文件夹"></a>3.1创建一个文件夹</h3><p>创建一个文件夹，比如hexo。来存放数据(这个blog不用管，是后面初始化后自动创建的)</p>
+<img src="/2019/04/25/使用github-hexo创建一个博客/mkdir.png" title="This is an test image">
+
+
+
+<p>在这个目录下右键，选择红框所示内容。之后会弹出一个框，里面使用的是bash命令。</p>
+<img src="/2019/04/25/使用github-hexo创建一个博客/gitbash.png" title="This is an test image">
+
+<img src="/2019/04/25/使用github-hexo创建一个博客/bash.png" title="This is an test image">
+
+
+
+<h3 id="3-2安装过程"><a href="#3-2安装过程" class="headerlink" title="3.2安装过程"></a>3.2安装过程</h3><p>在界面中输入下面内容，关于指令含义参考：<a href="https://hexo.io/zh-cn/docs/commands.html#generate" target="_blank" rel="noopener">Hexo-指令</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> d:/hexo</span><br><span class="line">$ npm install hexo-cli -g </span><br><span class="line">$ hexo init blog             <span class="comment">#初始化一个文件夹，命名为blog</span></span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install</span><br><span class="line">$ hexo g                     <span class="comment"># 或者hexo generate</span></span><br><span class="line">$ hexo s                     <span class="comment"># 或者hexo server，可以在http://localhost:4000/ 查看</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>经常使用的命令：</p>
+<ol>
+<li>hexo generate (hexo g)                生成静态文件，会在当前目录下生成一个新的叫做public的文件夹</li>
+<li>hexo server (hexo s)                     启动本地web服务，用于博客的预览</li>
+<li>hexo deploy (hexo d)                    部署播客到远端（比如github, heroku等平台）</li>
+<li>hexo new “postName”                  新建文章，postname指创建的文件名，文件会放在source\ _posts\下</li>
+<li>hexo new page “pageName”        新建页面，pagename指创建的网页文件夹名，文件夹放在source\下</li>
+</ol>
+</blockquote>
+<h3 id="3-3更换主题"><a href="#3-3更换主题" class="headerlink" title="3.3更换主题"></a>3.3更换主题</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean          <span class="comment">#清除缓存文件 (db.json) 和已生成的静态文件 (public)。</span></span><br><span class="line">                      <span class="comment">#在某些情况（尤其是更换主题后），如果发现您对站点的更改无论如何也不生效，您可能需                       #要运行该命令</span></span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/zhwangart/hexo-theme-ocean.git themes/ocean</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-1使用主题"><a href="#3-3-1使用主题" class="headerlink" title="3.3.1使用主题"></a>3.3.1使用主题</h4><p>修改Hexo目录下的_config.yml配置文件中的theme属性，将其设置为ocean。</p>
+<img src="/2019/04/25/使用github-hexo创建一个博客/theme.png" title="This is an test image">
+
+
+
+<h4 id="3-3-2更新主题"><a href="#3-3-2更新主题" class="headerlink" title="3.3.2更新主题"></a>3.3.2更新主题</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> themes/ocean</span><br><span class="line">$ git pull</span><br><span class="line">$ <span class="built_in">cd</span> ..</span><br><span class="line">$ hexo g                <span class="comment"># 生成</span></span><br><span class="line">$ hexo s                <span class="comment"># 启动本地web服务器</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-使用hexo-deploy部署"><a href="#4-使用hexo-deploy部署" class="headerlink" title="4.使用hexo deploy部署"></a>4.使用hexo deploy部署</h2><p><a href="https://hexo.io/zh-cn/docs/deployment.html" target="_blank" rel="noopener">部署命令说明</a></p>
+<h3 id="4-1扩展安装"><a href="#4-1扩展安装" class="headerlink" title="4.1扩展安装"></a>4.1扩展安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2修改配置"><a href="#4-2修改配置" class="headerlink" title="4.2修改配置"></a>4.2修改配置</h3><img src="/2019/04/25/使用github-hexo创建一个博客/deployer.png" title="This is an test image">
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span><span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span><span class="attr">https://github.com/dilidonglong/dilidonglong.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span><span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3完成部署"><a href="#4-3完成部署" class="headerlink" title="4.3完成部署"></a>4.3完成部署</h3><p>然后在命令行中执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo d              <span class="comment">#部署之前预先生成静态文件</span></span><br></pre></td></tr></table></figure>
+
+<p>即可完成部署。</p>
+<h3 id="4-4其他注意事项"><a href="#4-4其他注意事项" class="headerlink" title="4.4其他注意事项"></a>4.4其他注意事项</h3><p>上述命令虽然简单方便，但是偶尔会有莫名其妙的问题出现，因此，我们也可以追本溯源，使用git命令来完成部署的工作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> d:/hexo/blog</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/dilidonglong/dilidonglong.github.io.git .deploy/dilidonglong.github.io</span><br></pre></td></tr></table></figure>
+
+<p>将我们之前创建的仓库克隆到本地，新建一个目录叫做.deploy用于存放克隆的代码。前提是这个库里面有你之前上传上去的内容。</p>
+<p>接下来创建一个deploy脚本文件，比如可以取名叫deploy.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">cp -R public/* .deploy/dilidonglong.github.io</span><br><span class="line">cd .deploy/dilidonglong.github.io</span><br><span class="line">git add .</span><br><span class="line">git commit -m “update”</span><br><span class="line">git pull --rebase origin master</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+<p>简单解释一下，hexo generate（hexo g）生成public文件夹下的新内容，然后将其拷贝至dilidonglong.github.io的git目录下，然后使用git commit命令提交代码到dilidonglong.github.io这个repo的master branch上。</p>
+<p>需要部署的时候，执行这段脚本就可以了（比如可以将其保存为deploy.sh）。执行过程中可能需要让你输入Github账户的用户名及密码，按照提示操作即可。执行时，等同linux命令行：<code>./deploy.sh</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git pull --rebase origin master</span><br><span class="line">对于这条命令，是为了解决git push错误failed to push some refs to的问题</span><br></pre></td></tr></table></figure>
+
+<p>上述问题的<a href="https://blog.csdn.net/MBuger/article/details/70197532" target="_blank" rel="noopener">参考链接</a></p>
+<blockquote>
+<p>参考文章：</p>
+<p><a href="https://linghucong.js.org/2016/04/15/2016-04-15-hexo-github-pages-blog/?tdsourcetag=s_pcqq_aiomsg" target="_blank" rel="noopener">手把手教你使用Hexo + Github Pages搭建个人独立博客</a></p>
+<p><a href="https://www.cnkirito.moe/live2d/#lg=1&slide=0" target="_blank" rel="noopener">一个看板娘入住你的个人博客只需要三步</a></p>
+<p><a href="https://mrlichangming.github.io/2018/10/24/hexo博客美化添加live2d/" target="_blank" rel="noopener">hexo博客美化添加live2d</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dilidonglong.com/2019/04/25/使用github-hexo创建一个博客/" data-id="cl2rp5yd6000ifcvd0l7zexze"
+         class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/04/26/tshark使用方法/" class="article-nav-link">
+        <strong class="article-nav-caption">前一篇</strong>
+        <div class="article-nav-title">
+          
+            tshark使用方法
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+
+  
+
+  
+    
+  <div class="gitalk" id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '15c18d9b0a015598eb07',
+      clientSecret: 'a3853e070f5ab7e4de32abbdda82175936eab5cf',
+      repo: 'gitalk',
+      owner: 'dilidonglong',
+      admin: ['dilidonglong'],
+      // id: location.pathname,      // Ensure uniqueness and length less than 50
+      id: md5(location.pathname),
+      distractionFreeMode: false,  // Facebook-like distraction free mode
+      pagerDirection: 'last'
+    })
+
+  gitalk.render('gitalk-container')
+  </script>
+
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2023 望伊如西の博客</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+
+<aside class="sidebar sidebar-specter">
+  
+    <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="望伊如西の博客"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">相册</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">关于</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+  </aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+<script src="/js/ocean.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/haruto.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
